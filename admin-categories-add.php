@@ -1,7 +1,5 @@
 <?php
 require_once("./modules/config.php");
-thumb();
-die();
 protected_area();
 //fetch categories
 $rows = db_select("categories", 'parent_id=0');

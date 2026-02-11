@@ -220,7 +220,7 @@ if(isset($_SESSION["cart"])){
                                     class="navbar-tool-icon-box bg-secondary dropdown-toggle"
                                     href="shop-cart.html"><span class="navbar-tool-label"><?=$cart_cont?></span><i
                                         class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
-                                    href="shop-cart.html"><small>My Cart</small><?=$cart_total?></a>
+                                    href=""><small>My Cart</small><?=$cart_total?></a>
                                 <!-- Cart dropdown-->
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <div class="widget widget-cart px-3 pt-2 pb-3" style="width: 20rem;">
@@ -232,14 +232,14 @@ if(isset($_SESSION["cart"])){
                                                     aria-label="Remove"><span aria-hidden="true">&times;</span></button>
                                                 <div class="d-flex align-items-center"><a class="flex-shrink-0"
                                                         href="product.php?id=<?=$item['p_id']?>"><img
-                                                            src="img/shop/cart/widget/01.jpg" width="64"
+                                                            src="<?= get_product_thumb($item['photos']) ?>" width="64"
                                                             alt="Product"></a>
                                                     <div class="ps-2">
                                                         <h6 class="widget-product-title"><a
-                                                                href="product.php?id=<?= $item['p_id'] ?>""><?=$item['p_name']?></a>
+                                                                href="product.php?id=<?= $item['p_id'] ?>"><?=$item['p_name']?></a>
                                                         </h6>
                                                         <div class="widget-product-meta"><span
-                                                                class="text-accent me-2">$150.<small>00</small></span><span
+                                                                class="text-accent me-2">NPR <?=$item['selling_price']?>.<small>00</small></span><span
                                                                 class="text-muted">x 1</span></div>
                                                     </div>
                                                 </div>

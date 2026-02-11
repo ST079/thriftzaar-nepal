@@ -141,7 +141,7 @@ function select_input($data, $options)
 
     $label = (isset($data["label"])) ? $data["label"] : "";
     $value = (isset($data["value"])) ? $data["value"] : $value;
-   
+
 
     // build options
     $select_options = "";
@@ -198,7 +198,7 @@ function upload_images($files)
             if (!$res) {
                 continue;
             }
-            // $thumb_destination = thumb($destination, $thumb_destination);
+            $thumb_destination = thumb($destination, $thumb_destination);
             $img['src'] = $destination; //for full screen image like in product details page
             $img['thumb'] = $thumb_destination; //for outer looks as a whole
             $uploaded_images[] = $img;
@@ -208,11 +208,8 @@ function upload_images($files)
 }
 
 //compressing the image
-function thumb()
+function thumb($source, $target)
 {
-    $source="uploads\1.jpg";
-    $target="uploads\2.jpg";
-
     $image = new Zebra_Image();
 
     $image->auto_handle_exif_orientation = true;
@@ -227,14 +224,13 @@ function thumb()
     $width = 518;
     $height = 484;
     if (!$image->resize($width, $height, ZEBRA_IMAGE_CROP_CENTER)) {
-        echo "Error code: " . $image->error;
-        die("failed");
+
         return $image->source_path;
     } else {
-        die("success");
+
         return $image->target_path;
     }
-    die("done");
+
 }
 
 function get_jpeg_quality($_size)
@@ -294,7 +290,17 @@ function get_product_photos($json)
     if (strlen($json) < 4) {
         return $photos;
     }
-    $objects = json_decode($json);
+    $_objects = json_decode($json);
+
+    $objects = [];
+    $i=0;
+    foreach ($_objects as $key=>$value) {
+        if($i>6){
+            break;
+        }
+        $i++;
+        $objects[] = $value;
+    }
 
     if (empty($objects)) {
         return $photos;
@@ -388,9 +394,15 @@ function product_ui_1($product)
                 </div>
              </div>
             <div class="card-body card-body-hidden">
-                <button class="btn btn-primary btn-sm d-block w-100 mb-2" type="button">
+            <form action="cart-process-add.php" method="post">
+                <input type="hidden" name="id" value="{$product['p_id']}">
+                <select class="form-select me-3 mb-2" name="quantity" style="width: 5rem;">
+                    <option value="1">1</option>
+                </select>
+                <button class="btn btn-primary btn-sm d-block w-100 mb-2" type="submit">
                     <i class="ci-cart fs-sm me-1"></i>Add to Cart
                 </button>
+            </form>
             </div>
         </div>
         <hr class="d-sm-none">
