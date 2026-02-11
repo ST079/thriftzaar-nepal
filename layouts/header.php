@@ -175,7 +175,7 @@ if(isset($_SESSION["cart"])){
                         </div>
                     </div>
                     <div class="ms-3 text-nowrap"><a class="topbar-link me-4 d-none d-md-inline-block"
-                            href="order-tracking.html"><i class="ci-location"></i>Order tracking</a>
+                            href="#"><i class="ci-location"></i>Nepal</a>
                     </div>
                 </div>
             </div>
@@ -225,8 +225,7 @@ if(isset($_SESSION["cart"])){
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <div class="widget widget-cart px-3 pt-2 pb-3" style="width: 20rem;">
                                         <div style="height: 15rem;" data-simplebar data-simplebar-auto-hide="false">
-                                            <?php
-                                            foreach($cart_items as $item){?>
+                                            <?php foreach($cart_items as $item){?>
                                             <div class="widget-cart-item pb-2 border-bottom">
                                                 <a href="cart-process-remove.php?id=<?=$item['p_id']?>">
                                                 <button class="btn-close text-danger" type="button"
@@ -256,7 +255,7 @@ if(isset($_SESSION["cart"])){
                                             <a class="btn btn-outline-secondary btn-sm" href="cart.php">Expand
                                                 cart<i class="ci-arrow-right ms-1 me-n1"></i></a>
                                         </div><a class="btn btn-primary btn-sm d-block w-100"
-                                            href="checkout-details.html"><i
+                                            href="checkout.php"><i
                                                 class="ci-card me-2 fs-base align-middle"></i>Checkout</a>
                                     </div>
                                 </div>

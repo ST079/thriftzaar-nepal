@@ -1,6 +1,6 @@
 <?php
 require_once("./modules/config.php");
-protected_area();
+
 
 $products = db_select("products", '1 ORDER BY c_id DESC');
 

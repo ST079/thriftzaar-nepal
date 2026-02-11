@@ -45,8 +45,7 @@ if (isset($_SESSION["cart"])) {
                 <h2 class="h6 text-light mb-0">Products</h2><a class="btn btn-outline-primary btn-sm ps-2"
                     href="hamro-pasal.php"><i class="ci-arrow-left me-2"></i>Continue shopping</a>
             </div>
-            <?php
-            foreach ($cart_items as $item) { ?>
+            <?php foreach ($cart_items as $item) { ?>
                 <!-- Item-->
                 <div class="d-sm-flex justify-content-between align-items-center my-2 pb-3 border-bottom">
                     <div class="d-block d-sm-flex align-items-center text-center text-sm-start"><a
@@ -78,7 +77,7 @@ if (isset($_SESSION["cart"])) {
                 <div class="py-2 px-xl-2">
                     <div class="text-center mb-4 pb-3 border-bottom">
                         <h2 class="h6 mb-3 pb-1">Subtotal</h2>
-                        <h3 class="fw-normal">$265.<small>00</small></h3>
+                        <h3 class="fw-normal">NPR <?=$cart_total?>.<small>00</small></h3>
                     </div>
                     <div class="mb-3 mb-4">
                         <label class="form-label mb-3" for="order-comments"><span

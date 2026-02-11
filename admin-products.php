@@ -64,46 +64,51 @@ require_once("./layouts/header.php");
                             </div>
                         </div>
                     </div>
-                    <table class="table table-bordered table-striped align-middle">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Image</th>
-                                <th>Product Name</th>
-                                <th>Selling Price</th>
-                                <th>Buying Price</th>
-                                <th>Description</th>
-                                <th width="120">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($products as $product) { ?>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped align-middle">
+                            <thead class="table-light">
                                 <tr>
-                                    <td>
-                                        <img src="<?= get_product_thumb($product['photos']) ?>" width="80" height="60"
-                                            style="object-fit:cover" class="rounded">
-                                    </td>
-
-                                    <td><?= $product['p_name'] ?></td>
-
-                                    <td><?= $product['selling_price'] ?></td>
-
-                                    <td><?= $product['buying_price'] ?></td>
-
-                                    <td><?= short_words($product['description'], 20) ?></td>
-
-                                    <td>
-                                        <button class="btn btn-sm bg-faded-info me-1" data-bs-toggle="tooltip" title="Edit">
-                                            <i class="ci-edit text-info"></i>
-                                        </button>
-
-                                        <button class="btn btn-sm bg-faded-danger" data-bs-toggle="tooltip" title="Delete">
-                                            <i class="ci-trash text-danger"></i>
-                                        </button>
-                                    </td>
+                                    <th>Image</th>
+                                    <th>Product Name</th>
+                                    <th>Selling Price</th>
+                                    <th>Buying Price</th>
+                                    <th>Description</th>
+                                    <th width="120">Actions</th>
                                 </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($products as $product) { ?>
+                                    <tr>
+                                        <td>
+                                            <img src="<?= get_product_thumb($product['photos']) ?>" width="80" height="60"
+                                                style="object-fit:cover" class="rounded img-fluid">
+                                        </td>
+
+                                        <td><?= $product['p_name'] ?></td>
+
+                                        <td><?= $product['selling_price'] ?></td>
+
+                                        <td><?= $product['buying_price'] ?></td>
+
+                                        <td><?= short_words($product['description'], 20) ?></td>
+
+                                        <td>
+                                            <button class="btn btn-sm bg-faded-info me-1" data-bs-toggle="tooltip"
+                                                title="Edit">
+                                                <i class="ci-edit text-info"></i>
+                                            </button>
+
+                                            <button class="btn btn-sm bg-faded-danger" data-bs-toggle="tooltip"
+                                                title="Delete">
+                                                <i class="ci-trash text-danger"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+
 
 
                 </div>

@@ -25,7 +25,7 @@ require_once("./layouts/header.php");
 <div class="container pb-5 mb-2 mb-md-4">
   <div class="row">
     <!-- Sidebar-->
-    <?php require_once("./layouts/admin-sidebar.php"); ?>
+    <?php require_once("./layouts/account-sidebar.php"); ?>
     <!-- Content  -->
     <section class="col-lg-8">
       <!-- Toolbar-->

@@ -210,6 +210,8 @@ function upload_images($files)
 //compressing the image
 function thumb($source, $target)
 {
+    ini_set('memory_limit', '-1');
+    ini_set('max_execution_time', '-1');
     $image = new Zebra_Image();
 
     $image->auto_handle_exif_orientation = true;
@@ -293,9 +295,9 @@ function get_product_photos($json)
     $_objects = json_decode($json);
 
     $objects = [];
-    $i=0;
-    foreach ($_objects as $key=>$value) {
-        if($i>6){
+    $i = 0;
+    foreach ($_objects as $key => $value) {
+        if ($i > 6) {
             break;
         }
         $i++;
@@ -319,6 +321,7 @@ function get_product($id)
 
 function db_insert($table_name, $data)
 {
+    global $conn;
     $sql = "INSERT INTO $table_name";
 
     $column_names = "(";
@@ -333,13 +336,20 @@ function db_insert($table_name, $data)
             $column_values .= ",";
         }
         $column_names .= $key;
-        gettype($value) == 'string' ? $column_values .= "'$value'" : $column_values .= $value;
+        $gettype = gettype($value);
+        if ($gettype == "string") {
+            $value = $conn->real_escape_string($value);
+            $column_values .= "'$value'";
+        } else {
+            $value = $conn->real_escape_string($value);
+            $column_values .= $value;
+        }
     }
     $column_names .= ")";
     $column_values .= ")";
     $sql .= $column_names . "VALUES" . $column_values;
 
-    global $conn;
+
     if ($conn->query($sql)) {
         return true;
     } else {
