@@ -69,85 +69,7 @@ if(isset($_SESSION["cart"])){
         <iframe src="http://www.googletagmanager.com/ns.html?id=GTM-WKV3GT5" height="0" width="0"
             style="display: none; visibility: hidden;"></iframe>
     </noscript>
-    <!-- Sign in / sign up modal-->
-    <div class="modal fade" id="signin-modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-secondary">
-                    <ul class="nav nav-tabs card-header-tabs" role="tablist">
-                        <li class="nav-item"><a class="nav-link fw-medium active" href="#signin-tab"
-                                data-bs-toggle="tab" role="tab" aria-selected="true"><i
-                                    class="ci-unlocked me-2 mt-n1"></i>Sign in</a></li>
-                        <li class="nav-item"><a class="nav-link fw-medium" href="#signup-tab" data-bs-toggle="tab"
-                                role="tab" aria-selected="false"><i class="ci-user me-2 mt-n1"></i>Sign up</a></li>
-                    </ul>
-                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body tab-content py-4">
-                    <form class="needs-validation tab-pane fade show active" autocomplete="off" novalidate
-                        id="signin-tab">
-                        <div class="mb-3">
-                            <label class="form-label" for="si-email">Email address</label>
-                            <input class="form-control" type="email" id="si-email" placeholder="johndoe@example.com"
-                                required>
-                            <div class="invalid-feedback">Please provide a valid email address.</div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="si-password">Password</label>
-                            <div class="password-toggle">
-                                <input class="form-control" type="password" id="si-password" required>
-                                <label class="password-toggle-btn" aria-label="Show/hide password">
-                                    <input class="password-toggle-check" type="checkbox"><span
-                                        class="password-toggle-indicator"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="mb-3 d-flex flex-wrap justify-content-between">
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" id="si-remember">
-                                <label class="form-check-label" for="si-remember">Remember me</label>
-                            </div><a class="fs-sm" href="#">Forgot password?</a>
-                        </div>
-                        <button class="btn btn-primary btn-shadow d-block w-100" type="submit">Sign in</button>
-                    </form>
-                    <form class="needs-validation tab-pane fade" autocomplete="off" novalidate id="signup-tab">
-                        <div class="mb-3">
-                            <label class="form-label" for="su-name">Full name</label>
-                            <input class="form-control" type="text" id="su-name" placeholder="John Doe" required>
-                            <div class="invalid-feedback">Please fill in your name.</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="su-email">Email address</label>
-                            <input class="form-control" type="email" id="su-email" placeholder="johndoe@example.com"
-                                required>
-                            <div class="invalid-feedback">Please provide a valid email address.</div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="su-password">Password</label>
-                            <div class="password-toggle">
-                                <input class="form-control" type="password" id="su-password" required>
-                                <label class="password-toggle-btn" aria-label="Show/hide password">
-                                    <input class="password-toggle-check" type="checkbox"><span
-                                        class="password-toggle-indicator"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="su-password-confirm">Confirm password</label>
-                            <div class="password-toggle">
-                                <input class="form-control" type="password" id="su-password-confirm" required>
-                                <label class="password-toggle-btn" aria-label="Show/hide password">
-                                    <input class="password-toggle-check" type="checkbox"><span
-                                        class="password-toggle-indicator"></span>
-                                </label>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary btn-shadow d-block w-100" type="submit">Sign up</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+   
     <main class="page-wrapper">
         <!-- Navbar 3 Level (Light)-->
         <header class="shadow-sm">
@@ -195,15 +117,12 @@ if(isset($_SESSION["cart"])){
                                 class="navbar-tool navbar-stuck-toggler" href="#"><span
                                     class="navbar-tool-tooltip">Expand menu</span>
                                 <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-menu"></i></div>
-                            </a><a class="navbar-tool d-none d-lg-flex" href="account-wishlist.html"><span
-                                    class="navbar-tool-tooltip">Wishlist</span>
-                                <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-heart"></i></div>
                             </a>
 
                                 <?php if (is_logged_in()) { ?>
                                     <a class="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="account-profile.php">
                                 <?php } else { ?>
-                                <a class="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="#signin-modal" data-bs-toggle="modal">
+                                <a class="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="login.php">
                                 <?php } ?>
 
                                 <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-user"></i></div>
@@ -218,7 +137,11 @@ if(isset($_SESSION["cart"])){
                             </a>
                             <div class="navbar-tool dropdown ms-3"><a
                                     class="navbar-tool-icon-box bg-secondary dropdown-toggle"
-                                    href="cart.php"><span class="navbar-tool-label"><?=$cart_cont?></span><i
+                                    href="cart.php"><span class="navbar-tool-label"><?php if(is_logged_in()){
+                                        echo $cart_cont;
+                                    }else{
+                                        echo "";
+                                    } ?></span><i
                                         class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
                                     href="cart.php"><small>My Cart</small><?=$cart_total?></a>
                                 <!-- Cart dropdown-->
@@ -273,120 +196,7 @@ if(isset($_SESSION["cart"])){
                             </div>
                             <!-- Departments menu-->
                             <ul class="navbar-nav navbar-mega-nav pe-lg-2 me-lg-2">
-                                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle ps-lg-0" href="#"
-                                        data-bs-toggle="dropdown"><i class="ci-view-grid me-2"></i>Departments</a>
-                                    <div class="dropdown-menu px-2 pb-4">
-                                        <div class="d-flex flex-wrap flex-sm-nowrap">
-                                            <div class="mega-dropdown-column pt-3 pt-sm-4 px-2 px-lg-3">
-                                                <div class="widget widget-links"><a
-                                                        class="d-block overflow-hidden rounded-3 mb-3" href="#"><img
-                                                            src="img/shop/departments/01.jpg" alt="Clothing"></a>
-                                                    <h6 class="fs-base mb-2">Clothing</h6>
-                                                    <ul class="widget-list">
-                                                        <li class="widget-list-item mb-1"><a class="widget-list-link"
-                                                                href="#">Women's
-                                                                clothing</a></li>
-                                                        <li class="widget-list-item mb-1"><a class="widget-list-link"
-                                                                href="#">Men's clothing</a>
-                                                        </li>
-                                                        <li class="widget-list-item mb-1"><a class="widget-list-link"
-                                                                href="#">Kid's clothing</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="mega-dropdown-column pt-4 px-2 px-lg-3">
-                                                <div class="widget widget-links"><a
-                                                        class="d-block overflow-hidden rounded-3 mb-3" href="#"><img
-                                                            src="img/shop/departments/02.jpg" alt="Shoes"></a>
-                                                    <h6 class="fs-base mb-2">Shoes</h6>
-                                                    <ul class="widget-list">
-                                                        <li class="widget-list-item mb-1"><a class="widget-list-link"
-                                                                href="#">Women's shoes</a>
-                                                        </li>
-                                                        <li class="widget-list-item mb-1"><a class="widget-list-link"
-                                                                href="#">Men's shoes</a>
-                                                        </li>
-                                                        <li class="widget-list-item mb-1"><a class="widget-list-link"
-                                                                href="#">Kid's shoes</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="mega-dropdown-column pt-4 px-2 px-lg-3">
-                                                <div class="widget widget-links"><a
-                                                        class="d-block overflow-hidden rounded-3 mb-3" href="#"><img
-                                                            src="img/shop/departments/03.jpg" alt="Gadgets"></a>
-                                                    <h6 class="fs-base mb-2">Gadgets</h6>
-                                                    <ul class="widget-list">
-                                                        <li class="widget-list-item mb-1"><a class="widget-list-link"
-                                                                href="#">Smartphones &amp;
-                                                                Tablets</a></li>
-                                                        <li class="widget-list-item mb-1"><a class="widget-list-link"
-                                                                href="#">Wearable
-                                                                gadgets</a></li>
-                                                        <li class="widget-list-item mb-1"><a class="widget-list-link"
-                                                                href="#">E-book readers</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex flex-wrap flex-sm-nowrap">
-                                            <div class="mega-dropdown-column pt-4 px-2 px-lg-3">
-                                                <div class="widget widget-links"><a
-                                                        class="d-block overflow-hidden rounded-3 mb-3" href="#"><img
-                                                            src="img/shop/departments/04.jpg" alt="Furniture"></a>
-                                                    <h6 class="fs-base mb-2">Furniture &amp; Decor</h6>
-                                                    <ul class="widget-list">
-                                                        <li class="widget-list-item mb-1"><a class="widget-list-link"
-                                                                href="#">Home furniture</a>
-                                                        </li>
-                                                        <li class="widget-list-item mb-1"><a class="widget-list-link"
-                                                                href="#">Office
-                                                                furniture</a></li>
-                                                        <li class="widget-list-item mb-1"><a class="widget-list-link"
-                                                                href="#">Lighting and
-                                                                decoration</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="mega-dropdown-column pt-4 px-2 px-lg-3">
-                                                <div class="widget widget-links"><a
-                                                        class="d-block overflow-hidden rounded-3 mb-3" href="#"><img
-                                                            src="img/shop/departments/05.jpg" alt="Accessories"></a>
-                                                    <h6 class="fs-base mb-2">Accessories</h6>
-                                                    <ul class="widget-list">
-                                                        <li class="widget-list-item mb-1"><a class="widget-list-link"
-                                                                href="#">Hats</a></li>
-                                                        <li class="widget-list-item mb-1"><a class="widget-list-link"
-                                                                href="#">Sunglasses</a>
-                                                        </li>
-                                                        <li class="widget-list-item mb-1"><a class="widget-list-link"
-                                                                href="#">Bags</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="mega-dropdown-column pt-4 px-2 px-lg-3">
-                                                <div class="widget widget-links"><a
-                                                        class="d-block overflow-hidden rounded-3 mb-3" href="#"><img
-                                                            src="img/shop/departments/06.jpg" alt="Entertainment"></a>
-                                                    <h6 class="fs-base mb-2">Entertainment</h6>
-                                                    <ul class="widget-list">
-                                                        <li class="widget-list-item mb-1"><a class="widget-list-link"
-                                                                href="#">Kid's toys</a>
-                                                        </li>
-                                                        <li class="widget-list-item mb-1"><a class="widget-list-link"
-                                                                href="#">Video games</a>
-                                                        </li>
-                                                        <li class="widget-list-item mb-1"><a class="widget-list-link"
-                                                                href="#">Outdoor /
-                                                                Camping</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <li class="nav-item"><a class="nav-link  ps-lg-0" href="#"><i class="ci-view-grid me-2"></i>“Second Hand, First Choice.”</a>
                                 </li>
                             </ul>
                             <!-- Primary menu-->
@@ -396,59 +206,11 @@ if(isset($_SESSION["cart"])){
                                 </li>
                                 <li class="nav-item dropdown"><a class="nav-link" href="<?=url("/hamro-pasal.php")?>">Hamro Pasal</a>
                                 </li>
-                                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"
-                                    >About Us</a>
-                                </li>
                                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"
                                     >Contact</a>
                                 </li>
-                                 <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"
+                                 <li class="nav-item"><a class="nav-link <?php is_logged_in()?"":"disabled" ?> " href="account-orders.php"
                                     >Orders</a>
-                                </li>
-                                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"
-                                        data-bs-toggle="dropdown">Docs / Components</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="docs/dev-setup.html">
-                                                <div class="d-flex">
-                                                    <div class="lead text-muted pt-1"><i class="ci-book"></i></div>
-                                                    <div class="ms-2"><span
-                                                            class="d-block text-heading">Documentation</span><small
-                                                            class="d-block text-muted">Kick-start
-                                                            customization</small>
-                                                    </div>
-                                                </div>
-                                            </a></li>
-                                        <li class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="components/typography.html">
-                                                <div class="d-flex">
-                                                    <div class="lead text-muted pt-1"><i class="ci-server"></i>
-                                                    </div>
-                                                    <div class="ms-2"><span class="d-block text-heading">Components<span
-                                                                class="badge bg-info ms-2">40+</span></span><small
-                                                            class="d-block text-muted">Faster page building</small>
-                                                    </div>
-                                                </div>
-                                            </a></li>
-                                        <li class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="docs/changelog.html">
-                                                <div class="d-flex">
-                                                    <div class="lead text-muted pt-1"><i class="ci-edit"></i></div>
-                                                    <div class="ms-2"><span class="d-block text-heading">Changelog<span
-                                                                class="badge bg-success ms-2">v2.5.1</span></span><small
-                                                            class="d-block text-muted">Regular updates</small></div>
-                                                </div>
-                                            </a></li>
-                                        <li class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="mailto:support@createx.studio">
-                                                <div class="d-flex">
-                                                    <div class="lead text-muted pt-1"><i class="ci-help"></i></div>
-                                                    <div class="ms-2"><span
-                                                            class="d-block text-heading">Support</span><small
-                                                            class="d-block text-muted">support@createx.studio</small>
-                                                    </div>
-                                                </div>
-                                            </a></li>
-                                    </ul>
                                 </li>
                             </ul>
                         </div>

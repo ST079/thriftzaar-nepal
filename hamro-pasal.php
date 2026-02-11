@@ -347,7 +347,9 @@ require_once("./layouts/header.php");
                             </div>
                             <!-- Sunglasses-->
                             <div class="accordion-item">
-                                <h3 class="accordion-header"><a class="accordion-button collapsed" href="#sunglasses" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="sunglasses">Sunglasses</a></h3>
+                                <h3 class="accordion-header"><a class="accordion-button collapsed" href="#sunglasses"
+                                        role="button" data-bs-toggle="collapse" aria-expanded="false"
+                                        aria-controls="sunglasses">Sunglasses</a></h3>
                                 <div class="collapse" id="sunglasses" data-bs-parent="#shop-categories">
                                     <div class="accordion-body">
                                         <div class="widget widget-links">
@@ -476,19 +478,15 @@ require_once("./layouts/header.php");
             <div class="row mx-n2">
                 <?php
                 foreach ($products as $product) {
-                    echo product_ui_1($product);      
+                    echo product_ui_1($product);
                 }
                 ?>
             </div>
-            <!-- Banner-->
+            <!-- Banner -->
             <div class="py-sm-2">
                 <div
                     class="d-sm-flex justify-content-between align-items-center bg-secondary overflow-hidden mb-4 rounded-3">
-                    <div class="py-4 my-2 my-md-0 py-md-5 px-4 ms-md-3 text-center text-sm-start">
-                        <h4 class="fs-lg fw-light mb-2">Converse All Star</h4>
-                        <h3 class="mb-4">Make Your Day Comfortable</h3><a class="btn btn-primary btn-shadow btn-sm"
-                            href="#">Shop Now</a>
-                    </div><img class="d-block ms-auto" src="img/shop/catalog/banner.jpg" alt="Shop Converse">
+                    <img class="d-block ms-auto" src="img/shop/catalog/banner.png" alt="Shop Converse">
                 </div>
             </div>
 

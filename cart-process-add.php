@@ -1,5 +1,6 @@
 <?php
 require_once("modules/config.php");
+protected_area();
 $id = $_POST["id"];
 
 $product = get_product($id);

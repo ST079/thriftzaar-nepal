@@ -1,6 +1,5 @@
 <?php
 require_once("./modules/config.php");
-protected_area();
 $id = 0;
 if (isset($_GET["id"])) {
     $id = (int) ($_GET["id"]);

@@ -33,7 +33,7 @@ if (isset($_SESSION["shipping"]) && $_SESSION["cart"]) {
                 <p class="fs-sm mb-2">Your order has been placed and will be processed as soon as possible.</p>
                 <p class="fs-sm">. <u>You can
                         now:</u></p><a class="btn btn-secondary mt-3 me-3" href="shop-grid-ls.html">Go back
-                    shopping</a><a class="btn btn-primary mt-3" href="account-order.php"><i
+                    shopping</a><a class="btn btn-primary mt-3" href="account-orders.php"><i
                         class="ci-location"></i>&nbsp;View Your Orders</a>
             </div>
         </div>

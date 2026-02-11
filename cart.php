@@ -1,6 +1,7 @@
 <?php
-require_once("./layouts/header.php");
 require_once("./modules/config.php");
+protected_area();
+require_once("./layouts/header.php");
 
 $cart_cont = 0;
 $cart_items = [];
