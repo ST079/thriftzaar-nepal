@@ -368,6 +368,7 @@ function db_select($table_name, $condition = NULL)
 function product_ui_1($product)
 {
     $thumb = get_product_thumb($product['photos']);
+    $pro = get_product($product['p_id']);
     $str = <<<EOF
      <div class="col-md-4 col-sm-6 px-2 mb-4">
         <div class="card product-card">
@@ -376,7 +377,7 @@ function product_ui_1($product)
                 class="card-img-top d-block overflow-hidden" href="product.php?id={$product["p_id"]}"><img
                     src="$thumb" alt="Product"></a>
             <div class="card-body py-2">
-                <a class="product-meta d-block fs-xs pb-1" href="#">Sneakers &amp;Keds</a>
+                <a class="product-meta d-block fs-xs pb-1" href="#">{$pro['c_name']}</a>
                 <h3 class="product-title fs-sm">
                     <a href="product.php?id={$product["p_id"]}</a>">{$product['p_name']}</a>
                 </h3>

@@ -218,9 +218,9 @@ if(isset($_SESSION["cart"])){
                             </a>
                             <div class="navbar-tool dropdown ms-3"><a
                                     class="navbar-tool-icon-box bg-secondary dropdown-toggle"
-                                    href="shop-cart.html"><span class="navbar-tool-label"><?=$cart_cont?></span><i
+                                    href="cart.php"><span class="navbar-tool-label"><?=$cart_cont?></span><i
                                         class="navbar-tool-icon ci-cart"></i></a><a class="navbar-tool-text"
-                                    href=""><small>My Cart</small><?=$cart_total?></a>
+                                    href="cart.php"><small>My Cart</small><?=$cart_total?></a>
                                 <!-- Cart dropdown-->
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <div class="widget widget-cart px-3 pt-2 pb-3" style="width: 20rem;">
@@ -228,8 +228,11 @@ if(isset($_SESSION["cart"])){
                                             <?php
                                             foreach($cart_items as $item){?>
                                             <div class="widget-cart-item pb-2 border-bottom">
+                                                <a href="cart-process-remove.php?id=<?=$item['p_id']?>">
                                                 <button class="btn-close text-danger" type="button"
-                                                    aria-label="Remove"><span aria-hidden="true">&times;</span></button>
+                                                    aria-label="Remove"><span aria-hidden="true">&times;</span>
+                                                </button>
+                                                </a>
                                                 <div class="d-flex align-items-center"><a class="flex-shrink-0"
                                                         href="product.php?id=<?=$item['p_id']?>"><img
                                                             src="<?= get_product_thumb($item['photos']) ?>" width="64"
@@ -250,7 +253,7 @@ if(isset($_SESSION["cart"])){
                                             <div class="fs-sm me-2 py-2"><span class="text-muted">Subtotal:</span><span
                                                     class="text-accent fs-base ms-1">NPR <?=$cart_total?>.<small>00</small></span>
                                             </div>
-                                            <a class="btn btn-outline-secondary btn-sm" href="shop-cart.html">Expand
+                                            <a class="btn btn-outline-secondary btn-sm" href="cart.php">Expand
                                                 cart<i class="ci-arrow-right ms-1 me-n1"></i></a>
                                         </div><a class="btn btn-primary btn-sm d-block w-100"
                                             href="checkout-details.html"><i
@@ -459,9 +462,7 @@ if(isset($_SESSION["cart"])){
         <?php
         if (isset($_SESSION['alert'])) {
             ?>
-            <div class="alert alert-<?= $_SESSION['alert']['type'] ?> container mt-5">
-                <span class="glyphicon glyphicon-hand-right"></span> <strong>Message</strong>
-                <hr class="message-inner-separator">
+            <div class="alert alert-<?= $_SESSION['alert']['type'] ?> container mt-3 d-flex justify-content-center align-items-center">
                 <p>
                     <?= $_SESSION['alert']['msg'] ?>
                 </p>

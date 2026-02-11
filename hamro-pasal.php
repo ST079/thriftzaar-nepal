@@ -4,6 +4,7 @@ protected_area();
 
 $products = db_select("products", '1 ORDER BY c_id DESC');
 
+
 // echo "<pre>";
 // print_r(value: $products);
 // die();
@@ -346,9 +347,7 @@ require_once("./layouts/header.php");
                             </div>
                             <!-- Sunglasses-->
                             <div class="accordion-item">
-                                <h3 class="accordion-header"><a class="accordion-button collapsed" href="#sunglasses"
-                                        role="button" data-bs-toggle="collapse" aria-expanded="false"
-                                        aria-controls="sunglasses">Sunglasses</a></h3>
+                                <h3 class="accordion-header"><a class="accordion-button collapsed" href="#sunglasses" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="sunglasses">Sunglasses</a></h3>
                                 <div class="collapse" id="sunglasses" data-bs-parent="#shop-categories">
                                     <div class="accordion-body">
                                         <div class="widget widget-links">
