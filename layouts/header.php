@@ -37,7 +37,7 @@ if(isset($_SESSION["cart"])){
     <!-- Viewport-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon and Touch Icons-->
-    <link rel="icon" type="image/x-icon" sizes="180x180" href="/img/logo-icon.ico">
+    <link rel="icon" type="image/x-icon" sizes="180x180" href="img/logo-icon.ico">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -158,18 +158,18 @@ if(isset($_SESSION["cart"])){
                             data-bs-toggle="dropdown">Useful links</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="tel:00331697720"><i
-                                        class="ci-support text-muted me-2"></i>(+977) 9762447050 9749844496</a></li>
-                            <li><a class="dropdown-item" href="order-tracking.html"><i
-                                        class="ci-location text-muted me-2"></i>Order tracking</a></li>
+                                        class="ci-support text-muted me-2"></i>(+977) 9749844496</a></li>
+                            <li><a class="dropdown-item" href="#"><i
+                                        class="ci-location text-muted me-2"></i>Nepal</a></li>
                         </ul>
                     </div>
                     <div class="topbar-text text-nowrap d-none d-md-inline-block"><i class="ci-support"></i><span
-                            class="text-muted me-1">Support</span><a class="topbar-link" href="tel:00331697720">(+977)
-                            9762447050 9749844496</a></div>
+                            class="text-muted me-1">Support</span><a class="topbar-link" href="tel:00331697720">(+977) 9749844496</a>
+                        </div>
                     <div class="tns-carousel tns-controls-static d-none d-md-block">
                         <div class="tns-carousel-inner"
                             data-carousel-options="{&quot;mode&quot;: &quot;gallery&quot;, &quot;nav&quot;: false}">
-                            <div class="topbar-text">Free shipping for order over $200</div>
+                            <div class="topbar-text">Welcome to ThriftZaar Nepal</div>
                             <div class="topbar-text">We return money within 30 days</div>
                             <div class="topbar-text">Friendly 24/7 customer support</div>
                         </div>
