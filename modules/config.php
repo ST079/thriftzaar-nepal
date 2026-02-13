@@ -357,22 +357,29 @@ function db_insert($table_name, $data)
     }
 }
 
-function db_select($table_name, $condition = NULL)
+function db_select($table_name, $condition = NULL, $order_by = NULL)
 {
     $sql = "SELECT * FROM $table_name";
+
     if ($condition != NULL) {
-        $sql = "SELECT * FROM $table_name WHERE $condition";
+        $sql .= " WHERE $condition";
+    }
+
+    if ($order_by != NULL) {
+        $sql .= " ORDER BY $order_by";
     }
 
     global $conn;
     $res = $conn->query($sql);
+
     $rows = [];
     while ($row = $res->fetch_assoc()) {
         $rows[] = $row;
     }
-    return $rows;
 
+    return $rows;
 }
+
 
 //product component
 function product_ui_1($product)
@@ -382,25 +389,16 @@ function product_ui_1($product)
     $str = <<<EOF
      <div class="col-md-4 col-sm-6 px-2 mb-4">
         <div class="card product-card">
-            <button class="btn-wishlist btn-sm" type="button" data-bs-toggle="tooltip"
-                data-bs-placement="left" title="Add to wishlist"><i class="ci-heart"></i></button><a
-                class="card-img-top d-block overflow-hidden" href="product.php?id={$product["p_id"]}"><img
+            <a class="card-img-top d-block overflow-hidden" href="product.php?id={$product["p_id"]}"><img
                     src="$thumb" alt="Product"></a>
             <div class="card-body py-2">
                 <a class="product-meta d-block fs-xs pb-1" href="#">{$pro['c_name']}</a>
                 <h3 class="product-title fs-sm">
-                    <a href="product.php?id={$product["p_id"]}</a>">{$product['p_name']}</a>
+                    <a href="product.php?id={$product["p_id"]}">{$product['p_name']}</a>
                 </h3>
                 <div class="d-flex justify-content-between">
                     <div class="product-price">
                         <span class="text-accent">NPR {$product['selling_price']}.<small>00</small></span>
-                    </div>
-                    <div class="star-rating">
-                        <i class="star-rating-icon ci-star-filled active"></i>
-                        <i class="star-rating-icon ci-star-filled active"></i>
-                        <i class="star-rating-icon ci-star-filled active"></i>
-                        <i class="star-rating-icon ci-star-filled active"></i>
-                        <i class="star-rating-icon ci-star"></i>
                     </div>
                 </div>
              </div>

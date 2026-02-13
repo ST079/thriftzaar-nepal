@@ -31,68 +31,70 @@ if (isset($_SESSION["shipping"]) && $_SESSION["cart"]) {
                     <?= $_SESSION['user']['first_name'] . " " . $_SESSION['user']['last_name'] ?>
                 </h2>
                 <p class="fs-sm mb-2">Your order has been placed and will be processed as soon as possible.</p>
-                <p class="fs-sm">. <u>You can
-                        now:</u></p><a class="btn btn-secondary mt-3 me-3" href="shop-grid-ls.html">Go back
+                <div class="container px-2 mb-2 mb-md-3">
+                    <!-- Progress-->
+                    <div class="card border-0 shadow-lg">
+                        <div class="card-body pb-2">
+                            <ul class="nav nav-tabs media-tabs nav-justified">
+                                <li class="nav-item">
+                                    <div class="nav-link completed">
+                                        <div class="d-flex align-items-center">
+                                            <div class="media-tab-media"><i class="ci-bag"></i></div>
+                                            <div class="ps-3">
+                                                <div class="media-tab-subtitle text-muted fs-xs mb-1">First step</div>
+                                                <h6 class="media-tab-title text-nowrap mb-0">Order placed</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <div class="nav-link active">
+                                        <div class="d-flex align-items-center">
+                                            <div class="media-tab-media"><i class="ci-settings"></i></div>
+                                            <div class="ps-3">
+                                                <div class="media-tab-subtitle text-muted fs-xs mb-1">Second step</div>
+                                                <h6 class="media-tab-title text-nowrap mb-0">Processing order</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <div class="nav-link">
+                                        <div class="d-flex align-items-center">
+                                            <div class="media-tab-media"><i class="ci-star"></i></div>
+                                            <div class="ps-3">
+                                                <div class="media-tab-subtitle text-muted fs-xs mb-1">Third step</div>
+                                                <h6 class="media-tab-title text-nowrap mb-0">Quality check</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <div class="nav-link">
+                                        <div class="d-flex align-items-center">
+                                            <div class="media-tab-media"><i class="ci-package"></i></div>
+                                            <div class="ps-3">
+                                                <div class="media-tab-subtitle text-muted fs-xs mb-1">Fourth step</div>
+                                                <h6 class="media-tab-title text-nowrap mb-0">Product dispatched</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="fs-sm"><u>You can
+                        now:</u></p><a class="btn btn-secondary mt-3 me-3" href="hamro-pasal.php">Go back
                     shopping</a><a class="btn btn-primary mt-3" href="account-orders.php"><i
                         class="ci-location"></i>&nbsp;View Your Orders</a>
             </div>
         </div>
     </div>
 </div>
-<div class="container px-2 mb-2 mb-md-3">
-    <!-- Progress-->
-    <div class="card border-0 shadow-lg">
-        <div class="card-body pb-2">
-            <ul class="nav nav-tabs media-tabs nav-justified">
-                <li class="nav-item">
-                    <div class="nav-link completed">
-                        <div class="d-flex align-items-center">
-                            <div class="media-tab-media"><i class="ci-bag"></i></div>
-                            <div class="ps-3">
-                                <div class="media-tab-subtitle text-muted fs-xs mb-1">First step</div>
-                                <h6 class="media-tab-title text-nowrap mb-0">Order placed</h6>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <div class="nav-link active">
-                        <div class="d-flex align-items-center">
-                            <div class="media-tab-media"><i class="ci-settings"></i></div>
-                            <div class="ps-3">
-                                <div class="media-tab-subtitle text-muted fs-xs mb-1">Second step</div>
-                                <h6 class="media-tab-title text-nowrap mb-0">Processing order</h6>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <div class="nav-link">
-                        <div class="d-flex align-items-center">
-                            <div class="media-tab-media"><i class="ci-star"></i></div>
-                            <div class="ps-3">
-                                <div class="media-tab-subtitle text-muted fs-xs mb-1">Third step</div>
-                                <h6 class="media-tab-title text-nowrap mb-0">Quality check</h6>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <div class="nav-link">
-                        <div class="d-flex align-items-center">
-                            <div class="media-tab-media"><i class="ci-package"></i></div>
-                            <div class="ps-3">
-                                <div class="media-tab-subtitle text-muted fs-xs mb-1">Fourth step</div>
-                                <h6 class="media-tab-title text-nowrap mb-0">Product dispatched</h6>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
 
 
-    <?php
-    require_once("./layouts/footer.php");
-    ?>
+<?php
+require_once("./layouts/footer.php");
+?>

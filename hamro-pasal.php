@@ -1,15 +1,56 @@
 <?php
 require_once("./modules/config.php");
 
+// Default order
+$categories = db_select("categories", NULL, ' c_id DESC');
 
-$products = db_select("products", '1 ORDER BY c_id DESC');
+$order = "p_name ASC";
+$where = NULL;
+
+/* -------- CATEGORY FILTER -------- */
+if (isset($_GET['category']) && is_array($_GET['category'])) {
+
+    $category_ids = array_map('intval', $_GET['category']); // secure
+    $ids = implode(',', $category_ids);
+
+    $where = "c_id IN ($ids)";
+}
+
+/* -------- FETCH PRODUCTS -------- */
 
 
-// echo "<pre>";
-// print_r(value: $products);
-// die();
+
+// Sorting logic
+if (isset($_GET['sorting'])) {
+
+    $allowed_sort = [
+        "low_high" => "selling_price ASC",
+        "high_low" => "selling_price DESC",
+        "a_z" => "p_name ASC",
+        "z_a" => "p_name DESC"
+    ];
+
+    $sort_key = $_GET['sorting'];
+
+    if (array_key_exists($sort_key, $allowed_sort)) {
+        $order = $allowed_sort[$sort_key];
+    }
+}
 
 require_once("./layouts/header.php");
+$products = db_select("products", $where, $order);
+
+if (!empty($_GET['search'])) {
+    $search = mysqli_real_escape_string($conn, $_GET['search']);
+    $search_condition = "p_name LIKE '%$search%'";
+    if ($where) {
+        $where .= " AND $search_condition";
+    } else {
+        $where = $search_condition;
+    }
+    $products = db_select("products", $where, $order);
+}
+
 ?>
 
 
@@ -43,408 +84,35 @@ require_once("./layouts/header.php");
                         aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body py-grid-gutter px-lg-grid-gutter">
-                    <!-- Categories-->
+                    <!-- Categories Widget -->
                     <div class="widget widget-categories mb-4 pb-4 border-bottom">
                         <h3 class="widget-title">Categories</h3>
-                        <div class="accordion mt-n1" id="shop-categories">
-                            <!-- Shoes-->
-                            <div class="accordion-item">
-                                <h3 class="accordion-header"><a class="accordion-button collapsed" href="#shoes"
-                                        role="button" data-bs-toggle="collapse" aria-expanded="false"
-                                        aria-controls="shoes">Shoes</a></h3>
-                                <div class="accordion-collapse collapse" id="shoes" data-bs-parent="#shop-categories">
-                                    <div class="accordion-body">
-                                        <div class="widget widget-links widget-filter">
-                                            <div class="input-group input-group-sm mb-2">
-                                                <input class="widget-filter-search form-control rounded-end" type="text"
-                                                    placeholder="Search"><i
-                                                    class="ci-search position-absolute top-50 end-0 translate-middle-y fs-sm me-3"></i>
-                                            </div>
-                                            <ul class="widget-list widget-filter-list pt-1" style="height: 12rem;"
-                                                data-simplebar data-simplebar-auto-hide="false">
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">View
-                                                            all</span><span
-                                                            class="fs-xs text-muted ms-3">1,953</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Pumps &amp; High
-                                                            Heels</span><span
-                                                            class="fs-xs text-muted ms-3">247</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Ballerinas &amp;
-                                                            Flats</span><span
-                                                            class="fs-xs text-muted ms-3">156</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span
-                                                            class="widget-filter-item-text">Sandals</span><span
-                                                            class="fs-xs text-muted ms-3">310</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span
-                                                            class="widget-filter-item-text">Sneakers</span><span
-                                                            class="fs-xs text-muted ms-3">402</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Boots</span><span
-                                                            class="fs-xs text-muted ms-3">393</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Ankle
-                                                            Boots</span><span
-                                                            class="fs-xs text-muted ms-3">50</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span
-                                                            class="widget-filter-item-text">Loafers</span><span
-                                                            class="fs-xs text-muted ms-3">93</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span
-                                                            class="widget-filter-item-text">Slip-on</span><span
-                                                            class="fs-xs text-muted ms-3">122</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Flip
-                                                            Flops</span><span
-                                                            class="fs-xs text-muted ms-3">116</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Clogs &amp;
-                                                            Mules</span><span
-                                                            class="fs-xs text-muted ms-3">24</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Athletic
-                                                            Shoes</span><span
-                                                            class="fs-xs text-muted ms-3">31</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span
-                                                            class="widget-filter-item-text">Oxfords</span><span
-                                                            class="fs-xs text-muted ms-3">9</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Smart
-                                                            Shoes</span><span
-                                                            class="fs-xs text-muted ms-3">18</span></a></li>
-                                            </ul>
+                        <form method="GET">
+                            <ul class="widget-list">
+                                <?php foreach ($categories as $cat): ?>
+                                    <li class="widget-list-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="category[]"
+                                                value="<?= $cat['c_id']; ?>" id="cat<?= $cat['c_id']; ?>"
+                                                <?= (isset($_GET['category']) && in_array($cat['c_id'], $_GET['category'])) ? 'checked' : ''; ?>>
+                                            <label class="form-check-label" for="cat<?= $cat['c_id']; ?>">
+                                                <?= $cat['c_name']; ?>
+                                            </label>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Clothing-->
-                            <div class="accordion-item">
-                                <h3 class="accordion-header"><a class="accordion-button" href="#clothing" role="button"
-                                        data-bs-toggle="collapse" aria-expanded="true"
-                                        aria-controls="clothing">Clothing</a></h3>
-                                <div class="accordion-collapse collapse show" id="clothing"
-                                    data-bs-parent="#shop-categories">
-                                    <div class="accordion-body">
-                                        <div class="widget widget-links widget-filter">
-                                            <div class="input-group input-group-sm mb-2">
-                                                <input class="widget-filter-search form-control rounded-end" type="text"
-                                                    placeholder="Search"><i
-                                                    class="ci-search position-absolute top-50 end-0 translate-middle-y fs-sm me-3"></i>
-                                            </div>
-                                            <ul class="widget-list widget-filter-list pt-1" style="height: 12rem;"
-                                                data-simplebar data-simplebar-auto-hide="false">
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">View
-                                                            all</span><span
-                                                            class="fs-xs text-muted ms-3">2,548</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Blazers &amp;
-                                                            Suits</span><span
-                                                            class="fs-xs text-muted ms-3">235</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span
-                                                            class="widget-filter-item-text">Blouses</span><span
-                                                            class="fs-xs text-muted ms-3">410</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Cardigans &amp;
-                                                            Jumpers</span><span
-                                                            class="fs-xs text-muted ms-3">107</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span
-                                                            class="widget-filter-item-text">Dresses</span><span
-                                                            class="fs-xs text-muted ms-3">93</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Hoodie &amp;
-                                                            Sweatshirts</span><span
-                                                            class="fs-xs text-muted ms-3">122</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Jackets &amp;
-                                                            Coats</span><span
-                                                            class="fs-xs text-muted ms-3">116</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Jeans</span><span
-                                                            class="fs-xs text-muted ms-3">215</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span
-                                                            class="widget-filter-item-text">Lingerie</span><span
-                                                            class="fs-xs text-muted ms-3">150</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Maternity
-                                                            Wear</span><span class="fs-xs text-muted ms-3">8</span></a>
-                                                </li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span
-                                                            class="widget-filter-item-text">Nightwear</span><span
-                                                            class="fs-xs text-muted ms-3">26</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span
-                                                            class="widget-filter-item-text">Shirts</span><span
-                                                            class="fs-xs text-muted ms-3">164</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span
-                                                            class="widget-filter-item-text">Shorts</span><span
-                                                            class="fs-xs text-muted ms-3">147</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Socks &amp;
-                                                            Tights</span><span
-                                                            class="fs-xs text-muted ms-3">139</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span
-                                                            class="widget-filter-item-text">Sportswear</span><span
-                                                            class="fs-xs text-muted ms-3">65</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span
-                                                            class="widget-filter-item-text">Swimwear</span><span
-                                                            class="fs-xs text-muted ms-3">18</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">T-shirts &amp;
-                                                            Vests</span><span
-                                                            class="fs-xs text-muted ms-3">209</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Tops</span><span
-                                                            class="fs-xs text-muted ms-3">132</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span
-                                                            class="widget-filter-item-text">Trousers</span><span
-                                                            class="fs-xs text-muted ms-3">105</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span
-                                                            class="widget-filter-item-text">Underwear</span><span
-                                                            class="fs-xs text-muted ms-3">87</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Bags-->
-                            <div class="accordion-item">
-                                <h3 class="accordion-header"><a class="accordion-button collapsed" href="#bags"
-                                        role="button" data-bs-toggle="collapse" aria-expanded="false"
-                                        aria-controls="bags">Bags</a></h3>
-                                <div class="accordion-collapse collapse" id="bags" data-bs-parent="#shop-categories">
-                                    <div class="accordion-body">
-                                        <div class="widget widget-links widget-filter">
-                                            <div class="input-group input-group-sm mb-2">
-                                                <input class="widget-filter-search form-control rounded-end" type="text"
-                                                    placeholder="Search"><i
-                                                    class="ci-search position-absolute top-50 end-0 translate-middle-y fs-sm me-3"></i>
-                                            </div>
-                                            <ul class="widget-list widget-filter-list pt-1" style="height: 12rem;"
-                                                data-simplebar data-simplebar-auto-hide="false">
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">View
-                                                            all</span><span class="fs-xs text-muted ms-3">801</span></a>
-                                                </li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span
-                                                            class="widget-filter-item-text">Handbags</span><span
-                                                            class="fs-xs text-muted ms-3">238</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span
-                                                            class="widget-filter-item-text">Backpacks</span><span
-                                                            class="fs-xs text-muted ms-3">116</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span
-                                                            class="widget-filter-item-text">Wallets</span><span
-                                                            class="fs-xs text-muted ms-3">104</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span
-                                                            class="widget-filter-item-text">Luggage</span><span
-                                                            class="fs-xs text-muted ms-3">115</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Lumbar
-                                                            Packs</span><span
-                                                            class="fs-xs text-muted ms-3">17</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Duffle
-                                                            Bags</span><span class="fs-xs text-muted ms-3">9</span></a>
-                                                </li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Bag / Travel
-                                                            Accessories</span><span
-                                                            class="fs-xs text-muted ms-3">93</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Diaper
-                                                            Bags</span><span class="fs-xs text-muted ms-3">5</span></a>
-                                                </li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Lunch
-                                                            Bags</span><span class="fs-xs text-muted ms-3">8</span></a>
-                                                </li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Messenger
-                                                            Bags</span><span class="fs-xs text-muted ms-3">2</span></a>
-                                                </li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Laptop
-                                                            Bags</span><span class="fs-xs text-muted ms-3">31</span></a>
-                                                </li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span
-                                                            class="widget-filter-item-text">Briefcases</span><span
-                                                            class="fs-xs text-muted ms-3">45</span></a></li>
-                                                <li class="widget-list-item widget-filter-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span class="widget-filter-item-text">Sport
-                                                            Bags</span><span class="fs-xs text-muted ms-3">18</span></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Sunglasses-->
-                            <div class="accordion-item">
-                                <h3 class="accordion-header"><a class="accordion-button collapsed" href="#sunglasses"
-                                        role="button" data-bs-toggle="collapse" aria-expanded="false"
-                                        aria-controls="sunglasses">Sunglasses</a></h3>
-                                <div class="collapse" id="sunglasses" data-bs-parent="#shop-categories">
-                                    <div class="accordion-body">
-                                        <div class="widget widget-links">
-                                            <ul class="widget-list">
-                                                <li class="widget-list-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span>View all</span><span
-                                                            class="fs-xs text-muted ms-3">1,842</span></a></li>
-                                                <li class="widget-list-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span>Fashion Sunglasses</span><span
-                                                            class="fs-xs text-muted ms-3">953</span></a></li>
-                                                <li class="widget-list-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span>Sport Sunglasses</span><span
-                                                            class="fs-xs text-muted ms-3">589</span></a></li>
-                                                <li class="widget-list-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span>Classic Sunglasses</span><span
-                                                            class="fs-xs text-muted ms-3">300</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Watches-->
-                            <div class="accordion-item">
-                                <h3 class="accordion-header"><a class="accordion-button collapsed" href="#watches"
-                                        role="button" data-bs-toggle="collapse" aria-expanded="false"
-                                        aria-controls="watches">Watches</a></h3>
-                                <div class="accordion-collapse collapse" id="watches" data-bs-parent="#shop-categories">
-                                    <div class="accordion-body">
-                                        <div class="widget widget-links">
-                                            <ul class="widget-list">
-                                                <li class="widget-list-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span>View all</span><span
-                                                            class="fs-xs text-muted ms-3">734</span></a></li>
-                                                <li class="widget-list-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span>Fashion Watches</span><span
-                                                            class="fs-xs text-muted ms-3">572</span></a></li>
-                                                <li class="widget-list-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span>Casual Watches</span><span
-                                                            class="fs-xs text-muted ms-3">110</span></a></li>
-                                                <li class="widget-list-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span>Luxury Watches</span><span
-                                                            class="fs-xs text-muted ms-3">34</span></a></li>
-                                                <li class="widget-list-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span>Sport Watches</span><span
-                                                            class="fs-xs text-muted ms-3">18</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Accessories-->
-                            <div class="accordion-item">
-                                <h3 class="accordion-header"><a class="accordion-button collapsed" href="#accessories"
-                                        role="button" data-bs-toggle="collapse" aria-expanded="false"
-                                        aria-controls="accessories">Accessories</a></h3>
-                                <div class="accordion-collapse collapse" id="accessories"
-                                    data-bs-parent="#shop-categories">
-                                    <div class="accordion-body">
-                                        <div class="widget widget-links">
-                                            <ul class="widget-list">
-                                                <li class="widget-list-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span>View all</span><span
-                                                            class="fs-xs text-muted ms-3">920</span></a></li>
-                                                <li class="widget-list-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span>Belts</span><span
-                                                            class="fs-xs text-muted ms-3">364</span></a></li>
-                                                <li class="widget-list-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span>Hats</span><span
-                                                            class="fs-xs text-muted ms-3">405</span></a></li>
-                                                <li class="widget-list-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span>Jewelry</span><span
-                                                            class="fs-xs text-muted ms-3">131</span></a></li>
-                                                <li class="widget-list-item"><a
-                                                        class="widget-list-link d-flex justify-content-between align-items-center"
-                                                        href="#"><span>Cosmetics</span><span
-                                                            class="fs-xs text-muted ms-3">20</span></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+
+                            <!-- Keep Sorting When Filtering -->
+                            <?php if (isset($_GET['sorting'])): ?>
+                                <input type="hidden" name="sorting" value="<?= $_GET['sorting']; ?>">
+                            <?php endif; ?>
+
+                            <button type="submit" class="btn btn-sm btn-primary mt-3">
+                                Apply Filter
+                            </button>
+
+                        </form>
                     </div>
                 </div>
             </div>
@@ -452,70 +120,71 @@ require_once("./layouts/header.php");
         <!-- Content  -->
         <section class="col-lg-8">
             <!-- Toolbar-->
-            <div class="d-flex justify-content-center justify-content-sm-between align-items-center pt-2 pb-4 pb-sm-5">
+            <div class="d-flex  justify-content-center justify-content-sm-between align-items-center pt-2 pb-4 pb-sm-5">
                 <div class="d-flex flex-wrap">
-                    <div class="d-flex align-items-center flex-nowrap me-3 me-sm-4 pb-3">
-                        <label class="text-light opacity-75 text-nowrap fs-sm me-2 d-none d-sm-block" for="sorting">Sort
-                            by:</label>
-                        <select class="form-select" id="sorting">
-                            <option>Popularity</option>
-                            <option>Low - Hight Price</option>
-                            <option>High - Low Price</option>
-                            <option>Average Rating</option>
-                            <option>A - Z Order</option>
-                            <option>Z - A Order</option>
-                        </select><span class="fs-sm text-light opacity-75 text-nowrap ms-2 d-none d-md-block">of 287
-                            products</span>
-                    </div>
-                </div>
-                <div class="d-flex pb-3">
-                    <a class="nav-link-style nav-link-light me-3" href="#"><i class="ci-arrow-left"></i></a>
-                    <span class="fs-md text-light">1 / 5</span>
-                    <a class="nav-link-style nav-link-light ms-3" href="#"><i class="ci-arrow-right"></i></a>
+                    <form method="GET">
+                        <div class="d-flex align-items-center flex-nowrap me-3 me-sm-4 pb-3">
+                            <label class="text-light opacity-75 text-nowrap fs-sm me-2 d-none d-sm-block">
+                                Sort by:
+                            </label>
+
+                            <select class="form-select" name="sorting" onchange="this.form.submit()">
+                                <option value="a_z" <?= (isset($_GET['sorting']) && $_GET['sorting'] == 'a_z') ? 'selected' : '' ?>>
+                                    A - Z Order
+                                </option>
+
+                                <option value="low_high" <?= (isset($_GET['sorting']) && $_GET['sorting'] == 'low_high') ? 'selected' : '' ?>>
+                                    Low - High Price
+                                </option>
+                                <option value="high_low" <?= (isset($_GET['sorting']) && $_GET['sorting'] == 'high_low') ? 'selected' : '' ?>>
+                                    High - Low Price
+                                </option>
+                                <option value="z_a" <?= (isset($_GET['sorting']) && $_GET['sorting'] == 'z_a') ? 'selected' : '' ?>>
+                                    Z - A Order
+                                </option>
+
+                            </select>
+
+                            <span class="fs-sm text-light opacity-75 text-nowrap ms-2 d-none d-md-block">
+                                of <?= count($products) ?> products
+                            </span>
+                        </div>
+                    </form>
+
                 </div>
             </div>
+
+            <form method="GET" class="input-group d-none d-lg-flex">
+                <input class="form-control rounded-end pe-5" type="text" name="search"
+                    value="<?= $_GET['search'] ?? '' ?>" placeholder="Search for products">
+
+                <button type="submit" style="display:none;"></button>
+            </form>
+
             <!-- Products grid-->
-            <div class="row mx-n2">
+            <div class="row mx-n2 pt-3">
                 <?php
+                if($products){
                 foreach ($products as $product) {
                     echo product_ui_1($product);
                 }
+            }else{
+                require_once('nothing-here.php');
+            }
                 ?>
             </div>
+            <hr class="my-3">
             <!-- Banner -->
             <div class="py-sm-2">
                 <div
                     class="d-sm-flex justify-content-between align-items-center bg-secondary overflow-hidden mb-4 rounded-3">
-                    <img class="d-block ms-auto" src="img/shop/catalog/banner.png" alt="Shop Converse">
+                    <img class="d-block ms-auto" src="img/shop/catalog/banner.png" alt="Ad Section">
                 </div>
             </div>
-
             <hr class="my-3">
-            <!-- Pagination-->
-            <nav class="d-flex justify-content-between pt-2" aria-label="Page navigation">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#"><i class="ci-arrow-left me-2"></i>Prev</a></li>
-                </ul>
-                <ul class="pagination">
-                    <li class="page-item d-sm-none"><span class="page-link page-link-static">1 / 5</span></li>
-                    <li class="page-item active d-none d-sm-block" aria-current="page"><span class="page-link">1<span
-                                class="visually-hidden">(current)</span></span></li>
-                    <li class="page-item d-none d-sm-block"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item d-none d-sm-block"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item d-none d-sm-block"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item d-none d-sm-block"><a class="page-link" href="#">5</a></li>
-                </ul>
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#" aria-label="Next">Next<i
-                                class="ci-arrow-right ms-2"></i></a></li>
-                </ul>
-            </nav>
         </section>
     </div>
 </div>
-
-
-
 <?php
 require_once("./layouts/footer.php");
 ?>

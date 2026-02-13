@@ -3,7 +3,7 @@ require_once("./modules/config.php");
 protected_area();
 require_once("./layouts/header.php");
 
-$cart_cont = 0;
+$cart_count = 0;
 $cart_items = [];
 $cart_total = 0;
 
@@ -13,7 +13,7 @@ if (isset($_SESSION["cart"])) {
             $cart_total += $item['selling_price'];
             $cart_items[] = $item;
         }
-        $cart_cont = count($_SESSION["cart"]);
+        $cart_count = count($_SESSION["cart"]);
     }
 }
 ?>
@@ -78,7 +78,7 @@ if (isset($_SESSION["cart"])) {
                 <div class="py-2 px-xl-2">
                     <div class="text-center mb-4 pb-3 border-bottom">
                         <h2 class="h6 mb-3 pb-1">Subtotal</h2>
-                        <h3 class="fw-normal">NPR <?=$cart_total?>.<small>00</small></h3>
+                        <h3 class="fw-normal">NPR <?= $cart_total ?>.<small>00</small></h3>
                     </div>
                     <div class="mb-3 mb-4">
                         <label class="form-label mb-3" for="order-comments"><span
@@ -86,8 +86,8 @@ if (isset($_SESSION["cart"])) {
                                 comments</span></label>
                         <textarea class="form-control" rows="6" id="order-comments"></textarea>
                     </div>
-                    <a class="btn btn-primary btn-shadow d-block w-100 mt-4" href="checkout.php"><i
-                            class="ci-card fs-lg me-2"></i>Proceed to Checkout</a>
+                    <a class="btn btn-primary btn-shadow d-block w-100 mt-4 <?=($cart_count == 0) ? 'd-none' : ''; ?>"
+                        href="checkout.php"><i class="ci-card fs-lg me-2"></i>Proceed to Checkout</a>
                 </div>
             </div>
         </aside>

@@ -26,6 +26,7 @@ if($res->num_rows>0){
 }
 
 //enrypts the password
+$plain_password = $password;
 $password = password_hash($password, PASSWORD_DEFAULT);
 $created = time();
 
@@ -48,9 +49,9 @@ $sql = "INSERT INTO users (
         )";
 
 if($conn->query($sql)){
-    login_user($email,$password);
+    login_user($email,$plain_password);
     alert("success","Welcome '$first_name' to ThriftZaar Nepal");
-    header('Location: account-profile.php');
+    header('Location: /thriftzaar-nepal');
 }else{
     alert("danger","Failed, Something went wrong!");
     header("Location: login.php");

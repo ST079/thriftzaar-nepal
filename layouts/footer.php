@@ -1,35 +1,6 @@
 </main>
 <!-- Footer-->
 <footer class="footer bg-dark pt-5">
-  <div class="container">
-    <div class="row pb-2">
-      <div class="col-md-4 col-sm-6">
-        <div class="widget widget-links widget-light pb-2 mb-4">
-          <h3 class="widget-title text-light">Shop departments</h3>
-          <ul class="widget-list">
-            <li class="widget-list-item"><a class="widget-list-link" href="#">Sneakers &amp; Athletic</a></li>
-            <li class="widget-list-item"><a class="widget-list-link" href="#">Athletic Apparel</a></li>
-            <li class="widget-list-item"><a class="widget-list-link" href="#">Sandals</a></li>
-            <li class="widget-list-item"><a class="widget-list-link" href="#">Jeans</a></li>
-            <li class="widget-list-item"><a class="widget-list-link" href="#">Shirts &amp; Tops</a></li>
-            <li class="widget-list-item"><a class="widget-list-link" href="#">Shorts</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-md-4 col-sm-6">
-        <div class="widget widget-links widget-light pb-2 mb-4">
-          <h3 class="widget-title text-light">About us</h3>
-          <ul class="widget-list">
-            <li class="widget-list-item"><a class="widget-list-link" href="#">About company</a></li>
-            <li class="widget-list-item"><a class="widget-list-link" href="#">Our team</a></li>
-            <li class="widget-list-item"><a class="widget-list-link" href="#">Careers</a></li>
-            <li class="widget-list-item"><a class="widget-list-link" href="#">News</a></li>
-          </ul>
-        </div>
-      </div>
-      
-    </div>
-  </div>
   <div class="pt-5 bg-darker">
     <div class="container">
       <div class="row pb-3">
@@ -75,8 +46,6 @@
           </div>
           <div class="widget widget-links widget-light">
             <ul class="widget-list d-flex flex-wrap justify-content-center justify-content-md-start">
-              <li class="widget-list-item me-4"><a class="widget-list-link" href="#">Outlets</a></li>
-              <li class="widget-list-item me-4"><a class="widget-list-link" href="#">Affiliates</a></li>
               <li class="widget-list-item me-4"><a class="widget-list-link" href="#">Support</a></li>
               <li class="widget-list-item me-4"><a class="widget-list-link" href="#">Privacy</a></li>
               <li class="widget-list-item me-4"><a class="widget-list-link" href="#">Terms of use</a></li>
@@ -84,13 +53,10 @@
           </div>
         </div>
         <div class="col-md-6 text-center text-md-end mb-4">
-          <div class="mb-3"><a class="btn-social bs-light bs-twitter ms-2 mb-2" href="#"><i
-                class="ci-twitter"></i></a><a class="btn-social bs-light bs-facebook ms-2 mb-2" href="#"><i
-                class="ci-facebook"></i></a><a class="btn-social bs-light bs-instagram ms-2 mb-2" href="#"><i
-                class="ci-instagram"></i></a><a class="btn-social bs-light bs-pinterest ms-2 mb-2" href="#"><i
-                class="ci-pinterest"></i></a><a class="btn-social bs-light bs-youtube ms-2 mb-2" href="#"><i
-                class="ci-youtube"></i></a></div><img class="d-inline-block" src="img/cards-alt.png" width="187"
-            alt="Payment methods">
+          <div class="mb-3">
+                <a class="btn-social bs-light bs-facebook ms-2 mb-2" href="#"><i class="ci-facebook"></i></a>
+                <a class="btn-social bs-light bs-instagram ms-2 mb-2" href="#"><i class="ci-instagram"></i></a>
+              </div>
         </div>
       </div>
       <div class="pb-4 fs-xs text-light opacity-50 text-center text-md-start">© All rights reserved. Made by <a
@@ -100,15 +66,19 @@
 </footer>
 <!-- Toolbar for handheld devices (Default)-->
 <div class="handheld-toolbar">
-  <div class="d-table table-layout-fixed w-100"><a class="d-table-cell handheld-toolbar-item"
-      href="account-wishlist.html"><span class="handheld-toolbar-icon"><i class="ci-heart"></i></span><span
-        class="handheld-toolbar-label">Wishlist</span></a><a class="d-table-cell handheld-toolbar-item"
+  <div class="d-table table-layout-fixed w-100">
+    <a class="d-table-cell handheld-toolbar-item"
       href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
       onclick="window.scrollTo(0, 0)"><span class="handheld-toolbar-icon"><i class="ci-menu"></i></span><span
-        class="handheld-toolbar-label">Menu</span></a><a class="d-table-cell handheld-toolbar-item"
-      href="shop-cart.html"><span class="handheld-toolbar-icon"><i class="ci-cart"></i><span
-          class="badge bg-primary rounded-pill ms-1">4</span></span><span
-        class="handheld-toolbar-label">$265.00</span></a></div>
+        class="handheld-toolbar-label">Menu</span></a>
+        <a class="d-table-cell handheld-toolbar-item"
+      href="cart.php"><span class="handheld-toolbar-icon"><i class="ci-cart"></i><span
+          class="badge bg-primary rounded-pill ms-1"><?php if (is_logged_in()) {
+                                                echo $cart_cont;
+                                            } else {
+                                                echo "";
+                                            } ?></span></span><span
+        class="handheld-toolbar-label">NPR <?= $cart_total ?></span></a></div>
 </div>
 <!-- Back To Top Button--><a class="btn-scroll-top" href="#top" data-scroll><span
     class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span><i class="btn-scroll-top-icon ci-arrow-up"> </i></a>

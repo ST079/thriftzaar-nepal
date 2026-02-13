@@ -36,39 +36,29 @@ require_once("./layouts/header.php");
                     out</a>
             </div>
             <!-- Profile form-->
-            <form>
-                <div class="bg-secondary rounded-3 p-4 mb-4">
-                    <div class="d-flex align-items-center"><img class="rounded" src="img/shop/account/default.png"
-                            width="90" alt="Susan Gardner">
-                        <div class="ps-3">
-                            <button class="btn btn-light btn-shadow btn-sm mb-2" type="button"><i
-                                    class="ci-loading me-2"></i>Change avatar</button>
-                            <div class="p mb-0 fs-ms text-muted">Upload JPG, JPEG or PNG image. 300 x 300 required.</div>
-                        </div>
-                    </div>
-                </div>
+            <form method="POST" action="update-profile.php">
                 <div class="row gx-4 gy-3">
                     <div class="col-sm-6">
                         <label class="form-label" for="account-fn">First Name</label>
-                        <input class="form-control" type="text" id="account-fn" value="<?= $_SESSION['user']['first_name']?>">
+                        <input class="form-control" name="first_name" type="text" id="account-fn" value="<?= $_SESSION['user']['first_name']?>">
                     </div>
                     <div class="col-sm-6">
                         <label class="form-label" for="account-ln">Last Name</label>
-                        <input class="form-control" type="text" id="account-ln" value="<?= $_SESSION['user']['last_name']?>">
+                        <input class="form-control" name="last_name" type="text" id="account-ln" value="<?= $_SESSION['user']['last_name']?>">
                     </div>
                     <div class="col-sm-6">
                         <label class="form-label" for="account-email">Email Address</label>
-                        <input class="form-control" type="email" id="account-email" value="<?= $_SESSION['user']['email']?>"
+                        <input class="form-control"  type="email" id="account-email" value="<?= $_SESSION['user']['email']?>"
                             disabled>
                     </div>
                     <div class="col-sm-6">
                         <label class="form-label" for="account-phone">Phone Number</label>
-                        <input class="form-control" type="text" id="account-phone" value="<?= $_SESSION['user']['phone_number']?>" required>
+                        <input class="form-control" name="phone_number" type="text" id="account-phone" value="<?= $_SESSION['user']['phone_number']?>" required>
                     </div>
                     <div class="col-sm-6">
                         <label class="form-label" for="account-pass">New Password</label>
                         <div class="password-toggle">
-                            <input class="form-control" type="password" id="account-pass">
+                            <input class="form-control" name="password" type="password" id="account-pass">
                             <label class="password-toggle-btn" aria-label="Show/hide password">
                                 <input class="password-toggle-check" type="checkbox"><span
                                     class="password-toggle-indicator"></span>
@@ -78,7 +68,7 @@ require_once("./layouts/header.php");
                     <div class="col-sm-6">
                         <label class="form-label" for="account-confirm-pass">Confirm Password</label>
                         <div class="password-toggle">
-                            <input class="form-control" type="password" id="account-confirm-pass">
+                            <input class="form-control" name="password_1" type="password" id="account-confirm-pass">
                             <label class="password-toggle-btn" aria-label="Show/hide password">
                                 <input class="password-toggle-check" type="checkbox"><span
                                     class="password-toggle-indicator"></span>
@@ -88,7 +78,7 @@ require_once("./layouts/header.php");
                     <div class="col-12">
                         <hr class="mt-2 mb-3">
                         <div class="d-flex flex-wrap justify-content-between align-items-center">
-                            <button class="btn btn-primary mt-3 mt-sm-0" type="button">Update profile</button>
+                            <button class="btn btn-primary mt-3 mt-sm-0" type="submit">Update profile</button>
                         </div>
                     </div>
                 </div>

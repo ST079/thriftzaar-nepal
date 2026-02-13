@@ -1,16 +1,27 @@
 <div class="container pb-5 mb-sm-4">
-    <div class="pt-5">
-        <div class="card py-3 mt-sm-3">
-            <div class="card-body text-center">
-                <h2 class="h4 pb-3">Thank you for your order!
-                    <?= $_SESSION['user']['first_name'] . " " . $_SESSION['user']['last_name'] ?>
-                </h2>
-                <p class="fs-sm mb-2">Your order has been placed and will be processed as soon as possible.</p>
-                <p class="fs-sm">. <u>You can
-                        now:</u></p><a class="btn btn-secondary mt-3 me-3" href="shop-grid-ls.html">Go back
-                    shopping</a><a class="btn btn-primary mt-3" href="order-tracking.html"><i
-                        class="ci-location"></i>&nbsp;Track order</a>
+    <div class="pt-5 d-flex justify-content-center">
+        <div class="card shadow-sm border-0 text-center p-4" style="max-width:500px;">
+
+            <div class="mb-3">
+                <i class="ci-bag fs-1 text-primary"></i>
             </div>
+
+            <h2 class="h4 mb-2 fw-bold">
+                Nothing here yet,
+                <span class="text-primary">
+                    <?= $_SESSION['user']['first_name']." ".$_SESSION['user']['last_name'] ?>
+                </span> 👀
+            </h2>
+
+            <p class="text-muted mb-4">
+                Looks a bit empty right now. Try browsing products!
+            </p>
+
+            <a href="hamro-pasal.php" class="btn btn-primary">
+                <i class="ci-shop me-2"></i>
+                Browse Products
+            </a>
+
         </div>
     </div>
 </div>

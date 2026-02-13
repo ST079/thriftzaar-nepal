@@ -2,6 +2,28 @@
 require_once("./modules/config.php");
 protected_area();
 require_once("./layouts/header.php");
+
+$user_type = $_SESSION["user"]["user_type"];
+$user_id = $_SESSION["user"]["user_id"];
+$orders = [];
+
+if($user_type == 'admin') {
+  $orders = db_select("orders");
+} else {
+  global $conn;
+  $sql = "SELECT orders.*, users.user_id FROM  orders 
+  JOIN  users ON orders.user_id = users.user_id WHERE orders.user_id = $user_id ORDER BY orders.order_id DESC";
+  $res = $conn->query($sql);
+  while ($row = $res->fetch_assoc()) {
+    $orders[] = $row;
+  }
+}
+
+// echo "<pre>";
+// print_r($_SESSION["user"]["user_type"]);
+// print_r($orders);
+// die();
+
 ?>
 
 <!-- Page Title-->
@@ -18,7 +40,7 @@ require_once("./layouts/header.php");
       </nav>
     </div>
     <div class="order-lg-1 pe-lg-4 text-center text-lg-start">
-      <h1 class="h3 text-light mb-0">My orders</h1>
+      <h1 class="h3 text-light mb-0">rders</h1>
     </div>
   </div>
 </div>
@@ -56,70 +78,48 @@ require_once("./layouts/header.php");
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="py-3"><a class="nav-link-style fw-medium fs-sm" href="#order-details"
-                  data-bs-toggle="modal">34VB5540K83</a></td>
-              <td class="py-3">May 21, 2019</td>
-              <td class="py-3"><span class="badge bg-info m-0">In Progress</span></td>
-              <td class="py-3">$358.75</td>
-            </tr>
-            <tr>
-              <td class="py-3"><a class="nav-link-style fw-medium fs-sm" href="#order-details"
-                  data-bs-toggle="modal">78A643CD409</a></td>
-              <td class="py-3">December 09, 2018</td>
-              <td class="py-3"><span class="badge bg-danger m-0">Canceled</span></td>
-              <td class="py-3"><span>$760.50</span></td>
-            </tr>
-            <tr>
-              <td class="py-3"><a class="nav-link-style fw-medium fs-sm" href="#order-details"
-                  data-bs-toggle="modal">112P45A90V2</a></td>
-              <td class="py-3">October 15, 2018</td>
-              <td class="py-3"><span class="badge bg-warning m-0">Delayed</span></td>
-              <td class="py-3">$1,264.00</td>
-            </tr>
-            <tr>
-              <td class="py-3"><a class="nav-link-style fw-medium fs-sm" href="#order-details"
-                  data-bs-toggle="modal">28BA67U0981</a></td>
-              <td class="py-3">July 19, 2018</td>
-              <td class="py-3"><span class="badge bg-success m-0">Delivered</span></td>
-              <td class="py-3">$198.35</td>
-            </tr>
-            <tr>
-              <td class="py-3"><a class="nav-link-style fw-medium fs-sm" href="#order-details"
-                  data-bs-toggle="modal">502TR872W2</a></td>
-              <td class="py-3">April 04, 2018</td>
-              <td class="py-3"><span class="badge bg-success m-0">Delivered</span></td>
-              <td class="py-3">$2,133.90</td>
-            </tr>
-            <tr>
-              <td class="py-3"><a class="nav-link-style fw-medium fs-sm" href="#order-details"
-                  data-bs-toggle="modal">47H76G09F33</a></td>
-              <td class="py-3">March 30, 2018</td>
-              <td class="py-3"><span class="badge bg-success m-0">Delivered</span></td>
-              <td class="py-3">$86.40</td>
-            </tr>
+            <?php
+            if($orders) {
+            foreach ($orders as $order){ ?>
+              <tr>
+                <td class="py-3">
+                  <a class="nav-link-style fw-medium fs-sm" href="#order-details" data-bs-toggle="modal">
+                    <?= htmlspecialchars($order['order_id']) ?>
+                  </a>
+                </td>
+                <td class="py-3">
+                  <?= date("F d", strtotime($order['order_time'])) ?>
+                </td>
+                <td class="py-3">
+                  <?php
+                  // Convert numeric status to text
+                  if ($order['order_status'] == 1) {
+                    $status_text = 'In Progress';
+                    $badge_class = 'bg-info';
+                  } elseif ($order['order_status'] == 0) {
+                    $status_text = 'Completed';
+                    $badge_class = 'bg-success';
+                  } elseif ($order['order_status'] == -1) {
+                    $status_text = 'Canceled';
+                    $badge_class = 'bg-danger';
+                  } else {
+                    $status_text = 'Unknown';
+                    $badge_class = 'bg-secondary';
+                  }
+                  ?>
+                  <span class="badge <?= $badge_class ?> m-0"><?= htmlspecialchars($status_text) ?></span>
+                </td>
+                <td class="py-3">
+                  NPR <?= number_format($order['total_price'], 0) ?>
+                </td>
+              </tr>
+            <?php } 
+            }else{
+              require_once('nothing-here.php');
+            } ?>
           </tbody>
         </table>
       </div>
-      <!-- Pagination-->
-      <nav class="d-flex justify-content-between pt-2" aria-label="Page navigation">
-        <ul class="pagination">
-          <li class="page-item"><a class="page-link" href="#"><i class="ci-arrow-left me-2"></i>Prev</a></li>
-        </ul>
-        <ul class="pagination">
-          <li class="page-item d-sm-none"><span class="page-link page-link-static">1 / 5</span></li>
-          <li class="page-item active d-none d-sm-block" aria-current="page"><span class="page-link">1<span
-                class="visually-hidden">(current)</span></span></li>
-          <li class="page-item d-none d-sm-block"><a class="page-link" href="#">2</a></li>
-          <li class="page-item d-none d-sm-block"><a class="page-link" href="#">3</a></li>
-          <li class="page-item d-none d-sm-block"><a class="page-link" href="#">4</a></li>
-          <li class="page-item d-none d-sm-block"><a class="page-link" href="#">5</a></li>
-        </ul>
-        <ul class="pagination">
-          <li class="page-item"><a class="page-link" href="#" aria-label="Next">Next<i
-                class="ci-arrow-right ms-2"></i></a></li>
-        </ul>
-      </nav>
     </section>
   </div>
 </div>
