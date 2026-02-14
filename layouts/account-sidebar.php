@@ -8,6 +8,7 @@ $orders = [];
 
 if ($user_type == 'admin') {
     $orders = db_select("orders");
+    $users = db_select("users");
 } else {
     global $conn;
     $sql = "SELECT orders.*, users.user_id FROM  orders 
@@ -56,6 +57,9 @@ if ($user_type == 'admin') {
                     <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                             href="admin-products.php"><i class="ci-truck opacity-60 me-2"></i>All Products <span
                                 class="fs-sm text-muted ms-auto"><?= count($products) ?></span></a></li>
+                                 <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                            href="admin-users.php"><i class="ci-user opacity-60 me-2"></i>All Users <span
+                                class="fs-sm text-muted ms-auto"><?= count($users) ?></span></a></li>
                 </ul>
             <?php } else {
             } ?>

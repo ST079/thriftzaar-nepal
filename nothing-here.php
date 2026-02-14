@@ -10,7 +10,7 @@
                 Nothing here yet,
                 <span class="text-primary">
                     <?= $_SESSION['user']['first_name']." ".$_SESSION['user']['last_name'] ?>
-                </span> 👀
+                </span>
             </h2>
 
             <p class="text-muted mb-4">

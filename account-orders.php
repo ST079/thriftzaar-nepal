@@ -69,7 +69,7 @@ if($user_type == 'admin') {
       <!-- Orders list-->
       <div class="table-responsive fs-md mb-4">
         <table class="table table-hover mb-0">
-          <thead>
+          <thead class="<?php echo $orders ? '' : 'd-none'; ?>">
             <tr>
               <th>Order #</th>
               <th>Date Purchased</th>
@@ -78,9 +78,9 @@ if($user_type == 'admin') {
             </tr>
           </thead>
           <tbody>
-            <?php
+          <?php
             if($orders) {
-            foreach ($orders as $order){ ?>
+              foreach ($orders as $order){ ?>
               <tr>
                 <td class="py-3">
                   <a class="nav-link-style fw-medium fs-sm" href="#order-details" data-bs-toggle="modal">
@@ -112,12 +112,12 @@ if($user_type == 'admin') {
                 <td class="py-3">
                   NPR <?= number_format($order['total_price'], 0) ?>
                 </td>
-              </tr>
-            <?php } 
+                </tr>
+                <?php } 
             }else{
               require_once('nothing-here.php');
             } ?>
-          </tbody>
+            </tbody>
         </table>
       </div>
     </section>
