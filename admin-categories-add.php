@@ -8,10 +8,6 @@ $categories[0] = "No Parent";
 foreach ($rows as $key => $value) {
     $categories[$value['c_id']] = $value['c_name'];
 }
-// echo"<pre>";
-// print_r();
-// die();
-// name photo parent_id description
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION["form"]["value"] = $_POST;

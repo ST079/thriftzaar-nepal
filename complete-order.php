@@ -1,14 +1,16 @@
 <?php
 require_once("./layouts/header.php");
+protected_area(); // Make sure user is logged in
 require_once("./modules/config.php");
 $user = $_SESSION["user"];
+
 
 if (isset($_SESSION["shipping"]) && $_SESSION["cart"]) {
     $total_price = 0;
     foreach ($_SESSION["cart"] as $key => $value) {
         $total_price += $value['quantity'] * $value["selling_price"];
     }
-
+    
     db_insert("orders", [
         'user_id' => (int) $user['user_id'],
         'order_status' => 1,
@@ -17,7 +19,7 @@ if (isset($_SESSION["shipping"]) && $_SESSION["cart"]) {
         'order_time' => time(),
         'total_price' => $total_price,
     ]);
-    $_SESSION['shipping'] = null;
+ 
     unset($_SESSION['cart']);
     unset($_SESSION['shipping']);
 }

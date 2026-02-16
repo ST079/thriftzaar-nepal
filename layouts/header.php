@@ -35,7 +35,7 @@ if (!in_array($request, $allowed_pages)) {
 }
 $products = db_select("products");
 
-$cart_cont = 0;
+$cart_count = 0;
 $cart_items = [];
 $cart_total = 0;
 $my_cart_counter = 0;
@@ -49,7 +49,7 @@ if (isset($_SESSION["cart"])) {
             }
             $cart_items[] = $item;
         }
-        $cart_cont = count($_SESSION["cart"]);
+        $cart_count = count($_SESSION["cart"]);
     }
 }
 
@@ -202,7 +202,7 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                                 <div class="navbar-tool dropdown ms-3"><a
                                         class="navbar-tool-icon-box bg-secondary dropdown-toggle" href="cart.php"><span
                                             class="navbar-tool-label"><?php if (is_logged_in()) {
-                                                echo $cart_cont;
+                                                echo $cart_count;
                                             } else {
                                                 echo "";
                                             } ?></span><i class="navbar-tool-icon ci-cart"></i></a><a

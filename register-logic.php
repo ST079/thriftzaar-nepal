@@ -1,6 +1,7 @@
 <?php
 
-require_once("./modules/config.php");
+require_once("modules/config.php");
+
 
 $email = trim($_POST['email']);
 $password = trim($_POST['password']);
@@ -18,6 +19,8 @@ if($password != $password_1){
 
 $sql = "SELECT * FROM users WHERE email = '{$email}'";
 $res = $conn->query($sql);
+
+
 
 if($res->num_rows>0){
     alert("danger","You already have an account with this email address!!!");

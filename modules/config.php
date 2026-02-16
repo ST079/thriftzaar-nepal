@@ -3,7 +3,7 @@
 use stefangabos\Zebra_Image\Zebra_Image;
 require_once("Zebra_Image.php");
 
-if (session_start() === PHP_SESSION_NONE) {
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
@@ -23,7 +23,6 @@ function login_user($email, $password)
     if (!password_verify($password, $row['password'])) {
         return false;
     }
-    ;
     $_SESSION['user'] = $row;
     return true;
 }
@@ -107,6 +106,7 @@ function text_input($data)
     $label = (isset($data["label"])) ? $data["label"] : "";
     $placeholder = (isset($data["placeholder"])) ? $data["placeholder"] : "";
     $error = (isset($data["error"])) ? $data["error"] : $error;
+    $value = (isset($data["value"])) ? $data["value"] : $value;
 
     return
         '<label class="form-label text-capitalize" for="' . $name . '">' . $label . '</label>
@@ -347,8 +347,7 @@ function db_insert($table_name, $data)
     }
     $column_names .= ")";
     $column_values .= ")";
-    $sql .= $column_names . "VALUES" . $column_values;
-
+    $sql .= $column_names . " VALUES" . $column_values;
 
     if ($conn->query($sql)) {
         return true;

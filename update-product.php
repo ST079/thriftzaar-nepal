@@ -9,31 +9,9 @@ foreach ($rows as $key => $value) {
     $categories[$value['c_id']] = $value['c_name'];
 }
 
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $_SESSION["form"]["value"] = $_POST;
-    
-    
-    $imgs = upload_images($_FILES);
-    $data['p_name'] = $_POST['name'];
-    $data['buying_price'] = $_POST['cp'];
-    $data['selling_price'] = $_POST['sp'];
-    $data['description'] = $_POST['description'];
-    $data['photos'] = json_encode($imgs);
-    $data['user_id'] = $_SESSION['user']["user_id"];
-    $data['c_id'] = (int) ($_POST['parent_id']);
-
-    //insert data into categories table
-    if (db_insert('products', $data)) {
-        alert("success", "Products Added Successfully");
-        header("Location: admin-products.php");
-        unset($_SESSION["form"]);
-    } else {
-        alert("danger", "Failed to add product try again!");
-        header("Location: admin-products-add.php");
-    }
-    die();
-}
+$id = $_GET['id'];
+$product = get_product($id);
+$photos = json_decode($product['photos'], true);
 
 require_once("./layouts/header.php");
 ?>
@@ -44,11 +22,11 @@ require_once("./layouts/header.php");
         <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-2">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
-                    <li class="breadcrumb-item"><a class="text-nowrap" href="index-2.html"><i
+                    <li class="breadcrumb-item"><a class="text-nowrap" href="<?= url("") ?>"><i
                                 class="ci-home"></i>Home</a></li>
-                    <li class="breadcrumb-item text-nowrap"><a href="#">Account</a>
+                    <li class="breadcrumb-item text-nowrap"><a href="admin-products.php">All Products</a>
                     </li>
-                    <li class="breadcrumb-item text-nowrap active" aria-current="page">Orders history</li>
+                    <li class="breadcrumb-item text-nowrap active" aria-current="page">Update Product</li>
                 </ol>
             </nav>
         </div>
@@ -71,83 +49,94 @@ require_once("./layouts/header.php");
             </section>
             <section class="pt-lg-4 pb-4 mb-3">
                 <div class="pt-2 px-4 ps-lg-0 pe-xl-5">
-                    <!-- Title-->
-                    <div class="d-sm-flex flex-wrap justify-content-between align-items-center pb-2">
-                        <h2 class="h3 py-2 me-2 text-center text-sm-start">Add New Product</h2>
-                    </div>
-                    <form action="admin-products-add.php" method="POST" enctype="multipart/form-data">
+                    <form action="admin-product-update.php?id=<?= $id ?>" method="POST" enctype="multipart/form-data">
                         <div class="mb-3 pb-2">
-                            <?= text_input(['name' => 'name', 'label' => 'Product Name', 'placeholder' => 'Enter Product Name']) ?>
-                            <!-- <div class="form-text">Maximum 100 characters. No HTML or emoji allowed.</div> -->
-
+                            <?= text_input(['name' => 'name', 'label' => 'Product Name', 'value' => $product['p_name'], 'attributes' => 'required']) ?>
                         </div>
 
                         <div class="mb-3 pb-2">
                             <?= select_input(
-                                ['name' => 'parent_id', 'label' => 'Product Category'],
+                                ['name' => 'parent_id', 'label' => 'Product Category', 'value' => $product['c_id'], 'attributes' => 'required'],
                                 $categories
                             ) ?>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-md-6 mt-3">
-                                <label class="form-label" for="photo">Product Photo 1</label>
-                                <input class="form-control" type="file" name="photo_1" id="photo"
-                                    accept=".jpg,.jpeg,.png">
-                            </div>
-                            <div class="col-md-6 mt-3">
-                                <label class="form-label" for="photo">Product Photo 2</label>
-                                <input class="form-control" type="file" name="photo_2" id="photo"
-                                    accept=".jpg,.jpeg,.png">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mt-3">
-                                <label class="form-label" for="photo">Product Photo 3</label>
-                                <input class="form-control" type="file" name="photo_3" id="photo"
-                                    accept=".jpg,.jpeg,.png">
-                            </div>
-                            <div class="col-md-6 mt-3">
-                                <label class="form-label" for="photo">Product Photo 4</label>
-                                <input class="form-control" type="file" name="photo_4" id="photo"
-                                    accept=".jpg,.jpeg,.png">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mt-3">
-                                <label class="form-label" for="photo">Product Photo 5</label>
-                                <input class="form-control" type="file" name="photo_5" id="photo"
-                                    accept=".jpg,.jpeg,.png">
-                            </div>
-                            <div class="col-md-6 mt-3">
-                                <label class="form-label" for="photo">Product Photo 6</label>
-                                <input class="form-control" type="file" name="photo_6" id="photo"
-                                    accept=".jpg,.jpeg,.png">
-                            </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col-sm-6 mb-3">
                                 <label class="form-label" for="unp-extended-price">Buying Price</label>
                                 <div class="input-group"><span class="input-group-text">NPR</span>
-                                    <?= text_input(['name' => 'cp', 'placeholder' => 'Enter Buying Price']) ?>
+                                    <?= text_input(['name' => 'cp', 'value' => $product['buying_price'], 'placeholder' => 'Enter Buying Price']) ?>
                                 </div>
                             </div>
                             <div class="col-sm-6 mb-3 ">
                                 <label class="form-label" for="unp-extended-price">Selling Price</label>
                                 <div class="input-group"><span class="input-group-text">NPR</span>
-                                    <?= text_input(['name' => 'sp', 'placeholder' => 'Enter Selling Price']) ?>
+                                    <?= text_input(['name' => 'sp', 'value' => $product['selling_price'], 'placeholder' => 'Enter Selling Price']) ?>
                                 </div>
                             </div>
                         </div>
 
-
                         <div class="mb-3 py-2">
                             <label class="form-label" for="description">Product description</label>
-                            <textarea class="form-control" name="description" rows="6" id="description"></textarea>
+                            <textarea class="form-control" name="description" rows="6"
+                                id="description"><?= $product['description'] ?></textarea>
                         </div>
 
+                        <div class="row">
+                            <label class="form-label" for="file">Product Photo</label>
+                            <div class="file-drop-area mb-3">
+                                <div class="file-drop-icon ci-cloud-upload"></div>
+                                <span class="file-drop-message">Drag and drop here to upload Product Image</span>
+
+                                <!-- Show current image -->
+                                <?php if (isset($photos[0])): ?>
+                                    <div class="mb-2">
+                                        <img src="<?= $photos[0]['thumb'] ?>" alt="Current Photo 1" width="100">
+                                        <span>Current Image</span>
+                                    </div>
+                                <?php endif; ?>
+
+                                <!-- File input to replace image -->
+                                <input class="file-drop-input" type="file" name="photo_1" accept=".jpg,.jpeg,.png">
+                                <button class="file-drop-btn btn btn-primary btn-sm mb-2" type="button">Or select
+                                    file</button>
+                            </div>
+
+
+                            <!-- Photo 2 -->
+                            <div class="file-drop-area mb-3">
+                                <div class="file-drop-icon ci-cloud-upload"></div>
+                                <span class="file-drop-message">Drag and drop here to upload Product Image</span>
+
+                                <?php if (isset($photos[1])): ?>
+                                    <div class="mb-2">
+                                        <img src="<?= $photos[1]['thumb'] ?>" alt="Current Photo 2" width="100">
+                                        <span>Current Image</span>
+                                    </div>
+                                <?php endif; ?>
+
+                                <input class="file-drop-input" type="file" name="photo_2" accept=".jpg,.jpeg,.png">
+                                <button class="file-drop-btn btn btn-primary btn-sm mb-2" type="button">Or select
+                                    file</button>
+                            </div>
+
+                            <!-- Photo 3 -->
+                            <div class="file-drop-area mb-3">
+                                <div class="file-drop-icon ci-cloud-upload"></div>
+                                <span class="file-drop-message">Drag and drop here to upload Product Image</span>
+
+                                <?php if (isset($photos[2])): ?>
+                                    <div class="mb-2">
+                                        <img src="<?= $photos[2]['thumb'] ?>" alt="Current Photo 3" width="100">
+                                        <span>Current Image</span>
+                                    </div>
+                                <?php endif; ?>
+
+                                <input class="file-drop-input" type="file" name="photo_3" accept=".jpg,.jpeg,.png">
+                                <button class="file-drop-btn btn btn-primary btn-sm mb-2" type="button">Or select
+                                    file</button>
+                            </div>
+                        </div>
                         <button class="btn btn-primary d-block w-100" type="submit"><i
                                 class="ci-cloud-upload fs-lg me-2"></i>Update Product</button>
                     </form>

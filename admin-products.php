@@ -73,38 +73,40 @@ require_once("./layouts/header.php");
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php 
-                                if($products) {
-                                foreach ($products as $product) { ?>
-                                    <tr>
-                                        <td>
-                                            <img src="<?= get_product_thumb($product['photos']) ?>" width="80" height="60"
-                                                style="object-fit:cover" class="rounded img-fluid">
-                                        </td>
+                                <?php
+                                if ($products) {
+                                    foreach ($products as $product) { ?>
+                                        <tr>
+                                            <td>
+                                                <img src="<?= get_product_thumb($product['photos']) ?>" width="80" height="60"
+                                                    style="object-fit:cover" class="rounded img-fluid">
+                                            </td>
 
-                                        <td><?= $product['p_name'] ?></td>
+                                            <td><?= $product['p_name'] ?></td>
 
-                                        <td><?= $product['selling_price'] ?></td>
+                                            <td><?= $product['selling_price'] ?></td>
 
-                                        <td><?= $product['buying_price'] ?></td>
+                                            <td><?= $product['buying_price'] ?></td>
 
-                                        <td><?= short_words($product['description'], 20) ?></td>
+                                            <td><?= short_words($product['description'], 20) ?></td>
 
-                                        <td>
-                                            <button class="btn btn-sm bg-faded-info me-1" href="update-product.php" data-bs-toggle="tooltip"
-                                                title="Edit">
-                                                <i class="ci-edit text-info"></i>
-                                            </button>
+                                            <td>
+                                                <a href="update-product.php?id=<?= $product['p_id'] ?>">
+                                                    <button class="btn btn-sm bg-faded-info me-1" data-bs-toggle="tooltip"
+                                                        title="Edit">
+                                                        <i class="ci-edit text-info"></i>
+                                                    </button>
+                                                </a>
 
-                                            <button class="btn btn-sm bg-faded-danger delete-btn mt-2"
-                                                data-id="<?= $product['p_id'] ?>" data-table="products"
-                                                data-bs-toggle="tooltip" title="Delete">
-                                                <i class="ci-trash text-danger"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                <?php }
-                                }else{
+                                                <button class="btn btn-sm bg-faded-danger delete-btn mt-2"
+                                                    data-id="<?= $product['p_id'] ?>" data-table="products"
+                                                    data-bs-toggle="tooltip" title="Delete">
+                                                    <i class="ci-trash text-danger"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    <?php }
+                                } else {
                                     require_once("nothing-here.php");
                                 } ?>
                             </tbody>
