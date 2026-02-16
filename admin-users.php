@@ -96,10 +96,11 @@ $users = db_select("users");
                                                 <i class="ci-edit text-info"></i>
                                             </button>
 
-                                            <button class="btn btn-sm bg-faded-danger" data-bs-toggle="tooltip"
-                                                title="Delete">
-                                                <i class="ci-trash text-danger"></i>
-                                            </button>
+                                           <button class="btn btn-sm bg-faded-danger udelete-btn mt-2"
+                                            data-id="<?= $user['user_id'] ?>" data-table="users" data-bs-toggle="tooltip"
+                                            title="Delete">
+                                            <i class="ci-trash text-danger"></i>
+                                        </button>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -112,7 +113,44 @@ $users = db_select("users");
         </section>
     </div>
 </div>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(document).on("click", ".udelete-btn", function () {
 
+        if (!confirm("Are you sure you want to delete this item?")) {
+            return;
+        }
+
+        var button = $(this);
+        var id = button.data("id");
+        var table = button.data("table");
+        console.log(id, table);
+
+        $.ajax({
+            url: "admin-delete.php",
+            type: "POST",
+            data: {
+                id: id,
+                table: table
+            },
+            success: function (response) {
+
+                if (response == "success") {
+                    button.closest("tr").fadeOut(300, function () {
+                        $(this).remove();
+                    });
+                } else {
+                    alert("Delete failed!");
+                }
+
+            }
+        });
+
+    });
+</script>
 <!-- footer -->
 <?php
 require_once("./layouts/footer.php");

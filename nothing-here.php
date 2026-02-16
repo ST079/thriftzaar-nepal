@@ -14,12 +14,12 @@
             </h2>
 
             <p class="text-muted mb-4">
-                Looks a bit empty right now. Try browsing products!
+                Looks a bit empty right now.
             </p>
 
-            <a href="hamro-pasal.php" class="btn btn-primary">
+            <a href="<?=url("")?>" class="btn btn-primary">
                 <i class="ci-shop me-2"></i>
-                Browse Products
+                Go To Home Page
             </a>
 
         </div>

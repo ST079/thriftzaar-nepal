@@ -10,20 +10,11 @@ foreach ($rows as $key => $value) {
 }
 
 
-// echo"<pre>";
-// print_r();
-// die();
-// name photo parent_id description
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION["form"]["value"] = $_POST;
-
-
+    
+    
     $imgs = upload_images($_FILES);
-    echo "<pre>";
-    print_r($imgs);
-    print_r($_POST);
-    die();
     $data['p_name'] = $_POST['name'];
     $data['buying_price'] = $_POST['cp'];
     $data['selling_price'] = $_POST['sp'];
@@ -62,7 +53,7 @@ require_once("./layouts/header.php");
             </nav>
         </div>
         <div class="order-lg-1 pe-lg-4 text-center text-lg-start">
-            <h1 class="h3 text-light mb-0">Product Categories</h1>
+            <h1 class="h3 text-light mb-0">Update Product</h1>
         </div>
     </div>
 </div>
@@ -97,6 +88,45 @@ require_once("./layouts/header.php");
                                 $categories
                             ) ?>
                         </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6 mt-3">
+                                <label class="form-label" for="photo">Product Photo 1</label>
+                                <input class="form-control" type="file" name="photo_1" id="photo"
+                                    accept=".jpg,.jpeg,.png">
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <label class="form-label" for="photo">Product Photo 2</label>
+                                <input class="form-control" type="file" name="photo_2" id="photo"
+                                    accept=".jpg,.jpeg,.png">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mt-3">
+                                <label class="form-label" for="photo">Product Photo 3</label>
+                                <input class="form-control" type="file" name="photo_3" id="photo"
+                                    accept=".jpg,.jpeg,.png">
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <label class="form-label" for="photo">Product Photo 4</label>
+                                <input class="form-control" type="file" name="photo_4" id="photo"
+                                    accept=".jpg,.jpeg,.png">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mt-3">
+                                <label class="form-label" for="photo">Product Photo 5</label>
+                                <input class="form-control" type="file" name="photo_5" id="photo"
+                                    accept=".jpg,.jpeg,.png">
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <label class="form-label" for="photo">Product Photo 6</label>
+                                <input class="form-control" type="file" name="photo_6" id="photo"
+                                    accept=".jpg,.jpeg,.png">
+                            </div>
+                        </div>
+
                         <div class="row mt-3">
                             <div class="col-sm-6 mb-3">
                                 <label class="form-label" for="unp-extended-price">Buying Price</label>
@@ -112,42 +142,14 @@ require_once("./layouts/header.php");
                             </div>
                         </div>
 
+
                         <div class="mb-3 py-2">
                             <label class="form-label" for="description">Product description</label>
                             <textarea class="form-control" name="description" rows="6" id="description"></textarea>
                         </div>
 
-                        <div class="row">
-                            <label class="form-label" for="file">Product Photo</label>
-                            <div class="file-drop-area mb-3">
-                                <div class="file-drop-icon ci-cloud-upload"></div><span class="file-drop-message">Drag
-                                    and
-                                    drop here to upload Product Image</span>
-                                <input class="file-drop-input" type="file" name="photo_1" accept=".jpg,.jpeg,.png">
-                                <button class="file-drop-btn btn btn-primary btn-sm mb-2" type="button">Or select
-                                    file</button>
-                            </div>
-
-                            <div class="file-drop-area mb-3">
-                                <div class="file-drop-icon ci-cloud-upload"></div><span class="file-drop-message">Drag
-                                    and
-                                    drop here to upload Product Image</span>
-                                <input class="file-drop-input" type="file" name="photo_2" accept=".jpg,.jpeg,.png">
-                                <button class="file-drop-btn btn btn-primary btn-sm mb-2" type="button">Or select
-                                    file</button>
-                            </div>
-
-                            <div class="file-drop-area mb-3">
-                                <div class="file-drop-icon ci-cloud-upload"></div><span class="file-drop-message">Drag
-                                    and
-                                    drop here to upload Product Image</span>
-                                <input class="file-drop-input" type="file" name="photo_3" accept=".jpg,.jpeg,.png">
-                                <button class="file-drop-btn btn btn-primary btn-sm mb-2" type="button">Or select
-                                    file</button>
-                            </div>
-                        </div>
                         <button class="btn btn-primary d-block w-100" type="submit"><i
-                                class="ci-cloud-upload fs-lg me-2"></i>Save Product</button>
+                                class="ci-cloud-upload fs-lg me-2"></i>Update Product</button>
                     </form>
                 </div>
             </section>

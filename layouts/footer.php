@@ -54,9 +54,9 @@
         </div>
         <div class="col-md-6 text-center text-md-end mb-4">
           <div class="mb-3">
-                <a class="btn-social bs-light bs-facebook ms-2 mb-2" href="#"><i class="ci-facebook"></i></a>
-                <a class="btn-social bs-light bs-instagram ms-2 mb-2" href="#"><i class="ci-instagram"></i></a>
-              </div>
+            <a class="btn-social bs-light bs-facebook ms-2 mb-2" href="#"><i class="ci-facebook"></i></a>
+            <a class="btn-social bs-light bs-instagram ms-2 mb-2" href="#"><i class="ci-instagram"></i></a>
+          </div>
         </div>
       </div>
       <div class="pb-4 fs-xs text-light opacity-50 text-center text-md-start">© All rights reserved. Made by <a
@@ -67,18 +67,17 @@
 <!-- Toolbar for handheld devices (Default)-->
 <div class="handheld-toolbar">
   <div class="d-table table-layout-fixed w-100">
-    <a class="d-table-cell handheld-toolbar-item"
-      href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-      onclick="window.scrollTo(0, 0)"><span class="handheld-toolbar-icon"><i class="ci-menu"></i></span><span
-        class="handheld-toolbar-label">Menu</span></a>
-        <a class="d-table-cell handheld-toolbar-item"
-      href="cart.php"><span class="handheld-toolbar-icon"><i class="ci-cart"></i><span
-          class="badge bg-primary rounded-pill ms-1"><?php if (is_logged_in()) {
-                                                echo $cart_cont;
-                                            } else {
-                                                echo "";
-                                            } ?></span></span><span
-        class="handheld-toolbar-label">NPR <?= $cart_total ?></span></a></div>
+    <a class="d-table-cell handheld-toolbar-item" href="javascript:void(0)" data-bs-toggle="collapse"
+      data-bs-target="#navbarCollapse" onclick="window.scrollTo(0, 0)"><span class="handheld-toolbar-icon"><i
+          class="ci-menu"></i></span><span class="handheld-toolbar-label">Menu</span></a>
+    <a class="d-table-cell handheld-toolbar-item" href="cart.php"><span class="handheld-toolbar-icon"><i
+          class="ci-cart"></i><span class="badge bg-primary rounded-pill ms-1"><?php if (is_logged_in()) {
+            echo $cart_cont;
+          } else {
+            echo "";
+          } ?></span></span><span class="handheld-toolbar-label">NPR
+        <?= $cart_total ?></span></a>
+  </div>
 </div>
 <!-- Back To Top Button--><a class="btn-scroll-top" href="#top" data-scroll><span
     class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span><i class="btn-scroll-top-icon ci-arrow-up"> </i></a>

@@ -99,7 +99,6 @@ require_once("./layouts/header.php");
                             <input class="file-drop-input" type="file" name="photo" id="file" accept=".jpg,.jpeg,.png">
                             <button class="file-drop-btn btn btn-primary btn-sm mb-2" type="button">Or select
                                 file</button>
-                            <div class="form-text">1000 x 800px ideal size for hi-res displays</div>
                         </div>
                         <button class="btn btn-primary d-block w-100" type="submit"><i
                                 class="ci-cloud-upload fs-lg me-2"></i>Save Category</button>

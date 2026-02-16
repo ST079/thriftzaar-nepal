@@ -22,7 +22,8 @@ $allowed_pages = [
     "/thriftzaar-nepal/login.php",
     "/thriftzaar-nepal/page-not-found.php",
     "/thriftzaar-nepal/admin-users.php",
-    "/thriftzaar-nepal/update-profile.php"
+    "/thriftzaar-nepal/update-profile.php",
+    "/thriftzaar-nepal/update-product.php"
 ];
 $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
@@ -76,9 +77,6 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon and Touch Icons-->
     <link rel="icon" type="image/x-icon" sizes="180x180" href="img/logo-icon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="manifest" href="site.webmanifest">
     <link rel="mask-icon" color="#fe6a6a" href="safari-pinned-tab.svg">
     <meta name="msapplication-TileColor" content="#ffffff">
@@ -89,7 +87,6 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" media="screen" href="vendor/tiny-slider/dist/tiny-slider.css" />
-    <link rel="stylesheet" href="../css/styles.css" />
     <!-- Main Theme Styles + Bootstrap-->
     <link rel="stylesheet" media="screen" href="css/theme.min.css">
     <!-- Google Tag Manager-->

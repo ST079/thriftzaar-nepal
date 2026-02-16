@@ -18,12 +18,6 @@ if($user_type == 'admin') {
     $orders[] = $row;
   }
 }
-
-// echo "<pre>";
-// print_r($_SESSION["user"]["user_type"]);
-// print_r($orders);
-// die();
-
 ?>
 
 <!-- Page Title-->

@@ -47,7 +47,8 @@ require_once("./layouts/header.php");
                     <!-- Title-->
                     <div class="d-sm-flex flex-wrap justify-content-between align-items-center border-bottom">
                         <h2 class="h3 py-2 me-2 text-center text-sm-start">Categories<span
-                                class="badge bg-faded-accent fs-sm text-body align-middle ms-2"><?= count($categories) ?></span></h2>
+                                class="badge bg-faded-accent fs-sm text-body align-middle ms-2"><?= count($categories) ?></span>
+                        </h2>
                         <div class="py-2">
                             <div class="d-flex flex-nowrap align-items-center pb-3">
                                 <label class="form-label fw-normal text-nowrap mb-0 me-2" for="sorting">Sort by:</label>
@@ -63,42 +64,45 @@ require_once("./layouts/header.php");
                             </div>
                         </div>
                     </div>
-                   <table class="table table-bordered table-striped align-middle">
-    <thead class="table-light">
-        <tr>
-            <th>Image</th>
-            <th>Category Name</th>
-            <th>Description</th>
-            <th width="120">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($categories as $category) {
-                            $photos = json_decode($category['c_photo'], true);
-                            $thumb = $photos[0]['thumb'] ?? '';
-                            ?>
+                    <table class="table table-bordered table-striped align-middle">
+                        <thead class="table-light">
                             <tr>
-                                <td>
-                                    <img src="<?= $thumb ?>" width="80" height="60" style="object-fit:cover" class="rounded">
-                                </td>
-                
-                                <td><?= $category['c_name'] ?></td>
-                
-                                <td><?= $category['c_description'] ?></td>
-                
-                                <td>
-                                    <button class="btn btn-sm bg-faded-info me-1" data-bs-toggle="tooltip" title="Edit">
-                                        <i class="ci-edit text-info"></i>
-                                    </button>
-                
-                                    <button class="btn btn-sm bg-faded-danger" data-bs-toggle="tooltip" title="Delete">
-                                        <i class="ci-trash text-danger"></i>
-                                    </button>
-                                </td>
+                                <th>Image</th>
+                                <th>Category Name</th>
+                                <th>Description</th>
+                                <th width="120">Actions</th>
                             </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($categories as $category) {
+                                $photos = json_decode($category['c_photo'], true);
+                                $thumb = $photos[0]['thumb'] ?? '';
+                                ?>
+                                <tr>
+                                    <td>
+                                        <img src="<?= $thumb ?>" width="80" height="60" style="object-fit:cover"
+                                            class="rounded">
+                                    </td>
+
+                                    <td><?= $category['c_name'] ?></td>
+
+                                    <td><?= $category['c_description'] ?></td>
+
+                                    <td>
+                                        <button class="btn btn-sm bg-faded-info me-1" data-bs-toggle="tooltip" title="Edit">
+                                            <i class="ci-edit text-info"></i>
+                                        </button>
+
+                                        <button class="btn btn-sm bg-faded-danger cdelete-btn mt-2"
+                                            data-id="<?= $category['c_id'] ?>" data-table="categories" data-bs-toggle="tooltip"
+                                            title="Delete">
+                                            <i class="ci-trash text-danger"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
 
 
                 </div>
@@ -106,7 +110,44 @@ require_once("./layouts/header.php");
         </section>
     </div>
 </div>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+  integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(document).on("click", ".cdelete-btn", function () {
 
+        if (!confirm("Are you sure you want to delete this item?")) {
+            return;
+        }
+
+        var button = $(this);
+        var id = button.data("id");
+        var table = button.data("table");
+        console.log(id, table);
+
+        $.ajax({
+            url: "admin-delete.php",
+            type: "POST",
+            data: {
+                id: id,
+                table: table
+            },
+            success: function (response) {
+
+                if (response == "success") {
+                    button.closest("tr").fadeOut(300, function () {
+                        $(this).remove();
+                    });
+                } else {
+                    alert("Delete failed!");
+                }
+
+            }
+        });
+
+    });
+</script>
 <!-- footer -->
 <?php
 require_once("./layouts/footer.php");

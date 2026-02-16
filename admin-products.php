@@ -3,10 +3,6 @@ require_once("./modules/config.php");
 protected_area();
 //fetch categories
 $products = db_select("products", '1 ORDER BY c_id DESC');
-
-// echo"<pre>";
-// print_r(get_product_thumb($product['photos']));
-// die();
 require_once("./layouts/header.php");
 ?>
 
@@ -66,7 +62,7 @@ require_once("./layouts/header.php");
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped align-middle">
-                            <thead class="table-light">
+                            <thead class="table-light <?php echo $products ? '' : 'd-none'; ?>">
                                 <tr>
                                     <th>Image</th>
                                     <th>Product Name</th>
@@ -77,7 +73,9 @@ require_once("./layouts/header.php");
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($products as $product) { ?>
+                                <?php 
+                                if($products) {
+                                foreach ($products as $product) { ?>
                                     <tr>
                                         <td>
                                             <img src="<?= get_product_thumb($product['photos']) ?>" width="80" height="60"
@@ -93,29 +91,68 @@ require_once("./layouts/header.php");
                                         <td><?= short_words($product['description'], 20) ?></td>
 
                                         <td>
-                                            <button class="btn btn-sm bg-faded-info me-1" data-bs-toggle="tooltip"
+                                            <button class="btn btn-sm bg-faded-info me-1" href="update-product.php" data-bs-toggle="tooltip"
                                                 title="Edit">
                                                 <i class="ci-edit text-info"></i>
                                             </button>
 
-                                            <button class="btn btn-sm bg-faded-danger" data-bs-toggle="tooltip"
-                                                title="Delete">
+                                            <button class="btn btn-sm bg-faded-danger delete-btn mt-2"
+                                                data-id="<?= $product['p_id'] ?>" data-table="products"
+                                                data-bs-toggle="tooltip" title="Delete">
                                                 <i class="ci-trash text-danger"></i>
                                             </button>
                                         </td>
                                     </tr>
-                                <?php } ?>
+                                <?php }
+                                }else{
+                                    require_once("nothing-here.php");
+                                } ?>
                             </tbody>
                         </table>
                     </div>
-
-
-
                 </div>
             </section>
         </section>
     </div>
 </div>
+<!-- jquery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(document).on("click", ".delete-btn", function () {
+
+        if (!confirm("Are you sure you want to delete this item?")) {
+            return;
+        }
+
+        var button = $(this);
+        var id = button.data("id");
+        var table = button.data("table");
+        console.log(id, table);
+
+        $.ajax({
+            url: "admin-delete.php",
+            type: "POST",
+            data: {
+                id: id,
+                table: table
+            },
+            success: function (response) {
+
+                if (response == "success") {
+                    button.closest("tr").fadeOut(300, function () {
+                        $(this).remove();
+                    });
+                } else {
+                    alert("Delete failed!");
+                }
+
+            }
+        });
+
+    });
+</script>
 
 <!-- footer -->
 <?php
