@@ -20,10 +20,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     $imgs = upload_images($_FILES);
-    echo "<pre>";
-    print_r($imgs);
-    print_r($_POST);
-    die();
     $data['p_name'] = $_POST['name'];
     $data['buying_price'] = $_POST['cp'];
     $data['selling_price'] = $_POST['sp'];
@@ -86,14 +82,14 @@ require_once("./layouts/header.php");
                     </div>
                     <form action="admin-products-add.php" method="POST" enctype="multipart/form-data">
                         <div class="mb-3 pb-2">
-                            <?= text_input(['name' => 'name', 'label' => 'Product Name', 'placeholder' => 'Enter Product Name']) ?>
+                            <?= text_input(['name' => 'name', 'label' => 'Product Name', 'placeholder' => 'Enter Product Name', 'attributes' => 'required']) ?>
                             <!-- <div class="form-text">Maximum 100 characters. No HTML or emoji allowed.</div> -->
 
                         </div>
 
                         <div class="mb-3 pb-2">
                             <?= select_input(
-                                ['name' => 'parent_id', 'label' => 'Product Category'],
+                                ['name' => 'parent_id', 'label' => 'Product Category', 'attributes' => 'required'],
                                 $categories
                             ) ?>
                         </div>

@@ -148,7 +148,7 @@ function select_input($data, $options)
 
     // add No Parent manually
     $selected = ($value == 0) ? " selected" : "";
-    $select_options .= '<option value="0"' . $selected . '>No Parent</option>';
+    $select_options .= '<option ' . $selected . '>Select Category</option><option value="0">No Parent</option>';
 
     // now loop DB categories
     foreach ($options as $row) {
