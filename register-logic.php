@@ -10,17 +10,8 @@ $phone_number = trim($_POST['phone']);
 $last_name = trim($_POST['last_name']);
 $first_name = trim($_POST['first_name']);
 
-
-// if($password != $password_1){
-//     alert("danger","Password did not match!!.");
-//     header("Location: login.php");
-//     die();
-// }
-
 $sql = "SELECT * FROM users WHERE email = '{$email}'";
 $res = $conn->query($sql);
-
-
 
 if($res->num_rows>0){
     alert("danger","You already have an account with this email address!!!");

@@ -150,8 +150,9 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                         <a class="navbar-brand d-none d-sm-block flex-shrink-0" href="<?= url("") ?>">
                             <img src="img/logo-removebg.png" width="195" alt="ThriftZaar Nepal">
                         </a>
-                   
-                        <div class="navbar navbar-expand-lg navbar-light navbar-stuck-menu d-flex flex-shrink-0 align-items-center">
+
+                        <div
+                            class="navbar navbar-expand-lg navbar-light navbar-stuck-menu d-flex flex-shrink-0 align-items-center">
                             <div class="container">
                                 <div class="collapse navbar-collapse" id="navbarCollapse">
                                     <ul class="navbar-nav">
@@ -215,11 +216,13 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                                             <div style="height: 15rem;" data-simplebar data-simplebar-auto-hide="false">
                                                 <?php foreach ($cart_items as $item) { ?>
                                                     <div class="widget-cart-item pb-2 border-bottom">
-                                                        <a href="cart-process-remove.php?id=<?= $item['p_id'] ?>">
-                                                            <button class="btn-close text-danger" type="button"
-                                                                aria-label="Remove"><span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </a>
+
+                                                        <button class="btn-close text-danger remove-from-cart" type="button"
+                                                            data-id="<?= $item['p_id'] ?>" aria-label="Remove">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+
+
                                                         <div class="d-flex align-items-center"><a class="flex-shrink-0"
                                                                 href="product.php?id=<?= $item['p_id'] ?>"><img
                                                                     src="<?= get_product_thumb($item['photos']) ?>"
@@ -246,7 +249,9 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                                                 </div>
                                                 <a class="btn btn-outline-secondary btn-sm" href="cart.php">Expand
                                                     cart<i class="ci-arrow-right ms-1 me-n1"></i></a>
-                                            </div><a class="btn btn-primary btn-sm d-block w-100 <?=($cart_count == 0) ? 'd-none' : ''; ?>" href="checkout.php"><i
+                                            </div><a
+                                                class="btn btn-primary btn-sm d-block w-100 <?= ($cart_count == 0) ? 'd-none' : ''; ?>"
+                                                href="checkout.php"><i
                                                     class="ci-card me-2 fs-base align-middle"></i>Checkout</a>
                                         </div>
                                     </div>
@@ -273,8 +278,4 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         }
         ?>
 
-        <script>
-            setTimeout(() => {
-                document.querySelector('.alert')?.remove();
-            }, 5000);
-        </script>
+     

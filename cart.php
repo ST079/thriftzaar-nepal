@@ -65,8 +65,8 @@ if (isset($_SESSION["cart"])) {
                             <label class="form-label" for="quantity1">Quantity</label>
                             <input class="form-control" type="number" id="quantity1" min="1"
                                 value="<?= $item['quantity'] ?>" disabled>
-                            <button class="btn btn-link px-0 text-danger" type="submit"><i
-                                    class="ci-close-circle me-2"></i><span class="fs-sm">Remove</span></button>
+                            <button class="btn btn-link px-0 text-danger remove-from-cart" data-id="<?= $item['p_id'] ?>">
+                                <i class="ci-close-circle me-2"></i><span class="fs-sm">Remove</span></button>
                         </div>
                     </form>
                 </div>

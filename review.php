@@ -98,7 +98,7 @@ if (isset($_POST["first_name"])) {
                         <div class="pt-2 pt-sm-0 ps-sm-3 mx-auto mx-sm-0 text-center text-sm-start" style="max-width: 9rem;">
                             <label class="form-label" for="quantity1">Quantity</label>
                             <input class="form-control" type="number" id="quantity1" min="1" value="<?= $item['quantity'] ?>" disabled>
-                            <button class="btn btn-link px-0 text-danger" type="submit"><i class="ci-close-circle me-2"></i><span
+                            <button class="btn btn-link px-0 text-danger remove-from-cart" data-id="<?= $item['p_id'] ?>"><i class="ci-close-circle me-2"></i><span
                                     class="fs-sm">Remove</span></button>
                         </div>
                     </form>
@@ -115,24 +115,25 @@ if (isset($_POST["first_name"])) {
                             <li><span class="text-muted">Phone:&nbsp;</span>+977 <?= $_SESSION["shipping"]["phone_number"] ?></li>
                         </ul>
                     </div>
-                    <!-- <div class="col-sm-6">
+                    <div class="col-sm-6">
                         <h4 class="h6">Payment method:</h4>
                         <ul class="list-unstyled fs-sm">
-                            <li><span class="text-muted">Credit Card:&nbsp;</span>**** **** **** 5300</li>
+                            <li><span class="text-muted">Cash On Delivery</span></li>
                         </ul>
-                    </div> -->
+                    </div>
                 </div>
             </div>
             <!-- Navigation (desktop)-->
             <div class="d-none d-lg-flex pt-4">
                 <div class="w-50 pe-3"><a class="btn btn-secondary d-block w-100" href="checkout.php"><i
                             class="ci-arrow-left mt-sm-0 me-1"></i><span class="d-none d-sm-inline">Back to
-                            Payment</span><span class="d-inline d-sm-none">Back</span></a></div>
-                <div class="w-50 ps-2"><a class="btn btn-primary d-block w-100" href="complete-order.php"><span
+                            Checkout</span><span class="d-inline d-sm-none">Back</span></a></div>
+                            
+                <div class="w-50 ps-2"><a class="btn btn-primary d-block w-100 <?= ($cart_count == 0)? "d-none":"" ?>" href="complete-order.php"><span
                             class="d-none d-sm-inline">Complete order</span><span
                             class="d-inline d-sm-none">Complete</span><i class="ci-arrow-right mt-sm-0 ms-1"></i></a>
+                    </div>
                 </div>
-            </div>
         </section>
         <!-- Sidebar-->
         <aside class="col-lg-4 pt-4 pt-lg-0 ps-xl-5">
