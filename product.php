@@ -13,9 +13,16 @@ $images = get_product_photos($product['photos']);
 // echo"<pre>";
 // print_r($images);
 // die();
+require_once("layouts/header.php");
 
 
-require_once("./layouts/header.php");
+
+$is_sold = in_array($id, $sold_products);
+$sold_badge = $is_sold
+    ? '<span class="badge bg-danger position-absolute m-2">Sold Out</span>'
+    : '';
+$disabled = $is_sold ? 'disabled' : '';
+$button_text = $is_sold ? 'Sold Out' : 'Add to Cart';
 ?>
 <!-- Page Title-->
 <div class="page-title-overlap bg-dark pt-4">
@@ -64,6 +71,7 @@ require_once("./layouts/header.php");
                         <div class="product-gallery-thumblist order-sm-1">
                             <?php
                             $active = "active";
+
                             foreach ($images as $key => $image) {
                                 ?>
                                 <a class="product-gallery-thumblist-item <?= $active ?>" href="#img-<?= $key ?>">
@@ -82,20 +90,20 @@ require_once("./layouts/header.php");
                                 title="Add to wishlist"><i class="ci-heart"></i></button>
                         </div>
                         <div class="mb-3"><span class="h3 fw-normal text-accent me-1">NPR
-                                <?= $product['selling_price'] ?>.<small>99</small></span>
+                                <?= $product['selling_price'] ?>.<small>00</small></span>
                         </div>
                         <div class="position-relative me-n4 mb-3">
                             <div class="product-badge product-available mt-n1"><i class="ci-security-check"></i>Product
                                 available</div>
                         </div>
-                        <form class="mb-grid-gutter mt-5" method="post" action="cart-process-add.php" >
+                        <form class="mb-grid-gutter mt-5" method="post" action="cart-process-add.php">
                             <input type="hidden" name="id" value="<?= $product['p_id'] ?>">
                             <div class="mb-3 d-flex align-items-center">
                                 <select class="form-select me-3" name="quantity" style="width: 5rem;">
                                     <option value="1">1</option>
                                 </select>
-                                <button class="btn btn-primary btn-shadow d-block w-100" type="submit"><i
-                                        class="ci-cart fs-lg me-2"></i>Add to Cart</button>
+                                <button class="btn btn-primary btn-shadow d-block w-100 <?= $disabled ?>"
+                                    type="submit"><i class="ci-cart fs-lg me-2"></i><?= $button_text ?></button>
                             </div>
                         </form>
                         <!-- Product panels-->
@@ -110,11 +118,6 @@ require_once("./layouts/header.php");
                                     data-bs-parent="#productPanels">
                                     <div class="accordion-body">
                                         <p><?= $product['description'] ?></p>
-                                        <h6 class="fs-sm mb-2">Delivery Charge</h6>
-                                        <ul class="fs-sm ps-4 mb-0">
-                                            <li>Inside Valley</li>
-                                            <li>Outside Valley</li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -133,19 +136,18 @@ require_once("./layouts/header.php");
                                                 <div class="fs-sm text-muted"></div>
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-between border-bottom py-2">
+                                        <!-- <div class="d-flex justify-content-between border-bottom py-2">
                                             <div>
                                                 <div class="fw-semibold text-dark">Online Payments</div>
                                                 <div class="fs-sm text-muted">Esewa, Khalti, Bank</div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- Sharing-->
                         <label class="form-label d-inline-block align-middle my-2 me-3">Share:</label><a
-                            class="btn-share btn-twitter me-2 my-2" href="#"><i class="ci-twitter"></i>Twitter</a><a
                             class="btn-share btn-instagram me-2 my-2" href="#"><i
                                 class="ci-instagram"></i>Instagram</a><a class="btn-share btn-facebook my-2" href="#"><i
                                 class="ci-facebook"></i>Facebook</a>

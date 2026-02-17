@@ -47,19 +47,6 @@ if (!empty($_GET['search'])) {
     $products = db_select("products", $where, $order);
 }
 
-$sold_products = [];
-$orders = mysqli_query($conn, "SELECT cart FROM orders");
-
-
-while ($order = mysqli_fetch_assoc($orders)) {
-    $cart = json_decode($order['cart'], true);
-    if (is_array($cart)) {
-        foreach ($cart as $item) {
-            $sold_products[] = $item['p_id'];
-        }
-    }
-}
-
 // echo "<pre>";
 // print_r($sold_products);
 // die();

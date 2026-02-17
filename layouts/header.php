@@ -56,6 +56,17 @@ if (isset($_SESSION["cart"])) {
 
 $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
+$sold_products = [];
+$orders = mysqli_query($conn, "SELECT cart FROM orders where order_status<>-1");
+while ($order = mysqli_fetch_assoc($orders)) {
+    $cart = json_decode($order['cart'], true);
+    if (is_array($cart)) {
+        foreach ($cart as $item) {
+            $sold_products[] = $item['p_id'];
+        }
+    }
+}
+
 ?>
 
 

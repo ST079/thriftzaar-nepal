@@ -402,7 +402,6 @@ function product_ui_1($product, $sold_products)
 
     $disabled = $is_sold ? 'disabled' : '';
 
-    // ✅ FIXED HERE
     $button_text = $is_sold ? 'Sold Out' : 'Add to Cart';
 
     $str = <<<EOF

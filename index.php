@@ -1,6 +1,6 @@
 <?php
 require_once("modules/config.php");
-require_once("./layouts/header.php");
+require_once("layouts/header.php");
 $order = "p_id DESC";
 $products = db_select("products", null, $order);
 ?>
@@ -42,12 +42,20 @@ $products = db_select("products", null, $order);
                     <!-- Carousel item-->
                     <div>
                         <div class="row mx-n2">
-                            <?php foreach ($products as $product) {
+                            <?php
+                            foreach ($products as $product) {
                                 $pro = get_product($product['p_id']);
+                                $is_sold = in_array($product['p_id'], $sold_products);
+                                $sold_badge = $is_sold
+                                    ? '<span class="badge bg-danger position-absolute m-2">Sold Out</span>'
+                                    : '';
+                                $disabled = $is_sold ? 'disabled' : '';
+                                $button_text = $is_sold ? 'Sold Out' : 'Add to Cart';
                                 ?>
 
                                 <div class="col-lg-4 col-6 px-0 px-sm-2 mb-sm-4">
                                     <div class="card product-card card-static">
+                                        <?= $sold_badge ?>
                                         <a class="card-img-top d-block overflow-hidden"
                                             href="product.php?id=<?= $product['p_id'] ?>"><img
                                                 src="<?= get_product_thumb($product['photos']) ?>" alt="Product"></a>
