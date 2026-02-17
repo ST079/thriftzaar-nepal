@@ -34,7 +34,7 @@ if ($user_type == 'admin') {
       </nav>
     </div>
     <div class="order-lg-1 pe-lg-4 text-center text-lg-start">
-      <h1 class="h3 text-light mb-0">rders</h1>
+      <h1 class="h3 text-light mb-0">Orders</h1>
     </div>
   </div>
 </div>

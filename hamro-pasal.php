@@ -16,10 +16,6 @@ if (isset($_GET['category']) && is_array($_GET['category'])) {
     $where = "c_id IN ($ids)";
 }
 
-/* -------- FETCH PRODUCTS -------- */
-
-
-
 // Sorting logic
 if (isset($_GET['sorting'])) {
 
@@ -50,6 +46,24 @@ if (!empty($_GET['search'])) {
     }
     $products = db_select("products", $where, $order);
 }
+
+$sold_products = [];
+$orders = mysqli_query($conn, "SELECT cart FROM orders");
+
+
+while ($order = mysqli_fetch_assoc($orders)) {
+    $cart = json_decode($order['cart'], true);
+    if (is_array($cart)) {
+        foreach ($cart as $item) {
+            $sold_products[] = $item['p_id'];
+        }
+    }
+}
+
+// echo "<pre>";
+// print_r($sold_products);
+// die();
+
 
 ?>
 
@@ -164,13 +178,13 @@ if (!empty($_GET['search'])) {
             <!-- Products grid-->
             <div class="row mx-n2 pt-3">
                 <?php
-                if($products){
-                foreach ($products as $product) {
-                    echo product_ui_1($product);
+                if ($products) {
+                    foreach ($products as $product) {
+                        echo product_ui_1($product,$sold_products);
+                    }
+                } else {
+                    require_once('nothing-here.php');
                 }
-            }else{
-                require_once('nothing-here.php');
-            }
                 ?>
             </div>
             <hr class="my-3">

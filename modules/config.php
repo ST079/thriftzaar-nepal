@@ -40,6 +40,7 @@ function logout()
 {
     if (isset($_SESSION['user'])) {
         unset($_SESSION['user']);
+        unset($_SESSION['cart']);
     }
     alert("danger", "Logged Out successfully");
     header("Location:login.php");
@@ -388,15 +389,32 @@ function db_select($table_name, $condition = NULL, $order_by = NULL)
 
 
 //product component
-function product_ui_1($product)
+function product_ui_1($product, $sold_products)
 {
     $thumb = get_product_thumb($product['photos']);
     $pro = get_product($product['p_id']);
+
+    $is_sold = in_array($product['p_id'], $sold_products);
+
+    $sold_badge = $is_sold 
+        ? '<span class="badge bg-danger position-absolute m-2">Sold Out</span>' 
+        : '';
+
+    $disabled = $is_sold ? 'disabled' : '';
+
+    // ✅ FIXED HERE
+    $button_text = $is_sold ? 'Sold Out' : 'Add to Cart';
+
     $str = <<<EOF
-     <div class="col-md-4 col-sm-6 px-2 mb-4">
-        <div class="card product-card">
-            <a class="card-img-top d-block overflow-hidden" href="product.php?id={$product["p_id"]}"><img
-                    src="$thumb" alt="Product"></a>
+    <div class="col-md-4 col-sm-6 px-2 mb-4">
+        <div class="card product-card position-relative">
+
+            $sold_badge
+
+            <a class="card-img-top d-block overflow-hidden" href="product.php?id={$product["p_id"]}">
+                <img src="$thumb" alt="Product">
+            </a>
+
             <div class="card-body py-2">
                 <a class="product-meta d-block fs-xs pb-1" href="#">{$pro['c_name']}</a>
                 <h3 class="product-title fs-sm">
@@ -407,23 +425,27 @@ function product_ui_1($product)
                         <span class="text-accent">NPR {$product['selling_price']}.<small>00</small></span>
                     </div>
                 </div>
-             </div>
-            <div class="card-body card-body-hidden">
-            <form action="cart-process-add.php" method="post">
-                <input type="hidden" name="id" value="{$product['p_id']}">
-                <select class="form-select me-3 mb-2" name="quantity" style="width: 5rem;">
-                    <option value="1">1</option>
-                </select>
-                <button class="btn btn-primary btn-sm d-block w-100 mb-2" type="submit">
-                    <i class="ci-cart fs-sm me-1"></i>Add to Cart
-                </button>
-            </form>
             </div>
+
+            <div class="card-body card-body-hidden">
+                <form action="cart-process-add.php" method="post">
+                    <input type="hidden" name="id" value="{$product['p_id']}">
+
+                    <select class="form-select me-3 mb-2" name="quantity" style="width: 5rem;" $disabled>
+                        <option value="1">1</option>
+                    </select>
+
+                    <button class="btn btn-primary btn-sm d-block w-100 mb-2" type="submit" $disabled>
+                        <i class="ci-cart fs-sm me-1"></i>
+                        $button_text
+                    </button>
+                </form>
+            </div>
+
         </div>
         <hr class="d-sm-none">
     </div>
-
     EOF;
+
     return $str;
 }
-

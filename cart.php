@@ -77,15 +77,15 @@ if (isset($_SESSION["cart"])) {
             <div class="bg-white rounded-3 shadow-lg p-4">
                 <div class="py-2 px-xl-2">
                     <div class="text-center mb-4 pb-3 border-bottom">
-                        <h2 class="h6 mb-3 pb-1">Subtotal</h2>
+                        <h2 class="h6 mb-3 pb-1">Product Total</h2>
                         <h3 class="fw-normal">NPR <?= $cart_total ?>.<small>00</small></h3>
                     </div>
-                    <div class="mb-3 mb-4">
+                    <!-- <div class="mb-3 mb-4">
                         <label class="form-label mb-3" for="order-comments"><span
                                 class="badge bg-info fs-xs me-2">Note</span><span class="fw-medium">Additional
                                 comments</span></label>
                         <textarea class="form-control" rows="6" id="order-comments"></textarea>
-                    </div>
+                    </div> -->
                     <a class="btn btn-primary btn-shadow d-block w-100 mt-4 <?=($cart_count == 0) ? 'd-none' : ''; ?>"
                         href="checkout.php"><i class="ci-card fs-lg me-2"></i>Proceed to Checkout</a>
                 </div>

@@ -19,7 +19,7 @@ if (isset($_SESSION["shipping"]) && $_SESSION["cart"]) {
         'order_time' => time(),
         'total_price' => $total_price,
     ]);
- 
+    $_SESSION['cart'] = Null;
     unset($_SESSION['cart']);
     unset($_SESSION['shipping']);
 }
