@@ -11,11 +11,11 @@ $last_name = trim($_POST['last_name']);
 $first_name = trim($_POST['first_name']);
 
 
-if($password != $password_1){
-    alert("danger","Password did not match!!.");
-    header("Location: login.php");
-    die();
-}
+// if($password != $password_1){
+//     alert("danger","Password did not match!!.");
+//     header("Location: login.php");
+//     die();
+// }
 
 $sql = "SELECT * FROM users WHERE email = '{$email}'";
 $res = $conn->query($sql);

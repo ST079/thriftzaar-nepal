@@ -23,7 +23,8 @@ $allowed_pages = [
     "/thriftzaar-nepal/page-not-found.php",
     "/thriftzaar-nepal/admin-users.php",
     "/thriftzaar-nepal/update-profile.php",
-    "/thriftzaar-nepal/update-product.php"
+    "/thriftzaar-nepal/update-product.php",
+    "/thriftzaar-nepal/update-category.php"
 ];
 $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 

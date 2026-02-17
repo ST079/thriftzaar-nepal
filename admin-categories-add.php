@@ -13,10 +13,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION["form"]["value"] = $_POST;
 
     $imgs = upload_images($_FILES);
+    $default = [
+        [
+            "src" => "img/default.png",
+            "thumb" => "img/default.png"
+        ]
+    ];
+    $img = (!empty($imgs) && !empty($imgs[0]['src'])) ? $imgs : $default;
     $data['c_name'] = $_POST['name'];
     $data['c_description'] = $_POST['description'];
-    $data['parent_id'] = (int)($_POST['parent_id']);
-    $data['c_photo'] = json_encode($imgs);
+    $data['parent_id'] = (int) ($_POST['parent_id']);
+    $data['c_photo'] = json_encode($img);
 
     //insert data into categories table
     if (db_insert('categories', $data)) {
@@ -39,11 +46,11 @@ require_once("./layouts/header.php");
         <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-2">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
-                    <li class="breadcrumb-item"><a class="text-nowrap" href="index-2.html"><i
+                    <li class="breadcrumb-item"><a class="text-nowrap" href="<?= url("") ?>"><i
                                 class="ci-home"></i>Home</a></li>
-                    <li class="breadcrumb-item text-nowrap"><a href="#">Account</a>
+                    <li class="breadcrumb-item text-nowrap"><a href="admin-categories.php">All Categories</a>
                     </li>
-                    <li class="breadcrumb-item text-nowrap active" aria-current="page">Orders history</li>
+                    <li class="breadcrumb-item text-nowrap active" aria-current="page">Add Category</li>
                 </ol>
             </nav>
         </div>
@@ -72,11 +79,11 @@ require_once("./layouts/header.php");
                     </div>
                     <form action="admin-categories-add.php" method="POST" enctype="multipart/form-data">
                         <div class="mb-3 pb-2">
-                            <?= text_input(['name' => 'name', 'label' => 'Category Name', 'placeholder' => 'Enter Category Name']) ?>
+                            <?= text_input(['name' => 'name', 'label' => 'Category Name', 'placeholder' => 'Enter Category Name', 'attributes' => 'required']) ?>
                             <!-- <div class="form-text">Maximum 100 characters. No HTML or emoji allowed.</div> -->
                         </div>
 
-                        <div class="mb-3 pb-2" >
+                        <div class="mb-3 pb-2">
                             <?= select_input(
                                 ['name' => 'parent_id', 'label' => 'Parent Category'],
                                 $categories
@@ -85,7 +92,8 @@ require_once("./layouts/header.php");
 
                         <div class="mb-3 py-2">
                             <label class="form-label" for="description">Category description</label>
-                            <textarea class="form-control" name="description" rows="6" id="description"></textarea>
+                            <textarea class="form-control" name="description" rows="6" id="description"
+                                required></textarea>
                         </div>
 
                         <label class="form-label" for="file">Category Photo</label>

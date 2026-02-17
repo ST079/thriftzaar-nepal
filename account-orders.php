@@ -7,7 +7,7 @@ $user_type = $_SESSION["user"]["user_type"];
 $user_id = $_SESSION["user"]["user_id"];
 $orders = [];
 
-if($user_type == 'admin') {
+if ($user_type == 'admin') {
   $orders = db_select("orders");
 } else {
   global $conn;
@@ -63,57 +63,89 @@ if($user_type == 'admin') {
       <!-- Orders list-->
       <div class="table-responsive fs-md mb-4">
         <table class="table table-hover mb-0">
+
           <thead class="<?php echo $orders ? '' : 'd-none'; ?>">
             <tr>
               <th>Order #</th>
               <th>Date Purchased</th>
               <th>Status</th>
               <th>Total</th>
+              <th>Action</th>
             </tr>
           </thead>
+
           <tbody>
-          <?php
-            if($orders) {
-              foreach ($orders as $order){ ?>
-              <tr>
-                <td class="py-3">
-                  <a class="nav-link-style fw-medium fs-sm" href="#order-details" data-bs-toggle="modal">
-                    <?= htmlspecialchars($order['order_id']) ?>
-                  </a>
-                </td>
-                <td class="py-3">
-                  <?= date("F d", strtotime($order['order_time'])) ?>
-                </td>
-                <td class="py-3">
-                  <?php
-                  // Convert numeric status to text
-                  if ($order['order_status'] == 1) {
-                    $status_text = 'In Progress';
-                    $badge_class = 'bg-info';
-                  } elseif ($order['order_status'] == 0) {
-                    $status_text = 'Completed';
-                    $badge_class = 'bg-success';
-                  } elseif ($order['order_status'] == -1) {
-                    $status_text = 'Canceled';
-                    $badge_class = 'bg-danger';
-                  } else {
-                    $status_text = 'Unknown';
-                    $badge_class = 'bg-secondary';
-                  }
-                  ?>
-                  <span class="badge <?= $badge_class ?> m-0"><?= htmlspecialchars($status_text) ?></span>
-                </td>
-                <td class="py-3">
-                  NPR <?= number_format($order['total_price'], 0) ?>
-                </td>
+            <?php
+            if ($orders) {
+              foreach ($orders as $order) { ?>
+
+                <tr>
+                  <td class="py-3">
+                    <a class="nav-link-style fw-medium fs-sm" href="#order-details" data-bs-toggle="modal">
+                      <?= htmlspecialchars($order['order_id']) ?>
+                    </a>
+                  </td>
+
+                  <td class="py-3">
+                    <?= date("F d, Y", strtotime($order['order_time'])) ?>
+                  </td>
+
+                  <td class="py-3">
+                    <?php
+                    if ($order['order_status'] == 1) {
+                      $status_text = 'In Progress';
+                      $badge_class = 'bg-info';
+                    } elseif ($order['order_status'] == 0) {
+                      $status_text = 'Completed';
+                      $badge_class = 'bg-success';
+                    } elseif ($order['order_status'] == -1) {
+                      $status_text = 'Canceled';
+                      $badge_class = 'bg-danger';
+                    } else {
+                      $status_text = 'Unknown';
+                      $badge_class = 'bg-secondary';
+                    }
+                    ?>
+                    <span class="badge <?= $badge_class ?> m-0">
+                      <?= htmlspecialchars($status_text) ?>
+                    </span>
+                  </td>
+
+                  <td class="py-3">
+                    NPR <?= number_format($order['total_price'], 0) ?>
+                  </td>
+
+                  <!-- Cancel Button Column -->
+                  <td class="py-3">
+                    <?php if ($order['order_status'] == 1) { ?>
+
+                      <form method="POST" action="cancel-order.php"
+                        onsubmit="return confirm('Are you sure you want to cancel this order?');">
+
+                        <input type="hidden" name="order_id" value="<?= htmlspecialchars($order['order_id']) ?>">
+
+                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                          Cancel Order
+                        </button>
+
+                      </form>
+
+                    <?php } else { ?>
+                      <span class="text-muted">—</span>
+                    <?php } ?>
+                  </td>
+
                 </tr>
-                <?php } 
-            }else{
+
+              <?php }
+            } else {
               require_once('nothing-here.php');
             } ?>
-            </tbody>
+          </tbody>
+
         </table>
       </div>
+
     </section>
   </div>
 </div>

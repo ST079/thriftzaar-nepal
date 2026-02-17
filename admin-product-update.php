@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         unset($_SESSION["form"]);
     } else {
         alert("danger", "Failed to update product try again!");
-        header("Location: admin-products-add.php");
+        header("Location: update-product.php?id={$id}");
     }
     die();
 }

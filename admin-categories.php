@@ -15,11 +15,11 @@ require_once("./layouts/header.php");
         <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-2">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-light flex-lg-nowrap justify-content-center justify-content-lg-start">
-                    <li class="breadcrumb-item"><a class="text-nowrap" href="index-2.html"><i
+                    <li class="breadcrumb-item"><a class="text-nowrap" href="<?=url("")?>"><i
                                 class="ci-home"></i>Home</a></li>
-                    <li class="breadcrumb-item text-nowrap"><a href="#">Account</a>
+                    <li class="breadcrumb-item text-nowrap"><a href="account-profile.php">Account</a>
                     </li>
-                    <li class="breadcrumb-item text-nowrap active" aria-current="page">Orders history</li>
+                    <li class="breadcrumb-item text-nowrap active" aria-current="page">Categories</li>
                 </ol>
             </nav>
         </div>
@@ -49,20 +49,7 @@ require_once("./layouts/header.php");
                         <h2 class="h3 py-2 me-2 text-center text-sm-start">Categories<span
                                 class="badge bg-faded-accent fs-sm text-body align-middle ms-2"><?= count($categories) ?></span>
                         </h2>
-                        <div class="py-2">
-                            <div class="d-flex flex-nowrap align-items-center pb-3">
-                                <label class="form-label fw-normal text-nowrap mb-0 me-2" for="sorting">Sort by:</label>
-                                <select class="form-select form-select-sm me-2" id="sorting">
-                                    <option>Date Created</option>
-                                    <option>Product Name</option>
-                                    <option>Price</option>
-                                    <option>Your Rating</option>
-                                    <option>Updates</option>
-                                </select>
-                                <button class="btn btn-outline-secondary btn-sm px-2" type="button"><i
-                                        class="ci-arrow-up"></i></button>
-                            </div>
-                        </div>
+                
                     </div>
                     <table class="table table-bordered table-striped align-middle">
                         <thead class="table-light">
@@ -89,9 +76,11 @@ require_once("./layouts/header.php");
                                     <td><?= $category['c_description'] ?></td>
 
                                     <td>
+                                        <a href="update-category.php?id=<?= $category['c_id'] ?>">
                                         <button class="btn btn-sm bg-faded-info me-1" data-bs-toggle="tooltip" title="Edit">
                                             <i class="ci-edit text-info"></i>
                                         </button>
+                                        </a>
 
                                         <button class="btn btn-sm bg-faded-danger cdelete-btn mt-2"
                                             data-id="<?= $category['c_id'] ?>" data-table="categories" data-bs-toggle="tooltip"

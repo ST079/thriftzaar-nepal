@@ -16,7 +16,7 @@ require_once("./layouts/header.php");
                                 class="ci-home"></i>Home</a></li>
                     <li class="breadcrumb-item text-nowrap"><a href="#">Account</a>
                     </li>
-                    <li class="breadcrumb-item text-nowrap active" aria-current="page">Orders history</li>
+                    <li class="breadcrumb-item text-nowrap active" aria-current="page">Products</li>
                 </ol>
             </nav>
         </div>
@@ -45,20 +45,6 @@ require_once("./layouts/header.php");
                         <h2 class="h3 py-2 me-2 text-center text-sm-start">Products<span
                                 class="badge bg-faded-accent fs-sm text-body align-middle ms-2"><?= count($products) ?></span>
                         </h2>
-                        <div class="py-2">
-                            <div class="d-flex flex-nowrap align-items-center pb-3">
-                                <label class="form-label fw-normal text-nowrap mb-0 me-2" for="sorting">Sort by:</label>
-                                <select class="form-select form-select-sm me-2" id="sorting">
-                                    <option>Date Created</option>
-                                    <option>Product Name</option>
-                                    <option>Price</option>
-                                    <option>Your Rating</option>
-                                    <option>Updates</option>
-                                </select>
-                                <button class="btn btn-outline-secondary btn-sm px-2" type="button"><i
-                                        class="ci-arrow-up"></i></button>
-                            </div>
-                        </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped align-middle">

@@ -76,12 +76,12 @@ require_once("./layouts/header.php");
                     <div class="col-sm-6">
                         <label class="form-label" for="reg-phone">Phone Number</label>
                         <input class="form-control" name="phone" type="text" required id="reg-phone">
-                        <div class="invalid-feedback">Please enter your phone number!</div>
+                        <div class="invalid-feedback"></div>
                     </div>
                     <div class="col-sm-6">
                         <label class="form-label" for="reg-password">Password</label>
                         <input class="form-control" name="password" type="password" required id="reg-password">
-                        <div class="invalid-feedback">Please enter password!</div>
+                        <div class="invalid-feedback"></div>
                     </div>
                     <div class="col-sm-6">
                         <label class="form-label" for="reg-password-confirm">Confirm Password</label>
@@ -98,6 +98,98 @@ require_once("./layouts/header.php");
     </div>
 </div>
 <!-- Footer -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        'use strict';
+
+        const forms = document.querySelectorAll('.needs-validation');
+
+        Array.from(forms).forEach(function (form) {
+
+            form.addEventListener('submit', function (event) {
+
+                const password = form.querySelector('#reg-password');
+                const confirmPassword = form.querySelector('#reg-password-confirm');
+                const phone = form.querySelector('#reg-phone');
+
+                // STRONG PASSWORD VALIDATION
+                if (password) {
+                    const strongPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+                    const feedbackDiv = password.closest('.col-sm-6').querySelector('.invalid-feedback');
+
+                    if (!strongPassword.test(password.value)) {
+                        password.setCustomValidity("Password must be 8+ chars with uppercase, lowercase & number.");
+                        if (feedbackDiv) feedbackDiv.textContent = password.validationMessage;
+                    } else {
+                        password.setCustomValidity("");
+                        if (feedbackDiv) feedbackDiv.textContent = "Please enter password!";
+                    }
+                }
+
+                // CONFIRM PASSWORD MATCH
+                if (password && confirmPassword) {
+                    const feedbackDiv = confirmPassword.closest('.col-sm-6').querySelector('.invalid-feedback');
+
+                    if (password.value !== confirmPassword.value) {
+                        confirmPassword.setCustomValidity("Passwords do not match!");
+                        if (feedbackDiv) feedbackDiv.textContent = confirmPassword.validationMessage;
+                    } else {
+                        confirmPassword.setCustomValidity("");
+                        if (feedbackDiv) feedbackDiv.textContent = "Passwords do not match!";
+                    }
+                }
+
+                // PHONE VALIDATION
+                if (phone) {
+                    const phonePattern = /^[0-9]{10}$/;
+                    const feedbackDiv = phone.closest('.col-sm-6').querySelector('.invalid-feedback');
+
+                    if (!phonePattern.test(phone.value)) {
+                        phone.setCustomValidity("Enter valid phone number (10 digits).");
+                        if (feedbackDiv) feedbackDiv.textContent = phone.validationMessage;
+                    } else {
+                        phone.setCustomValidity("");
+                        if (feedbackDiv) feedbackDiv.textContent = "Please enter your phone number!";
+                    }
+                }
+
+                // Prevent submit if invalid
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                form.classList.add('was-validated');
+
+            }, false);
+
+       
+            // REAL-TIME CONFIRM PASSWORD CHECK
+            const passwordField = form.querySelector('#reg-password');
+            const confirmPasswordField = form.querySelector('#reg-password-confirm');
+
+            if (passwordField && confirmPasswordField) {
+                const feedbackDiv = confirmPasswordField.closest('.col-sm-6').querySelector('.invalid-feedback');
+
+                confirmPasswordField.addEventListener('keyup', function () {
+                    if (passwordField.value !== confirmPasswordField.value) {
+                        confirmPasswordField.setCustomValidity("Passwords do not match!");
+                        if (feedbackDiv) feedbackDiv.textContent = confirmPasswordField.validationMessage;
+                    } else {
+                        confirmPasswordField.setCustomValidity("");
+                        if (feedbackDiv) feedbackDiv.textContent = "Passwords do not match!";
+                    }
+                });
+            }
+
+        });
+
+    });
+</script>
+
+
+
 <?php
 require_once("./layouts/footer.php");
 ?>

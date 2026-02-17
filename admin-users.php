@@ -44,20 +44,7 @@ $users = db_select("users");
                         <h2 class="h3 py-2 me-2 text-center text-sm-start">Users<span
                                 class="badge bg-faded-accent fs-sm text-body align-middle ms-2"><?= count($users) ?></span>
                         </h2>
-                        <div class="py-2">
-                            <div class="d-flex flex-nowrap align-items-center pb-3">
-                                <label class="form-label fw-normal text-nowrap mb-0 me-2" for="sorting">Sort by:</label>
-                                <select class="form-select form-select-sm me-2" id="sorting">
-                                    <option>Date Created</option>
-                                    <option>Product Name</option>
-                                    <option>Price</option>
-                                    <option>Your Rating</option>
-                                    <option>Updates</option>
-                                </select>
-                                <button class="btn btn-outline-secondary btn-sm px-2" type="button"><i
-                                        class="ci-arrow-up"></i></button>
-                            </div>
-                        </div>
+                        
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped align-middle">
@@ -91,11 +78,6 @@ $users = db_select("users");
                                         <td><?= date("Y-m-d", $user['created']) ?></td>
 
                                         <td>
-                                            <button class="btn btn-sm bg-faded-info me-1" data-bs-toggle="tooltip"
-                                                title="Edit">
-                                                <i class="ci-edit text-info"></i>
-                                            </button>
-
                                            <button class="btn btn-sm bg-faded-danger udelete-btn mt-2"
                                             data-id="<?= $user['user_id'] ?>" data-table="users" data-bs-toggle="tooltip"
                                             title="Delete">

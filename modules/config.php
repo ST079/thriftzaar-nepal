@@ -318,6 +318,13 @@ function get_product($id)
     return $res->fetch_assoc();
 }
 
+function get_category($id)
+{
+    $sql = "SELECT *FROM categories WHERE c_id = $id";
+    global $conn;
+    $res = $conn->query($sql);
+    return $res->fetch_assoc();
+}
 
 function db_insert($table_name, $data)
 {
