@@ -53,7 +53,6 @@ if (isset($_SESSION["cart"])) {
         $cart_count = count($_SESSION["cart"]);
     }
 }
-
 $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 $sold_products = [];

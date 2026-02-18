@@ -1,5 +1,6 @@
 <?php
 require_once("./modules/config.php");
+require_once("./layouts/header.php");
 
 // Default order
 $categories = db_select("categories", NULL, ' c_id DESC');
@@ -33,7 +34,7 @@ if (isset($_GET['sorting'])) {
     }
 }
 
-require_once("./layouts/header.php");
+
 $products = db_select("products", $where, $order);
 
 if (!empty($_GET['search'])) {
@@ -46,12 +47,6 @@ if (!empty($_GET['search'])) {
     }
     $products = db_select("products", $where, $order);
 }
-
-// echo "<pre>";
-// print_r($sold_products);
-// die();
-
-
 ?>
 
 
@@ -167,7 +162,7 @@ if (!empty($_GET['search'])) {
                 <?php
                 if ($products) {
                     foreach ($products as $product) {
-                        echo product_ui_1($product,$sold_products);
+                        echo product_ui_1($product, $sold_products);
                     }
                 } else {
                     require_once('nothing-here.php');
