@@ -57,9 +57,15 @@ if ($user_type == 'admin') {
                     <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                             href="admin-products.php"><i class="ci-truck opacity-60 me-2"></i>All Products <span
                                 class="fs-sm text-muted ms-auto"><?= count($products) ?></span></a></li>
-                                 <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                    <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                             href="admin-users.php"><i class="ci-user opacity-60 me-2"></i>All Users <span
                                 class="fs-sm text-muted ms-auto"><?= count($users) ?></span></a></li>
+                    <li class="d-lg-none border-top mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                            href="admin-products-add.php"> <i class="fa-solid fa-plus me-2"></i>Add Product</a>
+                    </li>
+                    <li class="d-lg-none border-top mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                            href="admin-categories-add.php"> <i class="fa-solid fa-plus me-2"></i>Add Category</a>
+                    </li>
                 </ul>
             <?php } else {
             } ?>
@@ -74,11 +80,12 @@ if ($user_type == 'admin') {
                 } else { ?>
                     <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                             href="account-orders.php"><i class="ci-bag opacity-60 me-2"></i>My Orders<span
-                                class="fs-sm text-muted ms-auto"><?=count($orders)?></span></a></li>
+                                class="fs-sm text-muted ms-auto"><?= count($orders) ?></span></a></li>
                 <?php } ?>
                 <li class="d-lg-none border-top mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                         href="<?= url("/logout.php") ?>"><i class="ci-sign-out opacity-60 me-2"></i>Sign out</a>
                 </li>
+
             </ul>
         </div>
     </div>

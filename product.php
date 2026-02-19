@@ -93,8 +93,14 @@ $button_text = $is_sold ? 'Sold Out' : 'Add to Cart';
                                 <?= $product['selling_price'] ?>.<small>00</small></span>
                         </div>
                         <div class="position-relative me-n4 mb-3">
-                            <div class="product-badge product-available mt-n1"><i class="ci-security-check"></i>Product
-                                available</div>
+                            <?php if ($is_sold) { ?>
+                                <div class="product-badge bg-danger product-available mt-n1">
+                                    <i class="fa-solid fa-ban"></i>Unavailable
+                                </div>
+                            <?php } else { ?>
+                                <div class="product-badge product-available mt-n1"><i class="ci-security-check"></i>Product
+                                    available</div>
+                            <?php } ?>
                         </div>
                         <form class="mb-grid-gutter mt-5" method="post" action="cart-process-add.php">
                             <input type="hidden" name="id" value="<?= $product['p_id'] ?>">
