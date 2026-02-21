@@ -8,7 +8,7 @@ $user_id = $_SESSION["user"]["user_id"];
 $orders = [];
 
 if ($user_type == 'admin') {
-  $orders = db_select("orders");
+  $orders = db_select("orders",null,"order_id DESC");
 } else {
   global $conn;
   $sql = "SELECT orders.*, users.user_id FROM  orders 
@@ -18,6 +18,7 @@ if ($user_type == 'admin') {
     $orders[] = $row;
   }
 }
+
 ?>
 
 <!-- Page Title-->
@@ -46,17 +47,8 @@ if ($user_type == 'admin') {
     <section class="col-lg-8">
       <!-- Toolbar-->
       <div class="d-flex justify-content-between align-items-center pt-lg-2 pb-4 pb-lg-5 mb-lg-3">
+        Note
         <div class="d-flex align-items-center">
-          <label class="d-none d-lg-block fs-sm text-light text-nowrap opacity-75 me-2" for="order-sort">Sort
-            orders:</label>
-          <label class="d-lg-none fs-sm text-nowrap opacity-75 me-2" for="order-sort">Sort orders:</label>
-          <select class="form-select" id="order-sort">
-            <option>All</option>
-            <option>Delivered</option>
-            <option>In Progress</option>
-            <option>Delayed</option>
-            <option>Canceled</option>
-          </select>
         </div><a class="btn btn-primary btn-sm d-none d-lg-inline-block" href="<?= url("/logout.php") ?>"><i
             class="ci-sign-out me-2"></i>Sign out</a>
       </div>

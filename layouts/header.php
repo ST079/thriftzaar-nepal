@@ -78,12 +78,22 @@ while ($order = mysqli_fetch_assoc($orders)) {
 
 <head>
     <meta charset="utf-8">
-    <title>ThriftZaar | ReFashion Store</title>
-    <!-- SEO Meta Tags-->
-    <meta name="description" content="ThriftZaar">
+    <title>ThriftZaar Nepal - Online Thrift Marketplace</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="ThriftZaar Nepal is an online thrift marketplace to buy and sell second-hand fashion, accessories, and unique items at affordable prices. Shop sustainably today!">
     <meta name="keywords"
-        content="bootstrap, shop, e-commerce, market, modern, responsive,  business, mobile, bootstrap, html5, css3, js, gallery, slider, touch, creative, clean">
-    <meta name="author" content="Createx Studio">
+        content="ThriftZaar Nepal, thrift shop Nepal, online thrift store, second hand clothes Nepal, buy and sell used items, affordable fashion Nepal, sustainable shopping, thrift marketplace Nepal">
+
+    <meta name="author" content="ThriftZaar Nepal">
+
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="ThriftZaar Nepal - Online Thrift Marketplace">
+    <meta property="og:description"
+        content="Buy and sell second-hand fashion and accessories in Nepal. Affordable, sustainable, and stylish shopping at ThriftZaar.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://thriftzaar-nepal.page.gd">
     <!-- Viewport-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon and Touch Icons-->
@@ -160,7 +170,6 @@ while ($order = mysqli_fetch_assoc($orders)) {
                         <a class="navbar-brand d-none d-sm-block flex-shrink-0" href="<?= url("") ?>">
                             <img src="img/logo-removebg.png" width="195" alt="ThriftZaar Nepal">
                         </a>
-
                         <div
                             class="navbar navbar-expand-lg navbar-light navbar-stuck-menu d-flex flex-shrink-0 align-items-center">
                             <div class="container">
@@ -188,13 +197,12 @@ while ($order = mysqli_fetch_assoc($orders)) {
                             </div>
                         </div>
                         <div class="navbar-toolbar d-flex flex-shrink-0 align-items-center">
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarCollapse"><span class="navbar-toggler-icon"></span></button><a
                                 class="navbar-tool navbar-stuck-toggler" href="#"><span
                                     class="navbar-tool-tooltip">Expand menu</span>
                                 <div class="navbar-tool-icon-box"><i class="navbar-tool-icon ci-menu"></i></div>
-                            </a>
-
+                            </a> -->
                             <?php if (is_logged_in()) { ?>
                                 <a class="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="account-profile.php">
                                 <?php } else { ?>

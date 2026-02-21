@@ -6,14 +6,13 @@ $order_id = intval($_GET['id']); // match JS
 $user_id = $_SESSION['user']['user_id'];
 $user_type = $_SESSION['user']['user_type'];
 
-// Security check (non-admin)
-if ($user_type != 'admin') {
-    $order = db_select("orders", "order_id = $order_id AND user_id = $user_id");
-    if (!$order) {
-        echo "Invalid order.";
-        exit;
-    }
+
+$order = db_select("orders", "order_id = $order_id AND user_id = $user_id");
+if (!$order) {
+    echo "Invalid order.";
+    exit;
 }
+
 
 $order_items = json_decode($order[0]['cart'], true);
 $subtotal = 0;
@@ -52,8 +51,10 @@ foreach ($order_items as $item) {
 }
 ?>
 <div class="modal-footer flex-wrap justify-content-between bg-secondary fs-md">
-    <div class="px-2 py-1"><span class="text-muted">Subtotal:&nbsp;</span><span>NPR <?= number_format($subtotal, 2) ?></span></div>
+    <div class="px-2 py-1"><span class="text-muted">Subtotal:&nbsp;</span><span>NPR
+            <?= number_format($subtotal, 2) ?></span></div>
     <div class="px-2 py-1"><span class="text-muted">Delivery:&nbsp;</span><span>NPR 100.00</span></div>
-    <div class="px-2 py-1"><span class="text-muted">Total:&nbsp;</span><span class="fs-lg">NPR <?= number_format($subtotal + 100, 2) ?></span>
+    <div class="px-2 py-1"><span class="text-muted">Total:&nbsp;</span><span class="fs-lg">NPR
+            <?= number_format($subtotal + 100, 2) ?></span>
     </div>
 </div>

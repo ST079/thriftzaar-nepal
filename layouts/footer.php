@@ -72,7 +72,7 @@
           class="ci-menu"></i></span><span class="handheld-toolbar-label">Menu</span></a>
     <a class="d-table-cell handheld-toolbar-item" href="cart.php"><span class="handheld-toolbar-icon"><i
           class="ci-cart"></i><span class="badge bg-primary rounded-pill ms-1"><?php if (is_logged_in()) {
-            echo $cart_cont;
+            echo $cart_count;
           } else {
             echo "";
           } ?></span></span><span class="handheld-toolbar-label">NPR

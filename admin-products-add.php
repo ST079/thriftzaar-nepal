@@ -20,6 +20,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     $imgs = upload_images($_FILES);
+    $default = [
+        [
+            "src" => "img/default.png",
+            "thumb" => "img/default.png"
+        ]
+    ];
+    $img = (!empty($imgs) && !empty($imgs[0]['src'])) ? $imgs : $default;
     $data['p_name'] = $_POST['name'];
     $data['buying_price'] = $_POST['cp'];
     $data['selling_price'] = $_POST['sp'];
