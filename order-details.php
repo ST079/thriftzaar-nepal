@@ -7,7 +7,7 @@ $user_id = $_SESSION['user']['user_id'];
 $user_type = $_SESSION['user']['user_type'];
 
 
-$order = db_select("orders", "order_id = $order_id AND user_id = $user_id");
+$order = db_select("orders", "order_id = $order_id");
 if (!$order) {
     echo "Invalid order.";
     exit;
