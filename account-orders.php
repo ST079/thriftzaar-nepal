@@ -73,7 +73,6 @@ if ($user_type == 'admin') {
               <th>Action</th>
             </tr>
           </thead>
-
           <tbody>
             <?php
             if ($orders) {
@@ -81,13 +80,15 @@ if ($user_type == 'admin') {
 
                 <tr>
                   <td class="py-3">
-                    <a class="nav-link-style fw-medium fs-sm" href="#order-details" data-bs-toggle="modal">
+                    <a class="nav-link-style fw-medium fs-sm" href="#order-details" data-bs-toggle="modal"
+                      data-order-id="<?= $order['order_id'] ?>">
                       <?= htmlspecialchars($order['order_id']) ?>
                     </a>
+
                   </td>
 
                   <td class="py-3">
-                    <?= date("F d, Y", strtotime($order['order_time'])) ?>
+                    <?= date("F d", strtotime($order['order_time'])) ?>
                   </td>
 
                   <td class="py-3">
@@ -145,10 +146,56 @@ if ($user_type == 'admin') {
 
         </table>
       </div>
-
     </section>
   </div>
+  <!-- Order Details Modal-->
+  <div class="modal fade" id="order-details">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalOrderTitle">Order Details</h5>
+          <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body pb-0" id="modalOrderBody">
+          Loading...
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+
+<script>
+  var orderModal = document.getElementById('order-details');
+
+  orderModal.addEventListener('show.bs.modal', function (event) {
+
+    var button = event.relatedTarget;
+    var orderId = button.getAttribute('data-order-id');
+
+    var modalBody = document.getElementById('modalOrderBody');
+    var modalTitle = document.getElementById('modalOrderTitle');
+
+    modalBody.innerHTML = "Loading...";
+    modalTitle.innerHTML = "Order No - " + orderId;
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          modalBody.innerHTML = xhr.responseText;
+        } else {
+          modalBody.innerHTML = "Error loading order details.";
+        }
+      }
+    };
+
+    xhr.open("GET", "order-details.php?id=" + orderId, true);
+    xhr.send();
+  });
+</script>
 
 <!-- footer -->
 <?php

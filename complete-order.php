@@ -6,11 +6,11 @@ $user = $_SESSION["user"];
 
 
 if (isset($_SESSION["shipping"]) && $_SESSION["cart"]) {
-    $total_price = 0;
+    $total_price = 100;
     foreach ($_SESSION["cart"] as $key => $value) {
-        $total_price += $value['quantity'] * $value["selling_price"];
+        $total_price += $value['quantity'] * $value["selling_price"]; // 100 is flat shipping fee
     }
-    
+
     db_insert("orders", [
         'user_id' => (int) $user['user_id'],
         'order_status' => 1,

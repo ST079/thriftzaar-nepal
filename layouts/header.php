@@ -287,5 +287,3 @@ while ($order = mysqli_fetch_assoc($orders)) {
             unset($_SESSION['alert']);
         }
         ?>
-
-     
