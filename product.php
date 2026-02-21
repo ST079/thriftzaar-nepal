@@ -153,10 +153,13 @@ $button_text = $is_sold ? 'Sold Out' : 'Add to Cart';
                             </div>
                         </div>
                         <!-- Sharing-->
-                        <label class="form-label d-inline-block align-middle my-2 me-3">Share:</label><a
-                            class="btn-share btn-instagram me-2 my-2" href="#"><i
-                                class="ci-instagram"></i>Instagram</a><a class="btn-share btn-facebook my-2" href="#"><i
-                                class="ci-facebook"></i>Facebook</a>
+                        <label class="form-label d-inline-block align-middle my-2 me-3">Share:</label>
+                        <a class="btn-share btn-instagram me-2 my-2" href="#"><i class="ci-instagram"></i>Instagram</a>
+                        <a class="btn-share btn-facebook my-2"
+                            href="https://www.facebook.com/sharer/sharer.php?u=http://thriftzaar-nepal.page.gd/product.php?id=<?= $product['p_id'] ?>"
+                            target="_blank">
+                            <i class="ci-facebook"></i> Facebook
+                        </a>
                     </div>
                 </div>
             </div>
