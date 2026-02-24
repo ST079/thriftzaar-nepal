@@ -12,13 +12,9 @@ if (!$order) {
     echo "Invalid order.";
     exit;
 }
-
-
 $order_items = json_decode($order[0]['cart'], true);
 $subtotal = 0;
-// echo"<pre>";
-// print_r($order_items);
-// die();
+
 if (!$order_items) {
     echo "No items found.";
     exit;

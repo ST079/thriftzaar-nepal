@@ -28,7 +28,6 @@ if (isset($_GET['sorting'])) {
     ];
 
     $sort_key = $_GET['sorting'];
-
     if (array_key_exists($sort_key, $allowed_sort)) {
         $order = $allowed_sort[$sort_key];
     }
@@ -36,7 +35,7 @@ if (isset($_GET['sorting'])) {
 
 
 $products = db_select("products", $where, $order);
-
+// search logic
 if (!empty($_GET['search'])) {
     $search = mysqli_real_escape_string($conn, $_GET['search']);
     $search_condition = "p_name LIKE '%$search%'";
