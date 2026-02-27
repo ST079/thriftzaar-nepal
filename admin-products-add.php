@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data['buying_price'] = $_POST['cp'];
     $data['selling_price'] = $_POST['sp'];
     $data['description'] = $_POST['description'];
-    $data['photos'] = json_encode($imgs);
+    $data['photos'] = json_encode($img);
     $data['user_id'] = $_SESSION['user']["user_id"];
     $data['c_id'] = (int) ($_POST['parent_id']);
 
@@ -87,7 +87,8 @@ require_once("./layouts/header.php");
                     <div class="d-sm-flex flex-wrap justify-content-between align-items-center pb-2">
                         <h2 class="h3 py-2 me-2 text-center text-sm-start">Add New Product</h2>
                     </div>
-                    <form action="admin-products-add.php" method="POST" enctype="multipart/form-data">
+                    <form action="admin-products-add.php" method="POST" enctype="multipart/form-data"
+                        onsubmit="return validate();">
                         <div class="mb-3 pb-2">
                             <?= text_input(['name' => 'name', 'label' => 'Product Name', 'placeholder' => 'Enter Product Name', 'attributes' => 'required']) ?>
                             <!-- <div class="form-text">Maximum 100 characters. No HTML or emoji allowed.</div> -->
@@ -105,6 +106,9 @@ require_once("./layouts/header.php");
                                 <label class="form-label" for="unp-extended-price">Buying Price</label>
                                 <div class="input-group"><span class="input-group-text">NPR</span>
                                     <?= text_input(['name' => 'cp', 'placeholder' => 'Enter Buying Price']) ?>
+                                    <div class="form-text text-danger " id="buying-price-error">
+
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-6 mb-3 ">
@@ -158,6 +162,32 @@ require_once("./layouts/header.php");
     </div>
 </div>
 
+
+<script>
+    const product_name = document.getElementById('name');
+    const buying_price = document.getElementById('cp');
+    const selling_price = document.getElementById('sp');
+    const description = document.getElementById('description');
+    const validate = () => {
+        let error = 0;
+
+        // Clear previous error messages
+        document.getElementById('buying-price-error').innerText = "";
+        document.getElementById('selling-price-error').innerText = "";
+
+        if (isNaN(buying_price.value) || parseFloat(buying_price.value) < 0) {
+            document.getElementById('buying-price-error').innerText = "Buying price must be a number and cannot be negative.";
+            error++;
+        }
+
+        if (isNaN(selling_price.value) || parseFloat(selling_price.value) < 0) {
+            document.getElementById('selling-price-error').innerText = "Selling price must be a number and cannot be negative.";
+            error++;
+        }
+
+        return error === 0;
+    }
+</script>
 <!-- footer -->
 <?php
 require_once("./layouts/footer.php");

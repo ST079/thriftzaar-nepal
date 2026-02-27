@@ -129,9 +129,9 @@ if (isset($_POST["first_name"])) {
                             class="ci-arrow-left mt-sm-0 me-1"></i><span class="d-none d-sm-inline">Back to
                             Checkout</span><span class="d-inline d-sm-none">Back</span></a></div>
                             
-                <div class="w-50 ps-2"><a class="btn btn-primary d-block w-100 <?= ($cart_count == 0)? "d-none":"" ?>" href="complete-order.php"><span
-                            class="d-none d-sm-inline">Complete order</span><span
-                            class="d-inline d-sm-none">Complete</span><i class="ci-arrow-right mt-sm-0 ms-1"></i></a>
+                <div class="w-50 ps-2"><a class="btn btn-primary d-block w-100 <?= ($cart_count == 0)? "d-none":"" ?>" href="place-order.php"><span
+                            class="d-none d-sm-inline">Place order</span><span
+                            class="d-inline d-sm-none">Place</span><i class="ci-arrow-right mt-sm-0 ms-1"></i></a>
                     </div>
                 </div>
         </section>

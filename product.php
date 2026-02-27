@@ -8,21 +8,28 @@ if ($id < 1) {
     die("id not found");
 }
 $product = get_product($id);
-
 $images = get_product_photos($product['photos']);
-// echo"<pre>";
-// print_r($images);
-// die();
 require_once("layouts/header.php");
 
-
-
 $is_sold = in_array($id, $sold_products);
+
+$is_added_to_cart = false;
+foreach ($cart_items as $item) {
+    if ($item['p_id'] == $id) {
+        $is_added_to_cart = true;
+        break;
+    }
+}
+
 $sold_badge = $is_sold
     ? '<span class="badge bg-danger position-absolute m-2">Sold Out</span>'
     : '';
-$disabled = $is_sold ? 'disabled' : '';
-$button_text = $is_sold ? 'Sold Out' : 'Add to Cart';
+$disabled = $is_sold || $is_added_to_cart ? 'disabled' : '';
+if ($is_added_to_cart) {
+    $button_text = 'Added to Cart';
+} else {
+    $button_text = $is_sold ? 'Sold Out' : 'Add to Cart';
+}
 ?>
 <!-- Page Title-->
 <div class="page-title-overlap bg-dark pt-4">
@@ -86,10 +93,8 @@ $button_text = $is_sold ? 'Sold Out' : 'Add to Cart';
                 <div class="col-lg-5 pt-4 pt-lg-0">
                     <div class="product-details ms-auto pb-3">
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <button class="btn-wishlist me-0 me-lg-n3" type="button" data-bs-toggle="tooltip"
-                                title="Add to wishlist"><i class="ci-heart"></i></button>
                         </div>
-                        <div class="mb-3"><span class="h3 fw-normal text-accent me-1">NPR
+                        <div class="mb-3 mt-5"><span class="h3 fw-normal text-accent me-1">NPR
                                 <?= $product['selling_price'] ?>.<small>00</small></span>
                         </div>
                         <div class="position-relative me-n4 mb-3">

@@ -2,9 +2,9 @@
 require_once("./modules/config.php");
 require_once("./layouts/header.php");
 
-// Default order
 $categories = db_select("categories", NULL, ' c_id DESC');
 
+// Default order
 $order = "p_name ASC";
 $where = NULL;
 
@@ -13,7 +13,6 @@ if (isset($_GET['category']) && is_array($_GET['category'])) {
 
     $category_ids = array_map('intval', $_GET['category']); // secure
     $ids = implode(',', $category_ids);
-
     $where = "c_id IN ($ids)";
 }
 

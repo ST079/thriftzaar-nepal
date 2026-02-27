@@ -5,17 +5,18 @@ require_once("./layouts/header.php");
 
 $user_type = $_SESSION["user"]["user_type"];
 $user_id = $_SESSION["user"]["user_id"];
-$orders = [];
+$all_orders = [];
 
 if ($user_type == 'admin') {
-  $orders = db_select("orders",null,"order_id DESC");
+  $all_orders = db_select("orders", null, "`order_time` DESC");
+
 } else {
   global $conn;
   $sql = "SELECT orders.*, users.user_id FROM  orders 
   JOIN  users ON orders.user_id = users.user_id WHERE orders.user_id = $user_id ORDER BY orders.order_id DESC";
   $res = $conn->query($sql);
   while ($row = $res->fetch_assoc()) {
-    $orders[] = $row;
+    $all_orders[] = $row;
   }
 }
 
@@ -47,18 +48,19 @@ if ($user_type == 'admin') {
     <section class="col-lg-8">
       <!-- Toolbar-->
       <div class="d-flex justify-content-between align-items-center pt-lg-2 pb-4 pb-lg-5 mb-lg-3">
-        Note
-        <div class="d-flex align-items-center">
-        </div><a class="btn btn-primary btn-sm d-none d-lg-inline-block" href="<?= url("/logout.php") ?>"><i
+        <div class="d-flex align-items-center text-light">
+          <em>Note: You can view the order details by clicking on order Id.</em>
+        </div>
+        <a class="btn btn-primary btn-sm d-none d-lg-inline-block" href="<?= url("/logout.php") ?>"><i
             class="ci-sign-out me-2"></i>Sign out</a>
       </div>
       <!-- Orders list-->
       <div class="table-responsive fs-md mb-4">
         <table class="table table-hover mb-0">
 
-          <thead class="<?php echo $orders ? '' : 'd-none'; ?>">
+          <thead class="<?= $orders ? '' : 'd-none'; ?>">
             <tr>
-              <th>Order #</th>
+              <th>Order Id</th>
               <th>Date Purchased</th>
               <th>Status</th>
               <th>Total</th>
@@ -67,20 +69,19 @@ if ($user_type == 'admin') {
           </thead>
           <tbody>
             <?php
-            if ($orders) {
-              foreach ($orders as $order) { ?>
-
+            if ($all_orders) {
+              foreach ($all_orders as $order) { ?>
                 <tr>
                   <td class="py-3">
                     <a class="nav-link-style fw-medium fs-sm" href="#order-details" data-bs-toggle="modal"
                       data-order-id="<?= $order['order_id'] ?>">
-                      <?= htmlspecialchars($order['order_id']) ?>
+                      <?= $order['order_id'] ?>
                     </a>
 
                   </td>
 
                   <td class="py-3">
-                    <?= date("F d", strtotime($order['order_time'])) ?>
+                    <?= date("F d, Y", $order['order_time']) ?>
                   </td>
 
                   <td class="py-3">
@@ -114,14 +115,20 @@ if ($user_type == 'admin') {
 
                       <form method="POST" action="cancel-order.php"
                         onsubmit="return confirm('Are you sure you want to cancel this order?');">
-
                         <input type="hidden" name="order_id" value="<?= htmlspecialchars($order['order_id']) ?>">
-
                         <button type="submit" class="btn btn-sm btn-outline-danger">
                           Cancel Order
                         </button>
-
-                      </form>
+                        <?php if ($_SESSION['user']['user_type'] == "admin") { ?>
+                        </form>
+                        <form method="POST" action="complete-order.php"
+                          onsubmit="return confirm('Are you sure you want to complete this order?');">
+                          <input type="hidden" name="order_id" value="<?= htmlspecialchars($order['order_id']) ?>">
+                          <button type="submit" class="btn btn-sm btn-outline-success mt-2">
+                            Complete Order
+                          </button>
+                        </form>
+                      <?php } ?>
 
                     <?php } else { ?>
                       <span class="text-muted">—</span>

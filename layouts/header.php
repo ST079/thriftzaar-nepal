@@ -24,12 +24,10 @@ $allowed_pages = [
     "/thriftzaar-nepal/admin-users.php",
     "/thriftzaar-nepal/update-profile.php",
     "/thriftzaar-nepal/update-product.php",
-    "/thriftzaar-nepal/update-category.php"
+    "/thriftzaar-nepal/update-category.php",
+    "/thriftzaar-nepal/place-order.php"
 ];
 $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-
-
 if (!in_array($request, $allowed_pages)) {
     header("Location: /thriftzaar-nepal/page-not-found.php");
     die();
@@ -53,7 +51,7 @@ if (isset($_SESSION["cart"])) {
         $cart_count = count($_SESSION["cart"]);
     }
 }
-$currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
 
 $sold_products = [];
 $orders = mysqli_query($conn, "SELECT cart FROM orders where order_status<>-1");
@@ -110,27 +108,10 @@ while ($order = mysqli_fetch_assoc($orders)) {
     <link rel="stylesheet" media="screen" href="vendor/tiny-slider/dist/tiny-slider.css" />
     <!-- Main Theme Styles + Bootstrap-->
     <link rel="stylesheet" media="screen" href="css/theme.min.css">
-    <!-- Google Tag Manager-->
-    <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    '../www.googletagmanager.com/gtm5445.html?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-WKV3GT5');
-    </script>
 </head>
 <!-- Body-->
 
 <body class="handheld-toolbar-enabled">
-    <!-- Google Tag Manager (noscript)-->
-    <noscript>
-        <iframe src="http://www.googletagmanager.com/ns.html?id=GTM-WKV3GT5" height="0" width="0"
-            style="display: none; visibility: hidden;"></iframe>
-    </noscript>
-
     <main class="page-wrapper">
         <!-- Navbar 3 Level (Light)-->
         <header class="shadow-sm">
@@ -219,15 +200,18 @@ while ($order = mysqli_fetch_assoc($orders)) {
                                         My Account
                                     </div>
                                 </a>
-                                <div class="navbar-tool dropdown ms-3"><a
-                                        class="navbar-tool-icon-box bg-secondary dropdown-toggle" href="cart.php"><span
-                                            class="navbar-tool-label"><?php if (is_logged_in()) {
+                                <div class="navbar-tool dropdown ms-3">
+                                    <a class="navbar-tool-icon-box bg-secondary dropdown-toggle" href="cart.php">
+                                        <span class="navbar-tool-label <?= $cart_count > 0 ? "" : "d-none" ?>"><?php if (is_logged_in()) {
                                                 echo $cart_count;
                                             } else {
                                                 echo "";
-                                            } ?></span><i class="navbar-tool-icon ci-cart"></i></a><a
-                                        class="navbar-tool-text" href="cart.php"><small>My
-                                            Cart</small><?= $cart_total ?></a>
+                                            } ?></span>
+                                        <i class="navbar-tool-icon ci-cart"></i>
+                                    </a>
+                                    <a class="navbar-tool-text" href="cart.php">
+                                        <small>My Cart</small><?= $cart_total ?>
+                                    </a>
                                     <!-- Cart dropdown-->
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <div class="widget widget-cart px-3 pt-2 pb-3" style="width: 20rem;">
