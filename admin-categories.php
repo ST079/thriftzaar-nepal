@@ -129,7 +129,7 @@ require_once("./layouts/header.php");
                         $(this).remove();
                     });
                 } else {
-                    alert("Delete failed!");
+                    alert("Delete failed! This Category has Products" + response);
                 }
 
             }

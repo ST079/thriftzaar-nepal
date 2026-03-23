@@ -97,6 +97,7 @@ require_once("./layouts/header.php");
         </div>
     </div>
 </div>
+
 <!-- Footer -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
