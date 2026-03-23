@@ -1,6 +1,9 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 require_once("./modules/config.php");
 protected_area();
+
 //fetch categories
 $rows = db_select("categories", 'parent_id=0');
 $categories = [];
@@ -8,12 +11,6 @@ $categories[0] = "Select Category";
 foreach ($rows as $key => $value) {
     $categories[$value['c_id']] = $value['c_name'];
 }
-
-
-// echo"<pre>";
-// print_r();
-// die();
-// name photo parent_id description
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION["form"]["value"] = $_POST;
@@ -37,12 +34,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //insert data into categories table
     if (db_insert('products', $data)) {
-        alert("success", "Products Added Successfully");
         header("Location: admin-products.php");
+        alert("success", "Products Added Successfully");
         unset($_SESSION["form"]);
     } else {
-        alert("danger", "Failed to add product try again!");
         header("Location: admin-products-add.php");
+        alert("danger", "Failed to add product try again!");
     }
     die();
 }
@@ -105,16 +102,17 @@ require_once("./layouts/header.php");
                             <div class="col-sm-6 mb-3">
                                 <label class="form-label" for="unp-extended-price">Buying Price</label>
                                 <div class="input-group"><span class="input-group-text">NPR</span>
-                                    <?= text_input(['name' => 'cp', 'placeholder' => 'Enter Buying Price']) ?>
-                                    <div class="form-text text-danger " id="buying-price-error">
-
-                                    </div>
+                                    <?= text_input(['name' => 'cp', 'placeholder' => 'Enter Buying Price', 'attributes' => 'min=0 required']) ?>
+                                    <div class="form-text text-danger " id="buying-price-error"></div>
                                 </div>
                             </div>
                             <div class="col-sm-6 mb-3 ">
                                 <label class="form-label" for="unp-extended-price">Selling Price</label>
                                 <div class="input-group"><span class="input-group-text">NPR</span>
-                                    <?= text_input(['name' => 'sp', 'placeholder' => 'Enter Selling Price']) ?>
+                                    <?= text_input(['name' => 'sp', 'placeholder' => 'Enter Selling Price', 'attributes' => 'min=0 required']) ?>
+                                    <div class="form-text text-danger " id="selling-price-error">
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -164,16 +162,19 @@ require_once("./layouts/header.php");
 
 
 <script>
-    const product_name = document.getElementById('name');
-    const buying_price = document.getElementById('cp');
-    const selling_price = document.getElementById('sp');
-    const description = document.getElementById('description');
+
     const validate = () => {
+        const product_name = document.getElementById('name');
+        const buying_price = document.getElementById('cp');
+        const selling_price = document.getElementById('sp');
+        const description = document.getElementById('description');
         let error = 0;
 
         // Clear previous error messages
         document.getElementById('buying-price-error').innerText = "";
         document.getElementById('selling-price-error').innerText = "";
+
+        
 
         if (isNaN(buying_price.value) || parseFloat(buying_price.value) < 0) {
             document.getElementById('buying-price-error').innerText = "Buying price must be a number and cannot be negative.";
@@ -185,7 +186,12 @@ require_once("./layouts/header.php");
             error++;
         }
 
-        return error === 0;
+
+
+        if (error == 0) {
+            return true;
+        }
+        return false;
     }
 </script>
 <!-- footer -->
