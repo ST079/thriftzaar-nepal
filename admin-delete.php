@@ -10,7 +10,7 @@ if (isset($_POST['id']) && isset($_POST['table'])) {
     if ($table == "products") {
         $sql = "DELETE FROM $table WHERE p_id = $id";
     } elseif ($table == "categories") {
-        $sql = "SELECT * FROM $table WHERE c_id =$id";
+        $sql = "SELECT * FROM $table WHERE parent_id = $id";
         if (mysqli_num_rows(mysqli_query($conn, $sql)) > 0) {
             exit;
         }

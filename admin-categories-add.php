@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 require_once("./modules/config.php");
 protected_area();
 //fetch categories
@@ -20,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ]
     ];
     $img = (!empty($imgs) && !empty($imgs[0]['src'])) ? $imgs : $default;
-    $data['c_name'] = $_POST['name'];
+    $data['c_name'] = $_POST['cname'];
     $data['c_description'] = $_POST['description'];
     $data['parent_id'] = (int) ($_POST['parent_id']);
     $data['c_photo'] = json_encode($img);
@@ -77,10 +79,11 @@ require_once("./layouts/header.php");
                     <div class="d-sm-flex flex-wrap justify-content-between align-items-center pb-2">
                         <h2 class="h3 py-2 me-2 text-center text-sm-start">Add New Category</h2>
                     </div>
-                    <form action="admin-categories-add.php" method="POST" enctype="multipart/form-data">
+                    <form action="admin-categories-add.php" method="POST" enctype="multipart/form-data"
+                        onsubmit="return categoryValidate()">
                         <div class="mb-3 pb-2">
-                            <?= text_input(['name' => 'name', 'label' => 'Category Name', 'placeholder' => 'Enter Category Name', 'attributes' => 'required']) ?>
-                            <!-- <div class="form-text">Maximum 100 characters. No HTML or emoji allowed.</div> -->
+                            <?= text_input(['name' => 'cname', 'label' => 'Category Name', 'placeholder' => 'Enter Category Name', 'attributes' => 'required']) ?>
+                            <div class="form-text text-danger" id="category-name-error"></div>
                         </div>
 
                         <div class="mb-3 pb-2">

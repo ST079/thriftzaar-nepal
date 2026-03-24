@@ -1,6 +1,5 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
 require_once("./modules/config.php");
 protected_area();
 
@@ -85,10 +84,10 @@ require_once("./layouts/header.php");
                         <h2 class="h3 py-2 me-2 text-center text-sm-start">Add New Product</h2>
                     </div>
                     <form action="admin-products-add.php" method="POST" enctype="multipart/form-data"
-                        onsubmit="return validate();">
+                        onsubmit="return productValidate();">
                         <div class="mb-3 pb-2">
                             <?= text_input(['name' => 'name', 'label' => 'Product Name', 'placeholder' => 'Enter Product Name', 'attributes' => 'required']) ?>
-                            <!-- <div class="form-text">Maximum 100 characters. No HTML or emoji allowed.</div> -->
+                            <div class="form-text text-danger" id="product-name-error"></div>
 
                         </div>
 
@@ -159,41 +158,6 @@ require_once("./layouts/header.php");
         </div>
     </div>
 </div>
-
-
-<script>
-
-    const validate = () => {
-        const product_name = document.getElementById('name');
-        const buying_price = document.getElementById('cp');
-        const selling_price = document.getElementById('sp');
-        const description = document.getElementById('description');
-        let error = 0;
-
-        // Clear previous error messages
-        document.getElementById('buying-price-error').innerText = "";
-        document.getElementById('selling-price-error').innerText = "";
-
-        
-
-        if (isNaN(buying_price.value) || parseFloat(buying_price.value) < 0) {
-            document.getElementById('buying-price-error').innerText = "Buying price must be a number and cannot be negative.";
-            error++;
-        }
-
-        if (isNaN(selling_price.value) || parseFloat(selling_price.value) < 0) {
-            document.getElementById('selling-price-error').innerText = "Selling price must be a number and cannot be negative.";
-            error++;
-        }
-
-
-
-        if (error == 0) {
-            return true;
-        }
-        return false;
-    }
-</script>
 <!-- footer -->
 <?php
 require_once("./layouts/footer.php");

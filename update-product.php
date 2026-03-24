@@ -49,9 +49,13 @@ require_once("./layouts/header.php");
             </section>
             <section class="pt-lg-4 pb-4 mb-3">
                 <div class="pt-2 px-4 ps-lg-0 pe-xl-5">
-                    <form action="admin-product-update.php?id=<?= $id ?>" method="POST" enctype="multipart/form-data">
+                    <form action="admin-product-update.php?id=<?= $id ?>" method="POST" enctype="multipart/form-data"
+                        onsubmit="return  productValidate()">
                         <div class="mb-3 pb-2">
                             <?= text_input(['name' => 'name', 'label' => 'Product Name', 'value' => $product['p_name'], 'attributes' => 'required']) ?>
+                            <div class="form-text text-danger " id="product-name-error">
+
+                            </div>
                         </div>
 
                         <div class="mb-3 pb-2">
@@ -66,12 +70,18 @@ require_once("./layouts/header.php");
                                 <label class="form-label" for="unp-extended-price">Buying Price</label>
                                 <div class="input-group"><span class="input-group-text">NPR</span>
                                     <?= text_input(['name' => 'cp', 'value' => $product['buying_price'], 'placeholder' => 'Enter Buying Price']) ?>
+                                    <div class="form-text text-danger " id="buying-price-error">
+
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-6 mb-3 ">
                                 <label class="form-label" for="unp-extended-price">Selling Price</label>
                                 <div class="input-group"><span class="input-group-text">NPR</span>
                                     <?= text_input(['name' => 'sp', 'value' => $product['selling_price'], 'placeholder' => 'Enter Selling Price']) ?>
+                                    <div class="form-text text-danger " id="selling-price-error">
+
+                                    </div>
                                 </div>
                             </div>
                         </div>

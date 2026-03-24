@@ -80,29 +80,7 @@
   </div>
 </div>
 
-<script>
-  setTimeout(() => {
-    document.querySelector('.alert')?.remove();
-  }, 5000);
-
-  document.querySelectorAll(".remove-from-cart").forEach(button => {
-    button.addEventListener("click", function () {
-      const id = this.dataset.id;
-      fetch("cart-process-remove.php?id=" + id)
-        .then(response => response.text())
-        .then(data => {
-          if (data.trim() === "success") {
-            location.reload();
-          } else {
-            alert("Failed to remove item.");
-          }
-        })
-        .catch(error => {
-          alert("Something went wrong.");
-        });
-    });
-  }); 
-</script>
+<script src="js/script.js"></script>
 <!-- Back To Top Button--><a class="btn-scroll-top" href="#top" data-scroll><span
     class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span><i class="btn-scroll-top-icon ci-arrow-up"> </i></a>
 <!-- Vendor scrits: js libraries and plugins-->

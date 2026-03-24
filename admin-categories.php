@@ -54,6 +54,7 @@ require_once("./layouts/header.php");
                     <table class="table table-bordered table-striped align-middle">
                         <thead class="table-light">
                             <tr>
+                                <th>c_id</th>
                                 <th>Image</th>
                                 <th>Category Name</th>
                                 <th>Description</th>
@@ -66,6 +67,7 @@ require_once("./layouts/header.php");
                                 $thumb = $photos[0]['thumb'] ?? '';
                                 ?>
                                 <tr>
+                                    <td><?= $category['c_id'] ?></td>
                                     <td>
                                         <img src="<?= $thumb ?>" width="80" height="60" style="object-fit:cover"
                                             class="rounded">

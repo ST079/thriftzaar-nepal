@@ -9,7 +9,7 @@ foreach ($rows as $key => $value) {
     $categories[$value['c_id']] = $value['c_name'];
 }
 
-$id = (int)$_GET['id'];
+$id = (int) $_GET['id'];
 $category = get_category($id);
 if (!$category) {
     alert("danger", "Category not found");
@@ -57,13 +57,14 @@ require_once("./layouts/header.php");
                     <div class="d-sm-flex flex-wrap justify-content-between align-items-center pb-2">
                         <h2 class="h3 py-2 me-2 text-center text-sm-start">Update Category</h2>
                     </div>
-                    <form action="admin-categories-update.php?id=<?= $id ?>" method="POST" enctype="multipart/form-data">
+                    <form action="admin-categories-update.php?id=<?= $id ?>" method="POST" enctype="multipart/form-data"
+                        onsubmit="return categoryValidate()">
                         <div class="mb-3 pb-2">
-                            <?= text_input(['name' => 'name', 'label' => 'Category Name', 'value' => $category['c_name']]) ?>
-                            <!-- <div class="form-text">Maximum 100 characters. No HTML or emoji allowed.</div> -->
+                            <?= text_input(['name' => 'cname', 'label' => 'Category Name', 'value' => $category['c_name']]) ?>
+                            <div class="form-text text-danger" id="category-name-error"></div>
                         </div>
 
-                        <div class="mb-3 pb-2" >
+                        <div class="mb-3 pb-2">
                             <?= select_input(
                                 ['name' => 'parent_id', 'label' => 'Parent Category', 'value' => $category['parent_id']],
                                 $categories
@@ -72,27 +73,29 @@ require_once("./layouts/header.php");
 
                         <div class="mb-3 py-2">
                             <label class="form-label" for="description">Category description</label>
-                            <textarea class="form-control" name="description" rows="6" id="description"><?= $category['c_description'] ?></textarea>
+                            <textarea class="form-control" name="description" rows="6"
+                                id="description"><?= $category['c_description'] ?></textarea>
                         </div>
 
                         <label class="form-label" for="file">Category Photo</label>
                         <div class="file-drop-area mb-3">
-                                <div class="file-drop-icon ci-cloud-upload"></div>
-                                <span class="file-drop-message">Drag and drop here to upload Category Image</span>
+                            <div class="file-drop-icon ci-cloud-upload"></div>
+                            <span class="file-drop-message">Drag and drop here to upload Category Image</span>
 
-                                <!-- Show current image -->
-                                <?php if (isset($category["c_photo"])): ?>
-                                    <div class="mb-2">
-                                        <img src="<?= json_decode($category["c_photo"], true)[0]['thumb'] ?>" alt="Current Photo" width="100">
-                                        <span>Current Image</span>
-                                    </div>
-                                <?php endif; ?>
+                            <!-- Show current image -->
+                            <?php if (isset($category["c_photo"])): ?>
+                                <div class="mb-2">
+                                    <img src="<?= json_decode($category["c_photo"], true)[0]['thumb'] ?>"
+                                        alt="Current Photo" width="100">
+                                    <span>Current Image</span>
+                                </div>
+                            <?php endif; ?>
 
-                                <!-- File input to replace image -->
-                                <input class="file-drop-input" type="file" name="photo" accept=".jpg,.jpeg,.png">
-                                <button class="file-drop-btn btn btn-primary btn-sm mb-2" type="button">Or select
-                                    file</button>
-                            </div>
+                            <!-- File input to replace image -->
+                            <input class="file-drop-input" type="file" name="photo" accept=".jpg,.jpeg,.png">
+                            <button class="file-drop-btn btn btn-primary btn-sm mb-2" type="button">Or select
+                                file</button>
+                        </div>
                         <button class="btn btn-primary d-block w-100" type="submit"><i
                                 class="ci-cloud-upload fs-lg me-2"></i>Update Category</button>
                     </form>

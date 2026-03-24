@@ -52,6 +52,7 @@ require_once("./layouts/header.php");
                                 <tr>
                                     <th>Image</th>
                                     <th>Product Name</th>
+                                    <th>Category</th>
                                     <th>Selling Price</th>
                                     <th>Buying Price</th>
                                     <th>Description</th>
@@ -69,6 +70,8 @@ require_once("./layouts/header.php");
                                             </td>
 
                                             <td><?= $product['p_name'] ?></td>
+
+                                            <td><?= $product['c_id'] ?></td>
 
                                             <td><?= $product['selling_price'] ?></td>
 
