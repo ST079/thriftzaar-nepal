@@ -25,6 +25,7 @@ if ($order_res->num_rows == 0) {
 $order = $order_res->fetch_assoc();
 $order_items = json_decode($order['cart'], true);
 ?>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -32,6 +33,12 @@ $order_items = json_decode($order['cart'], true);
     <link rel="icon" type="image/x-icon" sizes="180x180" href="img/logo-icon.ico">
     <link href="css/theme.min.css" rel="stylesheet">
     <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+
+        }
         .invoice-box {
             background: #fff;
             padding: 30px;
@@ -40,9 +47,34 @@ $order_items = json_decode($order['cart'], true);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
+        .invoice-box::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 500px;
+            height: 500px;
+            background: url('img/logo-removebg.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.2;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+
+        .invoice-box * {
+            position: relative;
+            z-index: 1;
+        }
+
         @media print {
             button {
                 display: none !important;
+            }
+
+            .invoice-box::before {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                opacity: 0.2 !important;
             }
         }
     </style>
@@ -51,14 +83,14 @@ $order_items = json_decode($order['cart'], true);
 <body>
     <div class="container">
         <div class="invoice-box">
-
             <div class="d-flex justify-content-between mb-4">
-                <h2>Invoice</h2>
+                <div class="d-flex gap-3 align-items-center">
+                    <img src="img/logo-removebg.png" width="120">
+                    <h2>Invoice</h2>
+                </div>
                 <button onclick="window.print()" class="btn btn-primary">Print</button>
             </div>
-
             <hr>
-
             <div class="row mb-4 mt-4">
                 <div class="col-md-6">
                     <h5>Customer Info</h5>
@@ -78,8 +110,8 @@ $order_items = json_decode($order['cart'], true);
                 </div>
             </div>
 
-            <table class="table table-bordered">
-                <thead class="table-dark">
+            <table class="table  table-hover mb-0">
+                <thead>
                     <tr>
                         <th>Product</th>
                         <th>Qty</th>
@@ -113,7 +145,13 @@ $order_items = json_decode($order['cart'], true);
                 <h4>Total: NPR <?= number_format($grand_total, 0) ?></h4>
             </div>
             <hr>
-            <p class="text-center text-muted">Thank you for your purchase!</p>
+            <p class="text-center text-muted mt-3">Thank you for your purchase!</p>
+            <div class="row mt-5">
+                <div class="text-end">
+                    <p><strong>Authorized Signature</strong></p>
+                    <img src="img/logo-removebg.png" alt="Signature" width="120"><br>
+                </div>
+            </div>
         </div>
     </div>
 </body>
