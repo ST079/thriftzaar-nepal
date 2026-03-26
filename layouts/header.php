@@ -25,7 +25,8 @@ $allowed_pages = [
     "/thriftzaar-nepal/update-profile.php",
     "/thriftzaar-nepal/update-product.php",
     "/thriftzaar-nepal/update-category.php",
-    "/thriftzaar-nepal/place-order.php"
+    "/thriftzaar-nepal/place-order.php",
+    "/thriftzaar-nepal/invoice.php"
 ];
 $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 if (!in_array($request, $allowed_pages)) {
@@ -82,11 +83,7 @@ while ($order = mysqli_fetch_assoc($orders)) {
         content="ThriftZaar Nepal is an online thrift marketplace to buy and sell second-hand fashion, accessories, and unique items at affordable prices. Shop sustainably today!">
     <meta name="keywords"
         content="ThriftZaar Nepal, thrift shop Nepal, online thrift store, second hand clothes Nepal, buy and sell used items, affordable fashion Nepal, sustainable shopping, thrift marketplace Nepal">
-
     <meta name="author" content="ThriftZaar Nepal">
-
-    <meta name="robots" content="index, follow">
-
     <meta property="og:title" content="ThriftZaar Nepal - Online Thrift Marketplace">
     <meta property="og:description"
         content="Buy and sell second-hand fashion and accessories in Nepal. Affordable, sustainable, and stylish shopping at ThriftZaar.">
@@ -203,10 +200,10 @@ while ($order = mysqli_fetch_assoc($orders)) {
                                 <div class="navbar-tool dropdown ms-3">
                                     <a class="navbar-tool-icon-box bg-secondary dropdown-toggle" href="cart.php">
                                         <span class="navbar-tool-label <?= $cart_count > 0 ? "" : "d-none" ?>"><?php if (is_logged_in()) {
-                                                echo $cart_count;
-                                            } else {
-                                                echo "";
-                                            } ?></span>
+                                                    echo $cart_count;
+                                                } else {
+                                                    echo "";
+                                                } ?></span>
                                         <i class="navbar-tool-icon ci-cart"></i>
                                     </a>
                                     <a class="navbar-tool-text" href="cart.php">

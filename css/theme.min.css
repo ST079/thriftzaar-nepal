@@ -1916,7 +1916,7 @@ progress {
   --cz-table-active-color: #fff;
   --cz-table-hover-bg: #414959;
   --cz-table-hover-color: #fff;
-  color: var(--cz-table-color);
+  color: var(#fff);
   border-color: var(--cz-table-border-color);
 }
 .table-responsive {

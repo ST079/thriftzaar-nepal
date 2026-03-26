@@ -112,7 +112,6 @@ if ($user_type == 'admin') {
                   <!-- Cancel Button Column -->
                   <td class="py-3">
                     <?php if ($order['order_status'] == 1) { ?>
-
                       <form method="POST" action="cancel-order.php"
                         onsubmit="return confirm('Are you sure you want to cancel this order?');">
                         <input type="hidden" name="order_id" value="<?= htmlspecialchars($order['order_id']) ?>">
@@ -130,7 +129,15 @@ if ($user_type == 'admin') {
                         </form>
                       <?php } ?>
 
-                    <?php } else { ?>
+                    <?php } elseif ($order['order_status'] == 0) {
+                      ?>
+                      <a href="invoice.php?id=<?= htmlspecialchars($order['order_id']) ?>"
+                        class="btn btn-sm btn-outline-primary" target="_blank">
+                        View Invoice
+                      </a>
+
+                    <?php
+                    } else { ?>
                       <span class="text-muted">—</span>
                     <?php } ?>
                   </td>
