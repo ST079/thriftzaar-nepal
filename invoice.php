@@ -43,8 +43,7 @@ $order_items = json_decode($order['cart'], true);
             background: #fff;
             padding: 30px;
             margin: 30px auto;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          
         }
 
         .invoice-box::before {
@@ -64,6 +63,14 @@ $order_items = json_decode($order['cart'], true);
         .invoice-box * {
             position: relative;
             z-index: 1;
+        }
+
+        .stamp{
+            top: -20px;
+            right: -20px;
+            opacity: 0.8;
+            transform: rotate(-15deg);
+            scale: 2;
         }
 
         @media print {
@@ -147,9 +154,10 @@ $order_items = json_decode($order['cart'], true);
             <hr>
             <p class="text-center text-muted mt-3">Thank you for your purchase!</p>
             <div class="row mt-5">
-                <div class="text-end">
+                <div class="text-end position-relative">
+                    <img src="img/signature.png" alt="Signature" width="220"><br>
                     <p><strong>Authorized Signature</strong></p>
-                    <img src="img/logo-removebg.png" alt="Signature" width="120"><br>
+                    <img src="img/stamp.png" alt="stamp" class="position-absolute stamp" width="120"><br>
                 </div>
             </div>
         </div>
