@@ -46,6 +46,7 @@ require_once("./layouts/header.php");
                                 class="badge bg-faded-accent fs-sm text-body align-middle ms-2"><?= count($products) ?></span>
                         </h2>
                     </div>
+                    
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped align-middle">
                             <thead class="table-light <?php echo $products ? '' : 'd-none'; ?>">

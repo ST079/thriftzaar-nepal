@@ -1,15 +1,59 @@
 <?php
 require_once("modules/config.php");
+
+// Process contact form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = trim($_POST["name"] ?? '');
+    $email = trim($_POST["email"] ?? '');
+    $phone = trim($_POST["phone"] ?? '');
+    $subject = trim($_POST["subject"] ?? '');
+    $message = trim($_POST["message"] ?? '');
+
+    $errors = [];
+    if (empty($name) || strlen($name) > 100) {
+        $errors[] = "Name is required and must be less than 100 chars.";
+    }
+    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Valid email is required.";
+    }
+    if (empty($phone) || strlen($phone) > 20) {
+        $errors[] = "Phone is required and must be less than 20 chars.";
+    }
+    if (empty($message)) {
+        $errors[] = "Message is required.";
+    }
+
+    if (empty($errors)) {
+        $data = [
+            'name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+            'subject' => $subject,
+            'message' => $message,
+            'ip' => $_SERVER['REMOTE_ADDR'] ?? ''
+        ];
+        if (db_insert('contacts', $data)) {
+            $_SESSION['contact_data'] = $data;
+            header('Location: thank-you-contact.php');
+            exit;
+        } else {
+            alert('danger', 'Sorry, there was an error sending your message. Please try again.');
+        }
+    } else {
+        alert('danger', implode(' ', $errors));
+    }
+}
 require_once("./layouts/header.php");
 ?>
 
 <!-- Page Title (Light)-->
+
 <div class="bg-secondary py-4">
     <div class="container d-lg-flex justify-content-between py-2 py-lg-3">
         <div class="order-lg-2 mb-3 mb-lg-0 pt-lg-2">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb flex-lg-nowrap justify-content-center justify-content-lg-start">
-                    <li class="breadcrumb-item"><a class="text-nowrap" href="<?=url("")?>"><i
+                    <li class="breadcrumb-item"><a class="text-nowrap" href="<?= url("") ?>"><i
                                 class="ci-home"></i>Home</a></li>
                     <li class="breadcrumb-item text-nowrap active" aria-current="page">Contacts</li>
                 </ol>
@@ -77,8 +121,8 @@ require_once("./layouts/header.php");
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1485.6669468365903!2d85.42152675903985!3d27.66996604041913!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1aa39515e461%3A0x8a1b8a0147782c1d!2sBhaktapur%20Multiple%20Campus!5e0!3m2!1sen!2snp!4v1770974958061!5m2!1sen!2snp"></iframe>
         </div>
         <div class="col-lg-6 px-4 px-xl-5 py-5 border-top">
-            <h2 class="h4 mb-4">Drop us a line</h2>
-            <form class="needs-validation mb-3" novalidate>
+            <h2 class="h4 mb-4">Want to sell your clothing?, Drop us a line</h2>
+            <form class="needs-validation mb-3" novalidate action="contact.php" method="POST">
                 <div class="row g-3">
                     <div class="col-sm-6">
                         <label class="form-label" for="cf-name">Your name:&nbsp;<span
@@ -112,7 +156,9 @@ require_once("./layouts/header.php");
                         <textarea class="form-control" name="message" id="cf-message" rows="6"
                             placeholder="Please describe in detail your request" required></textarea>
                         <div class="invalid-feedback">Please write a message!</div>
+
                         <button class="btn btn-primary mt-4" type="submit">Send message</button>
+
                     </div>
                 </div>
             </form>

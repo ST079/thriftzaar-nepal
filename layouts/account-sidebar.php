@@ -1,6 +1,7 @@
 <?php
 $categories = db_select("categories");
 $products = db_select("products");
+$contacts = db_select("contacts");
 
 $user_type = $_SESSION["user"]["user_type"];
 $user_id = $_SESSION["user"]["user_id"];
@@ -60,6 +61,9 @@ if ($user_type == 'admin') {
                     <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                             href="admin-users.php"><i class="ci-user opacity-60 me-2"></i>All Users <span
                                 class="fs-sm text-muted ms-auto"><?= count($users) ?></span></a></li>
+                    <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                            href="admin-inquiries.php"><i class="ci-user opacity-60 me-2"></i>All Inquiry <span
+                                class="fs-sm text-muted ms-auto"><?= count($contacts) ?></span></a></li>
                     <li class="d-lg-none border-top mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                             href="admin-products-add.php"> <i class="fa-solid fa-plus me-2"></i>Add Product</a>
                     </li>

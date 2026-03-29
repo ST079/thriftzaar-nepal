@@ -26,8 +26,11 @@ $allowed_pages = [
     "/thriftzaar-nepal/update-product.php",
     "/thriftzaar-nepal/update-category.php",
     "/thriftzaar-nepal/place-order.php",
-    "/thriftzaar-nepal/invoice.php"
+    "/thriftzaar-nepal/invoice.php",
+    "/thriftzaar-nepal/thank-you-contact.php",
+    "/thriftzaar-nepal/admin-inquiries.php"
 ];
+
 $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 if (!in_array($request, $allowed_pages)) {
     header("Location: /thriftzaar-nepal/page-not-found.php");
