@@ -81,17 +81,6 @@ while ($order = mysqli_fetch_assoc($orders)) {
 <head>
     <meta charset="utf-8">
     <title>ThriftZaar Nepal - Online Thrift Marketplace</title>
-    <!-- SEO Meta Tags -->
-    <meta name="description"
-        content="ThriftZaar Nepal is an online thrift marketplace to buy and sell second-hand fashion, accessories, and unique items at affordable prices. Shop sustainably today!">
-    <meta name="keywords"
-        content="ThriftZaar Nepal, thrift shop Nepal, online thrift store, second hand clothes Nepal, buy and sell used items, affordable fashion Nepal, sustainable shopping, thrift marketplace Nepal">
-    <meta name="author" content="ThriftZaar Nepal">
-    <meta property="og:title" content="ThriftZaar Nepal - Online Thrift Marketplace">
-    <meta property="og:description"
-        content="Buy and sell second-hand fashion and accessories in Nepal. Affordable, sustainable, and stylish shopping at ThriftZaar.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="http://thriftzaar-nepal.page.gd">
     <!-- Viewport-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon and Touch Icons-->
@@ -100,6 +89,7 @@ while ($order = mysqli_fetch_assoc($orders)) {
     <link rel="mask-icon" color="#fe6a6a" href="safari-pinned-tab.svg">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
+    
     <!-- Vendor Styles including: Font Icons, Plugins, etc.-->
     <link rel="stylesheet" media="screen" href="vendor/simplebar/dist/simplebar.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
