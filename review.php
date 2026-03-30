@@ -82,8 +82,9 @@ if (isset($_POST["first_name"])) {
                 <!-- Item-->
                 <div class="d-sm-flex justify-content-between align-items-center my-2 pb-3 border-bottom">
                     <div class="d-block d-sm-flex align-items-center text-center text-sm-start"><a
-                            class="d-inline-block flex-shrink-0 mx-auto me-sm-4" href="product.php?id=<?= $item['p_id'] ?>"><img
-                                src="<?= get_product_thumb($item['photos']) ?>" width="160" alt="Product"></a>
+                            class="d-inline-block flex-shrink-0 mx-auto me-sm-4"
+                            href="product.php?id=<?= $item['p_id'] ?>"><img src="<?= get_product_thumb($item['photos']) ?>"
+                                width="160" alt="Product"></a>
                         <div class="pt-2">
                             <h3 class="product-title fs-base mb-2"><a href="shop-single-v1.html">
                                     <?= $item['p_name'] ?>
@@ -94,14 +95,13 @@ if (isset($_POST["first_name"])) {
                             </div>
                         </div>
                     </div>
-                    <form action="">
-                        <div class="pt-2 pt-sm-0 ps-sm-3 mx-auto mx-sm-0 text-center text-sm-start" style="max-width: 9rem;">
-                            <label class="form-label" for="quantity1">Quantity</label>
-                            <input class="form-control" type="number" id="quantity1" min="1" value="<?= $item['quantity'] ?>" disabled>
-                            <button class="btn btn-link px-0 text-danger remove-from-cart" data-id="<?= $item['p_id'] ?>"><i class="ci-close-circle me-2"></i><span
-                                    class="fs-sm">Remove</span></button>
-                        </div>
-                    </form>
+
+                    <div class="pt-2 pt-sm-0 ps-sm-3 mx-auto mx-sm-0 text-center text-sm-start" style="max-width: 9rem;">
+                        <label class="form-label" for="quantity1">Quantity</label>
+                        <input class="form-control" type="number" id="quantity1" min="1" value="<?= $item['quantity'] ?>"
+                            disabled>
+                    </div>
+
                 </div>
             <?php } ?>
             <!-- Client details-->
@@ -110,9 +110,13 @@ if (isset($_POST["first_name"])) {
                     <div class="col-sm-6">
                         <h4 class="h6">Shipping to:</h4>
                         <ul class="list-unstyled fs-sm">
-                            <li><span class="text-muted">Client:&nbsp;</span><?= $_SESSION["shipping"]["first_name"] ." ". $_SESSION["shipping"]["last_name"]?></li>
-                            <li><span class="text-muted">Address:&nbsp;</span><?= $_SESSION["shipping"]["address"] ?></li>
-                            <li><span class="text-muted">Phone:&nbsp;</span>+977 <?= $_SESSION["shipping"]["phone_number"] ?></li>
+                            <li><span
+                                    class="text-muted">Client:&nbsp;</span><?= $_SESSION["shipping"]["first_name"] . " " . $_SESSION["shipping"]["last_name"] ?>
+                            </li>
+                            <li><span class="text-muted">Address:&nbsp;</span><?= $_SESSION["shipping"]["address"] ?>
+                            </li>
+                            <li><span class="text-muted">Phone:&nbsp;</span>+977
+                                <?= $_SESSION["shipping"]["phone_number"] ?></li>
                         </ul>
                     </div>
                     <div class="col-sm-6">
@@ -128,12 +132,12 @@ if (isset($_POST["first_name"])) {
                 <div class="w-50 pe-3"><a class="btn btn-secondary d-block w-100" href="checkout.php"><i
                             class="ci-arrow-left mt-sm-0 me-1"></i><span class="d-none d-sm-inline">Back to
                             Checkout</span><span class="d-inline d-sm-none">Back</span></a></div>
-                            
-                <div class="w-50 ps-2"><a class="btn btn-primary d-block w-100 <?= ($cart_count == 0)? "d-none":"" ?>" href="place-order.php"><span
-                            class="d-none d-sm-inline">Place order</span><span
+
+                <div class="w-50 ps-2"><a class="btn btn-primary d-block w-100 <?= ($cart_count == 0) ? "d-none" : "" ?>"
+                        href="place-order.php"><span class="d-none d-sm-inline">Place order</span><span
                             class="d-inline d-sm-none">Place</span><i class="ci-arrow-right mt-sm-0 ms-1"></i></a>
-                    </div>
                 </div>
+            </div>
         </section>
         <!-- Sidebar-->
         <aside class="col-lg-4 pt-4 pt-lg-0 ps-xl-5">
@@ -167,11 +171,12 @@ if (isset($_POST["first_name"])) {
                     </div>
                     <ul class="list-unstyled fs-sm pb-2 border-bottom">
                         <li class="d-flex justify-content-between align-items-center"><span
-                                class="me-2">Subtotal:</span><span class="text-end">NPR <?=$cart_total?>.<small>00</small></span></li>
-                        <li class="d-flex justify-content-between align-items-center"><span
-                                class="me-2">Delivery Charge:</span><span class="text-end">NPR 100.<small>00</small></span></li>
+                                class="me-2">Subtotal:</span><span class="text-end">NPR
+                                <?= $cart_total ?>.<small>00</small></span></li>
+                        <li class="d-flex justify-content-between align-items-center"><span class="me-2">Delivery
+                                Charge:</span><span class="text-end">NPR 100.<small>00</small></span></li>
                     </ul>
-                    <h3 class="fw-normal text-center my-4">NPR <?= $cart_total+100 ?>.<small>00</small></h3>
+                    <h3 class="fw-normal text-center my-4">NPR <?= $cart_total + 100 ?>.<small>00</small></h3>
                 </div>
             </div>
         </aside>

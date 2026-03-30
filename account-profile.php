@@ -61,7 +61,7 @@ require_once("./layouts/header.php");
                             <input class="form-control" name="password" type="password" id="account-pass">
                             <label class="password-toggle-btn" aria-label="Show/hide password">
                                 <input class="password-toggle-check" type="checkbox"><span
-                                    class="password-toggle-indicator"></span>
+                                    class="password-toggle-indicator" value=""></span>
                             </label>
                         </div>
                     </div>

@@ -59,16 +59,14 @@ if (isset($_SESSION["cart"])) {
                             <div class="fs-lg text-accent pt-2">NPR <?= $item['selling_price'] ?>.<small>00</small></div>
                         </div>
                     </div>
-                    <form action="">
-                        <div class="pt-2 pt-sm-0 ps-sm-3 mx-auto mx-sm-0 text-center text-sm-start"
-                            style="max-width: 9rem;">
-                            <label class="form-label" for="quantity1">Quantity</label>
-                            <input class="form-control" type="number" id="quantity1" min="1"
-                                value="<?= $item['quantity'] ?>" disabled>
-                            <button class="btn btn-link px-0 text-danger remove-from-cart" data-id="<?= $item['p_id'] ?>">
-                                <i class="ci-close-circle me-2"></i><span class="fs-sm">Remove</span></button>
-                        </div>
-                    </form>
+                    <div class="pt-2 pt-sm-0 ps-sm-3 mx-auto mx-sm-0 text-center text-sm-start" style="max-width: 9rem;">
+                        <label class="form-label" for="quantity1">Quantity</label>
+                        <input class="form-control" type="number" id="quantity1" min="1" value="<?= $item['quantity'] ?>"
+                            disabled>
+                        <button class="btn btn-link px-0 text-danger remove-from-cart" data-id="<?= $item['p_id'] ?>">
+                            <i class="ci-close-circle me-2"></i><span class="fs-sm">Remove</span></button>
+                    </div>
+
                 </div>
             <?php } ?>
         </section>
@@ -86,14 +84,13 @@ if (isset($_SESSION["cart"])) {
                                 comments</span></label>
                         <textarea class="form-control" rows="6" id="order-comments"></textarea>
                     </div> -->
-                    <a class="btn btn-primary btn-shadow d-block w-100 mt-4 <?=($cart_count == 0) ? 'd-none' : ''; ?>"
+                    <a class="btn btn-primary btn-shadow d-block w-100 mt-4 <?= ($cart_count == 0) ? 'd-none' : ''; ?>"
                         href="checkout.php"><i class="ci-card fs-lg me-2"></i>Proceed to Checkout</a>
                 </div>
             </div>
         </aside>
     </div>
 </div>
-
 <?php
 require_once("./layouts/footer.php");
 ?>
