@@ -18,14 +18,14 @@ Cart Management (Add/Remove Items)
 Order Completion System
 
 ### 🧑‍💼 Admin Panel
-Manage Products (Add, Update, Delete)
-Manage Categories
-Manage Users
-View Customer Inquiries
-Monitor Orders
+Manage Products (Add, Update, Delete),
+Manage Categories,
+Manage Users,
+View Customer Inquiries,
+Monitor Orders,
 
 ### 📩 Contact System
-Users can send inquiries via contact form
+Users can send inquiries via contact form<br>
 Admin can view and manage messages
 
 ---
@@ -58,7 +58,7 @@ thriftzaar-nepal-main/
 ```
 
 ## Technologies Used
-Frontend: HTML, CSS, JavaScript, Bootstrap
-Backend: PHP
-Database: MySQL
-Server: Apache (XAMPP / LAMP)
+Frontend: HTML, CSS, JavaScript, Bootstrap <br>
+Backend: PHP <br>
+Database: MySQL <br>
+Server: Apache (XAMPP / LAMP) <br>
