@@ -2,7 +2,9 @@
 require_once("./modules/config.php");
 protected_area();
 require_once("./layouts/header.php");
-$inquiries = db_select("inquiries", null, "created_at DESC");
+$user_id = $_SESSION["user"]["user_id"];
+$user_inquiries = db_select("inquiries", "user_id = $user_id");
+
 ?>
 
 <!-- Page Title-->
@@ -31,7 +33,7 @@ $inquiries = db_select("inquiries", null, "created_at DESC");
         <section class="col-lg-8">
             <!-- Toolbar-->
             <div class="d-flex justify-content-between align-items-center pt-lg-2 pb-4 pb-lg-5 mb-lg-3">
-                <p class="mb-0 h5">Total: <?= count($inquiries) ?></p>
+                <p class="mb-0 h5">Total: <?= count($user_inquiries) ?></p>
                 <a class="btn btn-primary btn-sm d-none d-lg-inline-block" href="<?= url("/logout.php") ?>"><i
                         class="ci-sign-out me-2"></i>Sign out</a>
             </div>
@@ -40,15 +42,15 @@ $inquiries = db_select("inquiries", null, "created_at DESC");
                 <div class="pt-2 px-4 ps-lg-0 pe-xl-5">
                     <div class="d-sm-flex flex-wrap justify-content-between align-items-center border-bottom">
                         <h2 class="h3 py-2 me-2 text-center text-sm-start">All Messages<span
-                                class="badge bg-faded-accent fs-sm text-body align-middle ms-2"><?= count($inquiries) ?></span>
+                                class="badge bg-faded-accent fs-sm text-body align-middle ms-2"><?= count($user_inquiries) ?></span>
                         </h2>
                     </div>
 
-                    <?php if (empty($inquiries)): ?>
+                    <?php if (empty($user_inquiries)): ?>
                         <?php require_once("nothing-here.php"); ?>
                     <?php else: ?>
                         <div class="row g-3 mt-3">
-                            <?php foreach ($inquiries as $inquiry): ?>
+                            <?php foreach ($user_inquiries as $inquiry): ?>
                                 <div class="col-md-6 col-lg-4">
                                     <div class="card h-100 border-0 shadow-sm">
                                         <div class="card-body">

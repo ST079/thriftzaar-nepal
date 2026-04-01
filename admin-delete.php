@@ -17,8 +17,8 @@ if (isset($_POST['id']) && isset($_POST['table'])) {
         $sql = "DELETE FROM $table WHERE c_id = $id";
     } elseif ($table == "users") {
         $sql = "DELETE FROM $table WHERE user_id = $id";
-    }elseif($table == "contacts"){
-        $sql = "DELETE FROM $table WHERE id = $id";
+    }elseif($table == "inquiries"){
+        $sql = "DELETE FROM $table WHERE i_id = $id";
     } else {
         echo "invalid";
         exit;

@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "thumb" => "img/default.png"
         ]
     ];
-      if (!empty($new_photo) && !empty($new_photo[0]['src'])) {
+    if (!empty($new_photo) && !empty($new_photo[0]['src'])) {
         $final_photo = $new_photo;
     } elseif (!empty($existing_photo) && !empty($existing_photo[0]['src'])) {
         $final_photo = $existing_photo;
@@ -22,13 +22,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $final_photo = $default;
     }
 
-    $c_name = $_POST['name'];
+    $c_name = $_POST['cname'];
     $c_description = $_POST['description'];
     $parent_id = (int) ($_POST['parent_id']);
     $c_photo = json_encode($final_photo);
 
     global $conn;
 
+    $check_sql = "SELECT * FROM categories 
+              WHERE c_name = '{$c_name}' 
+              AND c_id != {$id}";
+
+    $check_res = $conn->query($check_sql);
+
+    if ($check_res->num_rows > 0) {
+        alert("danger", "Category name already exists!");
+        header("Location: update-category.php?id={$id}");
+        die();
+    }
+    
     $sql = "UPDATE categories SET 
             c_name = '{$c_name}',
             c_description = '{$c_description}',

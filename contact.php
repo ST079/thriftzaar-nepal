@@ -1,6 +1,7 @@
 <?php
 require_once("modules/config.php");
 
+
 // Process contact form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = trim($_POST["name"] ?? '');
@@ -8,6 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone = trim($_POST["phone"] ?? '');
     $subject = trim($_POST["subject"] ?? '');
     $message = trim($_POST["message"] ?? '');
+    $user_id = $_SESSION['user']['user_id'];
 
     $errors = [];
     if (empty($name) || strlen($name) > 100) {
@@ -30,10 +32,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'phone' => $phone,
             'subject' => $subject,
             'message' => $message,
-            'ip' => $_SERVER['REMOTE_ADDR'] ?? ''
+            'ip' => $_SERVER['REMOTE_ADDR'] ?? '',
+            'user_id' => $user_id
         ];
-        if (db_insert('contacts', $data)) {
-            $_SESSION['contact_data'] = $data;
+        if (db_insert('inquiries', $data)) {
+            $_SESSION['inquiry_data'] = $data;
             header('Location: thank-you-contact.php');
             exit;
         } else {
@@ -127,14 +130,14 @@ require_once("./layouts/header.php");
                     <div class="col-sm-6">
                         <label class="form-label" for="cf-name">Your name:&nbsp;<span
                                 class="text-danger">*</span></label>
-                        <input class="form-control" name="name" type="text" id="cf-name" placeholder="Enter Your Name"
+                        <input class="form-control" name="name" type="text" id="cf-name" placeholder="Enter Your Name" value="<?= $_SESSION['user']['first_name']." ". $_SESSION['user']['last_name']?>"
                             required>
                         <div class="invalid-feedback">Please fill in you name!</div>
                     </div>
                     <div class="col-sm-6">
                         <label class="form-label" for="cf-email">Email address:&nbsp;<span
                                 class="text-danger">*</span></label>
-                        <input class="form-control" name="email" type="email" id="cf-email" placeholder="abc@email.com"
+                        <input class="form-control" name="email" type="email" id="cf-email" placeholder="abc@email.com" value="<?= $_SESSION['user']['email'] ?>"
                             required>
                         <div class="invalid-feedback">Please provide valid email address!</div>
                     </div>
@@ -142,7 +145,7 @@ require_once("./layouts/header.php");
                         <label class="form-label" for="cf-phone">Your phone:&nbsp;<span
                                 class="text-danger">*</span></label>
                         <input class="form-control" name="phone" type="text" id="cf-phone"
-                            placeholder="+977 000 000 000" required>
+                            placeholder="+977 000 000 000" value="<?= $_SESSION['user']['phone_number'] ?>" required>
                         <div class="invalid-feedback">Please provide valid phone number!</div>
                     </div>
                     <div class="col-sm-6">

@@ -1,7 +1,10 @@
 <?php
 $categories = db_select("categories");
 $products = db_select("products");
-$contacts = db_select("contacts");
+$inquiries = db_select("inquiries");
+$user_id = $_SESSION["user"]["user_id"];
+$my_inquiries = db_select("inquiries", "user_id = $user_id");
+
 
 $user_type = $_SESSION["user"]["user_type"];
 $user_id = $_SESSION["user"]["user_id"];
@@ -63,7 +66,7 @@ if ($user_type == 'admin') {
                                 class="fs-sm text-muted ms-auto"><?= count($users) ?></span></a></li>
                     <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                             href="admin-inquiries.php"><i class="ci-user opacity-60 me-2"></i>All Inquiry <span
-                                class="fs-sm text-muted ms-auto"><?= count($contacts) ?></span></a></li>
+                                class="fs-sm text-muted ms-auto"><?= count($inquiries) ?></span></a></li>
                     <li class="d-lg-none border-top mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                             href="admin-products-add.php"> <i class="fa-solid fa-plus me-2"></i>Add Product</a>
                     </li>
@@ -80,11 +83,14 @@ if ($user_type == 'admin') {
                 <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3 active"
                         href="<?= url("/account-profile.php") ?>"><i class="ci-user opacity-60 me-2"></i>Profile
                         info</a></li>
-                <?php if ($user_type == 'admin') {
-                } else { ?>
+                <?php if ($user_type == 'customer') { ?>
                     <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                             href="account-orders.php"><i class="ci-bag opacity-60 me-2"></i>My Orders<span
                                 class="fs-sm text-muted ms-auto"><?= count($orders) ?></span></a></li>
+
+                    <li class="border-bottom mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
+                            href="user-inquiries.php"><i class="ci-bag opacity-60 me-2"></i>My Inquiries<span
+                                class="fs-sm text-muted ms-auto"><?= count($my_inquiries) ?></span></a></li>
                 <?php } ?>
                 <li class="d-lg-none border-top mb-0"><a class="nav-link-style d-flex align-items-center px-4 py-3"
                         href="<?= url("/logout.php") ?>"><i class="ci-sign-out opacity-60 me-2"></i>Sign out</a>

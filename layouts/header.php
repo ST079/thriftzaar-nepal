@@ -28,7 +28,8 @@ $allowed_pages = [
     "/thriftzaar-nepal/place-order.php",
     "/thriftzaar-nepal/invoice.php",
     "/thriftzaar-nepal/thank-you-contact.php",
-    "/thriftzaar-nepal/admin-inquiries.php"
+    "/thriftzaar-nepal/admin-inquiries.php",
+    "/thriftzaar-nepal/user-inquiries.php"
 ];
 
 $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);

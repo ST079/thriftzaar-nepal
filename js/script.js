@@ -57,12 +57,19 @@ const productValidate = () => {
 
 const categoryValidate = () => {
   const category_name = document.getElementById("cname");
+  const category_name_reg = /^[A-Za-Z ]+$/;
   let error = 0;
   // Clear previous error messages
   document.getElementById("category-name-error").innerText = "";
   if (category_name.value.length > 50 || category_name.value.length < 3) {
     document.getElementById("category-name-error").innerHTML =
       "Maximum 50 characters, Minimum 3 characters.";
+    error++;
+  }
+
+  if (!category_name_reg.test(category_name.value)) {
+    document.getElementById("category-name-error").innerText =
+      "Only letters and spaces allowed!";
     error++;
   }
   if (error == 0) {

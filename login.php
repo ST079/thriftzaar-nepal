@@ -56,17 +56,19 @@ require_once("./layouts/header.php");
             <h2 class="h4 mb-3">No account? Sign up</h2>
             <p class="fs-sm text-muted mb-4">Registration takes less than a minute but gives you full control over your
                 orders.</p>
-            <form class="needs-validation" novalidate method="POST" action="register-logic.php">
+            <form class="needs-validation" novalidate method="POST" action="register-logic.php"
+                onsubmit="return registerValidate()">
                 <div class="row gx-4 gy-3">
                     <div class="col-sm-6">
                         <label class="form-label" for="reg-fn">First Name</label>
-                        <input class="form-control" name="first_name" type="text" required id="reg-fn">
-                        <div class="invalid-feedback">Please enter your first name!</div>
+                        <input class="form-control" name="first_name" type="text" required id="reg-fn" pattern="[A-Za-z]+" title="Only letters and space allowed">
+                        <div class="invalid-feedback">Only letters allowed</div>
+            
                     </div>
                     <div class="col-sm-6">
                         <label class="form-label" for="reg-ln">Last Name</label>
-                        <input class="form-control" name="last_name" type="text" required id="reg-ln">
-                        <div class="invalid-feedback">Please enter your last name!</div>
+                        <input class="form-control" name="last_name" type="text" required id="reg-ln" pattern="[A-Za-z]+">
+                        <div class="invalid-feedback">Only letters allowed</div>
                     </div>
                     <div class="col-sm-6">
                         <label class="form-label" for="reg-email">E-mail Address</label>
@@ -100,6 +102,7 @@ require_once("./layouts/header.php");
 
 <!-- Footer -->
 <script>
+
     document.addEventListener("DOMContentLoaded", function () {
 
         'use strict';
@@ -113,7 +116,7 @@ require_once("./layouts/header.php");
                 const password = form.querySelector('#reg-password');
                 const confirmPassword = form.querySelector('#reg-password-confirm');
                 const phone = form.querySelector('#reg-phone');
-
+                
                 // STRONG PASSWORD VALIDATION
                 if (password) {
                     const strongPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
@@ -143,7 +146,7 @@ require_once("./layouts/header.php");
 
                 // PHONE VALIDATION
                 if (phone) {
-                    const phonePattern = /^[0-9]{10}$/;
+                    const phonePattern = /^[9][0-9]{9}$/;
                     const feedbackDiv = phone.closest('.col-sm-6').querySelector('.invalid-feedback');
 
                     if (!phonePattern.test(phone.value)) {
@@ -165,7 +168,7 @@ require_once("./layouts/header.php");
 
             }, false);
 
-       
+
             // REAL-TIME CONFIRM PASSWORD CHECK
             const passwordField = form.querySelector('#reg-password');
             const confirmPasswordField = form.querySelector('#reg-password-confirm');
